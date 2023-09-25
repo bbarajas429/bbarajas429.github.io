@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "bbarajas429.github.io"
+  title: "Briana Barajas"
   navbar:
     left:
       - href: index.qmd
@@ -15,6 +15,7 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
+    page-layout: full
 
 editor: visual
 

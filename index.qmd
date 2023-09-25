@@ -1,5 +1,29 @@
 ---
-title: "bbarajas429.github.io"
+title: "Briana Barajas"
+image: images/professional-headshot-copy.jpg
+toc: false
+about:
+  template: trestles
+  image-shape: rounded
+  image-width: 10em
+  links:
+    - text: Github
+      href: https://github.com/bbarajas429
+      icon: github
+    - text: Linkedin
+      href: https://www.linkedin.com/in/briana-barajas-544022293/ 
+      icon: linkedin
+    - text: Email
+      href: mailto::bbarajas429@ucsb.bren.edu
+      icon: envelope-open
 ---
 
-Hello! 💌
+## About Me
+
+Insert professional bio
+
+## Education
+
+Master of Environmental Data Science (student)
+
+B.S. Zoology - University of California, Santa Barbara (2022)
