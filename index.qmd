@@ -1,11 +1,11 @@
 ---
 title: "About Me"
-image: images/professional-headshot-copy.jpg
+image: images/yose-pic-2.jpeg
 toc: false
 about:
   template: trestles
-  image-shape: rounded
-  image-width: 10em
+  image-shape: round
+  image-width: 16em
   links:
     - text: Github
       href: https://github.com/bbarajas429
