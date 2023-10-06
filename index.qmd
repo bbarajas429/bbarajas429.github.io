@@ -1,10 +1,10 @@
 ---
-title: "About Me"
+title: "Briana Barajas"
 image: images/yose-pic-2.jpeg
 toc: false
 about:
   template: trestles
-  image-shape: round
+  image-shape: rounded
   image-width: 16em
   links:
     - text: Github

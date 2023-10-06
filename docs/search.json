@@ -2,28 +2,28 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "About Me",
+    "title": "Briana Barajas",
     "section": "",
     "text": "Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\n\nBriana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands."
   },
   {
     "objectID": "index.html#about-me",
     "href": "index.html#about-me",
-    "title": "About Me",
+    "title": "Briana Barajas",
     "section": "",
     "text": "Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\n\nBriana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands."
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "Experience",
     "section": "",
     "text": "Master of Environmental Data Science (student)\nB.S. Zoology - University of California, Santa Barbara (2022)"
   },
   {
     "objectID": "about.html#education",
     "href": "about.html#education",
-    "title": "About",
+    "title": "Experience",
     "section": "",
     "text": "Master of Environmental Data Science (student)\nB.S. Zoology - University of California, Santa Barbara (2022)"
   },
@@ -61,5 +61,12 @@
     "title": "About",
     "section": "",
     "text": "{:.profile}\nCentrarium is a custom theme for Jekyll, made by Ben Centra for his own blog. He’d be humbled if you liked it enough to use it as well! Installation and configuration instructions can be found in the GitHub repository.\nThis page is a good place to write about yourself, your project, your product, or whatever it is your site is for. You can replace the image above, or you can get rid of it entirely.\nYou can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at jekyllrb.com. And you can find the source code for Jekyll at github.com/jekyll/jekyll"
+  },
+  {
+    "objectID": "blog-page.html",
+    "href": "blog-page.html",
+    "title": "Welcome to my blog! 💌",
+    "section": "",
+    "text": "Site under construction"
   }
 ]

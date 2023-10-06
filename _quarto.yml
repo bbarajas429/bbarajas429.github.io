@@ -3,19 +3,19 @@ project:
   output-dir: docs
 
 website:
-  title: "Briana Barajas"
+  title: "Briana B"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - href: about.qmd
         text: Experience
-      - href: resources.qmd
-        text: Resources
+      - href: blog-page.qmd
+        text: Blog
 
 format:
   html:
-    theme: minty
+    theme: Litera
     css: styles.css
     toc: true
     page-layout: full
