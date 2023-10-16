@@ -6,7 +6,7 @@ about:
   template: trestles
   image-shape: rounded
   image-width: 16em
-  links:
+  links: 
     - text: Github
       href: https://github.com/bbarajas429
       icon: github
@@ -15,7 +15,7 @@ about:
       icon: linkedin
     - text: Email
       href: mailto::bbarajas429@ucsb.bren.edu
-      icon: envelope-open
+      icon: envelope
 ---
 
 ## About Me
@@ -23,3 +23,9 @@ about:
 Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\
 \
 Briana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands.
+
+## Education
+
+Master of Environmental Data Science (student)
+
+B.S. Zoology - University of California, Santa Barbara (2022)

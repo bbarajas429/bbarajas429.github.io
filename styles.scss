@@ -1,0 +1,35 @@
+/*-- scss:defaults --*/
+
+// Import fonts
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
+
+//Colors
+$light-orange: #F3A768;
+$bright-orange: #FFA14E;
+$dark-orange: #E7862F;
+$light-gray: #D8CEC6;
+$dark-gray: #8A8A8A; 
+$light-teal-blue: #6FD0E7;
+$white: #FBFBFB;
+$dark-blue:#1D3697;
+
+// base document Colors
+$navbar-bg: $light-teal-blue;
+$body-bg: $white;
+$link-color: $dark-orange;
+
+
+/*-- scss:rules --*/
+
+h1, h2 {
+  letter-spacing: 2px;
+  color: $dark-blue;
+}
+
+.title {
+  color: black;
+}
+
+.center-text {
+  text-align: center;
+}

@@ -1,24 +1,26 @@
 project:
   type: website
   output-dir: docs
-
 website:
   title: "Briana B"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - href: about.qmd
-        text: Experience
+      - href: docs/bb-resume.pdf
+        text: Resume
       - href: blog-page.qmd
         text: Blog
-
+    page-footer:
+      background: dark
+      left: "Text Sample"
+        
 format:
   html:
-    theme: Litera
-    css: styles.css
+    theme: 
+      - styles.scss
+    mainfont: Lato
     toc: true
-    page-layout: full
 
 editor: visual
 

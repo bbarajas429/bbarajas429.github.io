@@ -67,6 +67,27 @@
     "href": "blog-page.html",
     "title": "Welcome to my blog! 💌",
     "section": "",
-    "text": "Site under construction"
+    "text": "Site Under Construction\n\n\nSample Article\n\n\nThis should be centered"
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Briana Barajas",
+    "section": "Education",
+    "text": "Education\nMaster of Environmental Data Science (student)\nB.S. Zoology - University of California, Santa Barbara (2022)"
+  },
+  {
+    "objectID": "blog-page.html#site-under-construction",
+    "href": "blog-page.html#site-under-construction",
+    "title": "Welcome to my blog! 💌",
+    "section": "",
+    "text": "We defined “title” class in the style.scss"
+  },
+  {
+    "objectID": "blog-page.html#article-sample",
+    "href": "blog-page.html#article-sample",
+    "title": "Welcome to my blog! 💌",
+    "section": "Article Sample",
+    "text": "Article Sample\n\nThis should be centered"
   }
 ]
