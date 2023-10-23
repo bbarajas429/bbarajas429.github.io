@@ -89,5 +89,68 @@
     "title": "Welcome to my blog! 💌",
     "section": "Article Sample",
     "text": "Article Sample\n\nThis should be centered"
+  },
+  {
+    "objectID": "blog-posts/Blog.html",
+    "href": "blog-posts/Blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "Blog.html",
+    "href": "Blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "My first blog post\n\n\n\nQuarto\n\n\nMEDS\n\n\nWorkshop\n\n\n\nTesting blog set up and introducing my blog\n\n\n\nBriana Barajas\n\n\nOct 23, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy second blog post\n\n\n\nQuarto\n\n\nMEDS\n\n\nWorkshop\n\n\n\nCreating another blog for practice\n\n\n\nBriana Barajas\n\n\nOct 23, 2023\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "blog-posts/2023-10-23-first-post/index.html",
+    "href": "blog-posts/2023-10-23-first-post/index.html",
+    "title": "My first blog post",
+    "section": "",
+    "text": "Add text for the first section. Inserting citations using the insert function (Kohda et al. 2023)."
+  },
+  {
+    "objectID": "blog-posts/2023-10-23-first-post/index.html#first-section",
+    "href": "blog-posts/2023-10-23-first-post/index.html#first-section",
+    "title": "My first blog post",
+    "section": "",
+    "text": "Add text for the first section. Inserting citations using the insert function (Kohda et al. 2023)."
+  },
+  {
+    "objectID": "blog-posts/2023-10-23-first-post/index.html#second-section",
+    "href": "blog-posts/2023-10-23-first-post/index.html#second-section",
+    "title": "My first blog post",
+    "section": "Second Section",
+    "text": "Second Section\nAdd text for the second section. Blog built using Quarto Workshop by Sam Csik (Csik 2022)."
+  },
+  {
+    "objectID": "blog-posts/2023-10-23-second-post/index.html",
+    "href": "blog-posts/2023-10-23-second-post/index.html",
+    "title": "My second blog post",
+    "section": "",
+    "text": "Add text for first section. Adding a foot note using numbering here1."
+  },
+  {
+    "objectID": "blog-posts/2023-10-23-second-post/index.html#first-section",
+    "href": "blog-posts/2023-10-23-second-post/index.html#first-section",
+    "title": "My second blog post",
+    "section": "",
+    "text": "Add text for first section. Adding a foot note using numbering here1."
+  },
+  {
+    "objectID": "blog-posts/2023-10-23-second-post/index.html#second-section",
+    "href": "blog-posts/2023-10-23-second-post/index.html#second-section",
+    "title": "My second blog post",
+    "section": "Second Section",
+    "text": "Second Section\nAttempting to create an in-line footnote here2."
+  },
+  {
+    "objectID": "blog-posts/2023-10-23-second-post/index.html#footnotes",
+    "href": "blog-posts/2023-10-23-second-post/index.html#footnotes",
+    "title": "My second blog post",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nAssociated footnote↩︎\nFootnote text↩︎"
   }
 ]

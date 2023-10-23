@@ -1,0 +1,24 @@
+---
+title: "My first blog post"
+description: "Testing blog set up and introducing my blog"
+author:
+  - name: Briana Barajas
+    url: https://bbarajas429.github.io/
+    affiliation: MEDS
+    affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science
+date: 10-23-2023
+categories: [Quarto, MEDS, Workshop]
+citation:
+  url: https://bbarajas429.github.io/blog-posts/2023-10-23-first-post/
+image: preview-image.jpeg
+draft: false
+bibliography: references.bib
+---
+
+## First Section
+
+Add text for the first section. Inserting citations using the `insert` function [@kohda2023].
+
+## Second Section
+
+Add text for the second section. Blog built using Quarto Workshop by Sam Csik [@csik2022].

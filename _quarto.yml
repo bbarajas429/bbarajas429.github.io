@@ -9,12 +9,12 @@ website:
         text: Home
       - href: docs/bb-resume.pdf
         text: Resume
-      - href: blog-page.qmd
+      - href: Blog.qmd
         text: Blog
     page-footer:
       background: dark
       left: "Text Sample"
-        
+    
 format:
   html:
     theme: 
