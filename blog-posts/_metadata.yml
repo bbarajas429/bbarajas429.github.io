@@ -1,0 +1,6 @@
+#enables banner style title blocks to all posts inside /blog-posts folder
+title-block-banner: true
+
+# requires me to render indv posts before "Render Website"
+  # setting to false renders all posts before website, which takes longer
+freeze: true

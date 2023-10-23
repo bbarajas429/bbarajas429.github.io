@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
 
 //Colors
+$cream: #FDF3E5;
 $light-orange: #F3A768;
 $bright-orange: #FFA14E;
 $dark-orange: #E7862F;
@@ -12,11 +13,18 @@ $dark-gray: #8A8A8A;
 $light-teal-blue: #6FD0E7;
 $white: #FBFBFB;
 $dark-blue:#1D3697;
+$black: #000000;
 
 // base document Colors
 $navbar-bg: $light-teal-blue;
+$navbar-fg: $black;
 $body-bg: $white;
 $link-color: $dark-orange;
+$navbar-h1: $dark-orange;
+
+// Inline code colors
+$color-bg: $cream;
+$code-color: $dark-gray;
 
 
 /*-- scss:rules --*/
