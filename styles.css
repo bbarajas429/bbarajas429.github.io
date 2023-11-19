@@ -1,21 +1,5 @@
 /* css styles */
 
-h1{
+.center-text-title {
   text-align: center;
-  background-color: #A2EDD1;
-  border-radius: 25px;
-}
-
-a{
-  color: blue;
-  font-style: italic;
-}
-
-.green-text{
-  color:green;
-}
-
-.important-text{
-  color:red;
-  font-size: 25px;
 }

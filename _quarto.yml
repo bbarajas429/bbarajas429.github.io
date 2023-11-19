@@ -2,11 +2,15 @@ project:
   type: website
   output-dir: docs
 website:
-  title: "Briana B"
   navbar:
-    left:
+    title: false
+    logo: images/logo.png
+    logo-alt: "Briana"
+    left: 
       - href: index.qmd
         text: Home
+      - href: about.qmd
+        text: About
       - href: docs/bb-resume.pdf
         text: Resume
       - href: Blog.qmd

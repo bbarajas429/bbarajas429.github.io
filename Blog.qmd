@@ -1,8 +1,8 @@
 ---
-title: "Blog"
+title: "Blog Posts"
 listing:
   contents: blog-posts
-  type: grid
+  type: default
   sort: "date desc"
   categories: true
 ---

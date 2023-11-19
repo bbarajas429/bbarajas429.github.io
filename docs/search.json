@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Briana Barajas",
     "section": "",
-    "text": "Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\n\nBriana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands."
+    "text": "Welcome 🐛\nMy name is Briana, and I’m a budding data scientist, working on my Master of Environmental Data Science. I love learning about birds, bugs, microbes and all things nature. When I’m not at the computer I enjoy running, bullet journaling, birding, and the occasional book.\n\n\nProject Highlights\nComing soon"
   },
   {
     "objectID": "index.html#about-me",
@@ -16,16 +16,16 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "Experience",
+    "title": "About Me",
     "section": "",
-    "text": "Master of Environmental Data Science (student)\nB.S. Zoology - University of California, Santa Barbara (2022)"
+    "text": "Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\n\nBriana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands."
   },
   {
     "objectID": "about.html#education",
     "href": "about.html#education",
-    "title": "Experience",
-    "section": "",
-    "text": "Master of Environmental Data Science (student)\nB.S. Zoology - University of California, Santa Barbara (2022)"
+    "title": "About Me",
+    "section": "Education",
+    "text": "Education\nMaster of Environmental Data Science (Expected June 2024)\nB.S. Zoology - University of California, Santa Barbara (2022)"
   },
   {
     "objectID": "resources.html",
@@ -74,7 +74,7 @@
     "href": "index.html#education",
     "title": "Briana Barajas",
     "section": "Education",
-    "text": "Education\nMaster of Environmental Data Science (student)\nB.S. Zoology - University of California, Santa Barbara (2022)"
+    "text": "Education\nMaster of Environmental Data Science (Expected June 2024)\nB.S. Zoology - University of California, Santa Barbara (2022)"
   },
   {
     "objectID": "blog-page.html#site-under-construction",
@@ -100,23 +100,23 @@
   {
     "objectID": "Blog.html",
     "href": "Blog.html",
-    "title": "Blog",
+    "title": "Blog Posts",
     "section": "",
-    "text": "My first blog post\n\n\n\nQuarto\n\n\nMEDS\n\n\nWorkshop\n\n\n\nTesting blog set up and introducing my blog\n\n\n\nBriana Barajas\n\n\nOct 23, 2023\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy second blog post\n\n\n\nQuarto\n\n\nMEDS\n\n\nWorkshop\n\n\n\nCreating another blog for practice\n\n\n\nBriana Barajas\n\n\nOct 23, 2023\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "My first blog post\n\n\n\n\n\n\n\nQuarto\n\n\nMEDS\n\n\nWorkshop\n\n\n\n\nTesting blog set up and introducing my blog\n\n\n\n\n\n\nOct 23, 2023\n\n\nBriana Barajas\n\n\n\n\n\n\n  \n\n\n\n\nMy second blog post\n\n\n\n\n\n\n\nQuarto\n\n\nMEDS\n\n\nWorkshop\n\n\n\n\nCreating another blog for practice\n\n\n\n\n\n\nOct 23, 2023\n\n\nBriana Barajas\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog-posts/2023-10-23-first-post/index.html",
     "href": "blog-posts/2023-10-23-first-post/index.html",
     "title": "My first blog post",
     "section": "",
-    "text": "Add text for the first section. Inserting citations using the insert function (Kohda et al. 2023)."
+    "text": "Add text for the first section. Inserting citations using the insert function (kohda2023?)."
   },
   {
     "objectID": "blog-posts/2023-10-23-first-post/index.html#first-section",
     "href": "blog-posts/2023-10-23-first-post/index.html#first-section",
     "title": "My first blog post",
     "section": "",
-    "text": "Add text for the first section. Inserting citations using the insert function (Kohda et al. 2023)."
+    "text": "Add text for the first section. Inserting citations using the insert function (kohda2023?)."
   },
   {
     "objectID": "blog-posts/2023-10-23-first-post/index.html#second-section",
@@ -152,5 +152,103 @@
     "title": "My second blog post",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nAssociated footnote↩︎\nFootnote text↩︎"
+  },
+  {
+    "objectID": "pages/index.html",
+    "href": "pages/index.html",
+    "title": "Briana Barajas",
+    "section": "",
+    "text": "Welcome 🐛\nMy name is Briana, and I’m a budding data scientist, working on my Master of Environmental Data Science. I love learning about birds, bugs, microbes and all things nature. When I’m not at the computer I enjoy running, bullet journaling, birding, and the occasional book.\n\n\nProject Highlights\nComing soon"
+  },
+  {
+    "objectID": "pages/index.html#about-me",
+    "href": "pages/index.html#about-me",
+    "title": "Briana Barajas",
+    "section": "",
+    "text": "Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\n\nBriana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands."
+  },
+  {
+    "objectID": "pages/index.html#education",
+    "href": "pages/index.html#education",
+    "title": "Briana Barajas",
+    "section": "Education",
+    "text": "Education\nMaster of Environmental Data Science (Expected June 2024)\nB.S. Zoology - University of California, Santa Barbara (2022)"
+  },
+  {
+    "objectID": "pages/about.html",
+    "href": "pages/about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\n\nBriana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands."
+  },
+  {
+    "objectID": "pages/about.html#education",
+    "href": "pages/about.html#education",
+    "title": "About Me",
+    "section": "Education",
+    "text": "Education\nMaster of Environmental Data Science (Expected June 2024)\nB.S. Zoology - University of California, Santa Barbara (2022)"
+  },
+  {
+    "objectID": "pages/index.html#hi-there",
+    "href": "pages/index.html#hi-there",
+    "title": "Briana Barajas",
+    "section": "",
+    "text": "Welcome to my website! My name is Briana, and I’m a budding data scientist, working on my Master of Environmental Data Science.\nEven in my spare time, I love learning all about birds, bugs, and microbes."
+  },
+  {
+    "objectID": "pages/about.html#about-me",
+    "href": "pages/about.html#about-me",
+    "title": "About Me",
+    "section": "",
+    "text": "Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\n\nBriana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands."
+  },
+  {
+    "objectID": "pages/about.html#a-quick-bio",
+    "href": "pages/about.html#a-quick-bio",
+    "title": "About Me",
+    "section": "",
+    "text": "Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\n\nBriana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands."
+  },
+  {
+    "objectID": "pages/about.html#bio",
+    "href": "pages/about.html#bio",
+    "title": "About Me",
+    "section": "",
+    "text": "Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\n\nBriana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands."
+  },
+  {
+    "objectID": "pages/about.html#personal-bio",
+    "href": "pages/about.html#personal-bio",
+    "title": "About Me",
+    "section": "",
+    "text": "Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\n\nBriana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands."
+  },
+  {
+    "objectID": "pages/index.html#welcome",
+    "href": "pages/index.html#welcome",
+    "title": "Briana Barajas",
+    "section": "",
+    "text": "My name is Briana, and I’m a budding data scientist, working on my Master of Environmental Data Science. I love learning about birds, bugs, microbes and all things nature. When I’m not at the computer I enjoy running, bullet journaling, birding, and the occasional book."
+  },
+  {
+    "objectID": "pages/index.html#recent-projects",
+    "href": "pages/index.html#recent-projects",
+    "title": "Briana Barajas",
+    "section": "",
+    "text": "Coming soon."
+  },
+  {
+    "objectID": "pages/index.html#project-highlight",
+    "href": "pages/index.html#project-highlight",
+    "title": "Briana Barajas",
+    "section": "",
+    "text": "Coming soon"
+  },
+  {
+    "objectID": "about.html#personal-bio",
+    "href": "about.html#personal-bio",
+    "title": "About Me",
+    "section": "",
+    "text": "Briana Barajas graduated from the University of California, Santa Barbara in 2022 with a degree in Zoology. During this time, she assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. Upon graduating, she assumed various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that she found a passion for the intersection between land management and integrated pest management.\n\nBriana is now pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, she hopes to use remote sensing data to examine how forest ecosystem stressors, particularly insect-transmitted pathogens, impact ecosystem function. Her goal is to contribute to informed decision-making regarding the management of public lands."
   }
 ]
