@@ -102,7 +102,7 @@
     "href": "Blog.html",
     "title": "Blog Posts",
     "section": "",
-    "text": "AQI During the California, Thomas Fire (2017-18)\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\nipynb rendered as html\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\nMy first blog post\n\n\n\n\n\n\n\nQuarto\n\n\nMEDS\n\n\nWorkshop\n\n\n\n\nTesting blog set up and introducing my blog\n\n\n\n\n\n\nOct 23, 2023\n\n\nBriana Barajas\n\n\n\n\n\n\n  \n\n\n\n\nMy second blog post\n\n\n\n\n\n\n\nQuarto\n\n\nMEDS\n\n\nWorkshop\n\n\n\n\nCreating another blog for practice\n\n\n\n\n\n\nOct 23, 2023\n\n\nBriana Barajas\n\n\n\n\n\n\nNo matching items"
+    "text": "AQI During the California, Thomas Fire (2017-18)\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\nMy first blog post\n\n\n\n\n\n\n\nQuarto\n\n\nMEDS\n\n\nWorkshop\n\n\n\n\nTesting blog set up and introducing my blog\n\n\n\n\n\n\nOct 23, 2023\n\n\nBriana Barajas\n\n\n\n\n\n\n  \n\n\n\n\nMy second blog post\n\n\n\n\n\n\n\nQuarto\n\n\nMEDS\n\n\nWorkshop\n\n\n\n\nCreating another blog for practice\n\n\n\n\n\n\nOct 23, 2023\n\n\nBriana Barajas\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog-posts/2023-10-23-first-post/index.html",
@@ -368,7 +368,7 @@
     "href": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html",
     "title": "AQI During the California, Thomas Fire (2017-18)",
     "section": "",
-    "text": "Author: Briana Barajas\nGithub repository: https://github.com/briana-barajas/thomas-fire-aqi"
+    "text": "Author: Briana Barajas\nGithub repository: link here"
   },
   {
     "objectID": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#background",
@@ -382,14 +382,14 @@
     "href": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#about-data",
     "title": "AQI During the California, Thomas Fire (2017-18)",
     "section": "About Data",
-    "text": "About Data\n\nRaster Data\nThis dataset, from the Landsat Collection 2 Level-2, contains red, green, near-infrared, and shortwave infrared layers. The data was originally collected by the Landsat 8 satellite, and was corrected for surface reflectance and simplified.\nUseful Links: * Band designations for Landsat satellites: https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites * Common Landsat band combos: https://www.usgs.gov/media/images/common-landsat-band-combinations * Scale factor with Landsat Level-2 science products: https://www.usgs.gov/faqs/how-do-i-use-a-scale-factor-landsat-level-2-science-products * Final proccess collection from Microsoft Planetary Computer: https://planetarycomputer.microsoft.com/dataset/landsat-c2-l2\n\n\nFire Perimeter Data\nCAL Fire provides annual geographic data on fire perimeters. The fire started December 4th, 2017 and was contained by January 12th, 2018. Since the majority of fire growth was in 2017, this analysis will use only the 2017 data.\nUseful Links: https://gis.data.ca.gov/datasets/CALFIRE-Forestry::california-fire-perimeters-all-1/about\n\n\nAir Quality Data\nThe Air Quality Data can be pulled from the U.S. Environmental Protection Agency (EPA). This dataset provides air quality data from counties throughout the United States and can be filtered to examine Santa Barbara County during the duration of the Thomas Fire.\nUseful Links: https://www.epa.gov/air-trends/air-quality-cities-and-counties"
+    "text": "About Data\n\nRaster Data\nThis dataset, from the Landsat Collection 2 Level-2, contains red, green, near-infrared, and shortwave infrared layers. The data was originally collected by the Landsat 8 satellite, and was corrected for surface reflectance and simplified.\nUseful Links: * Band designations for Landsat satellites * Common Landsat band combos * Scale factor with Landsat Level-2 science products * Final proccess collection from Microsoft Planetary Computer\n\n\nFire Perimeter Data\nCAL Fire provides annual geographic data on fire perimeters. The fire started December 4th, 2017 and was contained by January 12th, 2018. Since the majority of fire growth was in 2017, this analysis will use only the 2017 data.\nUseful Links: Fire perimeter\n\n\nAir Quality Data\nThe Air Quality Data can be pulled from the U.S. Environmental Protection Agency (EPA). This dataset provides air quality data from counties throughout the United States and can be filtered to examine Santa Barbara County during the duration of the Thomas Fire.\nUseful Links: Air quality\n\n\nCounty Perimeter Data\nCalifornia provides shapefiles on all counties within the state.\nUseful Links: County perimeters"
   },
   {
     "objectID": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#libraries-and-functions",
     "href": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#libraries-and-functions",
     "title": "AQI During the California, Thomas Fire (2017-18)",
     "section": "Libraries and Functions",
-    "text": "Libraries and Functions\nLoading necessary libraries and functions:\n\nimport os\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport matplotlib.patches as mpatches \n\nimport xarray as xr\nimport rioxarray as rioxr\nimport geopandas as gpd"
+    "text": "Libraries and Functions\nLoading necessary libraries and functions:\n\nimport os\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport matplotlib.patches as mpatches \n\nimport xarray as xr\nimport rioxarray as rioxr\nimport geopandas as gpd\nimport contextily as cx"
   },
   {
     "objectID": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#loading-data",
@@ -410,7 +410,7 @@
     "href": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#mapping-the-fire-perimeter",
     "title": "AQI During the California, Thomas Fire (2017-18)",
     "section": "Mapping the Fire Perimeter",
-    "text": "Mapping the Fire Perimeter\nThe cleaned and filtered data can be used to produce an aerial map showing the extent of the Thomas Fire’s perimeter:\n\nfig, ax = plt.subplots()\nax.axis('off')\n\n# map thomas fire perimeter\nthomas.plot(ax=ax, color = 'None', edgecolor = 'red', legend=True)\nthomas_patch = mpatches.Patch(color = 'red', label = 'Fire Perimeter') #legend parameters\n\n# map raster data\nlandsat[['swir22','nir08','red']].to_array().plot.imshow(robust=True) #plot SB county \n\n# update legend and title\nax.set_title('Southern California, Thomas Fire (2017-18)')\n_ = ax.legend(handles=[thomas_patch])"
+    "text": "Mapping the Fire Perimeter\nThe cleaned and filtered data can be used to produce a false color image depicting the extent of the Thomas Fire’s perimeter:\n\nfig, ax = plt.subplots()\nax.axis('off')\n\n# map thomas fire perimeter\nthomas.plot(ax=ax, color = 'None', edgecolor = 'red', legend=True)\nthomas_patch = mpatches.Patch(color = 'red', label = 'Fire Perimeter') #legend parameters\n\n# map raster data\nlandsat[['swir22','nir08','red']].to_array().plot.imshow(robust=True) #plot SB county \n\n# update legend and title\nax.set_title('Southern California, Thomas Fire (2017-18)')\n_ = ax.legend(handles=[thomas_patch])\nplt.savefig('images/false-color-image.png')"
   },
   {
     "objectID": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#analyzing-impact-on-aqi",
@@ -424,13 +424,20 @@
     "href": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#plot-aqi-from-2017-2018",
     "title": "AQI During the California, Thomas Fire (2017-18)",
     "section": "Plot: AQI From 2017-2018",
-    "text": "Plot: AQI From 2017-2018\nThe following plots show air quality in Santa Barbara and Ventura counties, which were both impacted by the Thomas Fire. In addition to the daily aqi (blue), there is a 5-day rolling average that demonstrates the mean AQI over 5-days.\n\nfig, [ax1, ax2] = plt.subplots(ncols=1, nrows=2,\n                               sharex = True, sharey=True,\n                              figsize = (11,9))\n\naqi_sb.aqi.plot(ax = ax1, color = '#1177A0', legend = True)  \naqi_sb.five_day_average.plot(ax=ax1, color = '#A01177', \n                            title = 'Santa Barbara Air Quality 2017-18', \n                            legend = True, \n                             xlabel = \"Date\", \n                             ylabel = \"AQI\") \n\naqi_vc.aqi.plot(ax = ax2, color = '#1177A0', legend = False)  \n_ = aqi_vc.five_day_average.plot(ax=ax2, color = '#A01177', \n                            title = 'Ventura Air Quality 2017-18',\n                            legend = False, \n                             xlabel = \"Date\",\n                             ylabel = \"AQI\")"
+    "text": "Plot: AQI From 2017-2018\nThe following plots show air quality in Santa Barbara and Ventura counties, which were both impacted by the Thomas Fire. In addition to the daily aqi (blue), there is a 5-day rolling average that demonstrates the mean AQI over 5-days.\n\nfig, [ax1, ax2] = plt.subplots(ncols=1, nrows=2,\n                               sharex = True, sharey=True,\n                              figsize = (11,9))\n\naqi_sb.aqi.plot(ax = ax1, color = '#1177A0', legend = True)  \naqi_sb.five_day_average.plot(ax=ax1, color = '#A01177', \n                            title = 'Santa Barbara Air Quality 2017-18', \n                            legend = True, \n                             xlabel = \"Date\", \n                             ylabel = \"AQI\") \n\naqi_vc.aqi.plot(ax = ax2, color = '#1177A0', legend = False)  \n_ = aqi_vc.five_day_average.plot(ax=ax2, color = '#A01177', \n                            title = 'Ventura Air Quality 2017-18',\n                            legend = False, \n                             xlabel = \"Date\",\n                             ylabel = \"AQI\")\nplt.savefig('images/aqi-plot.png')"
   },
   {
     "objectID": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#references",
     "href": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#references",
     "title": "AQI During the California, Thomas Fire (2017-18)",
     "section": "References",
-    "text": "References\nCalifornia State Geoportal. (2023, August 7), California Fire Perimeters (all) [Data file] Available from: https://gis.data.ca.gov/datasets/CALFIRE-Forestry::california-fire-perimeters-all-1/about. Access date: November 28, 2023.\nEarth Resources Observation And Science (EROS) Center. Collection-2 Landsat 8-9 OLI (Operational Land Imager) and TIRS (Thermal Infrared Sensor) Level-2 Science Products. U.S. Geological Survey, 2013, doi:10.5066/P9OGBGM6.\nEnvironmental Protection Agency (EPA). (2023, November 9), Air Data: Air Quality Data Collected at Outdoor Monitors Across the US. Pre-Generated Data Files [URL] Available from: https://aqs.epa.gov/aqsweb/airdata/download_files.html#AQI. Access date: November 28, 2023.\n“Thomas Fire.” Wikipedia, Wikimedia Foundation, 9 Nov. 2023, en.wikipedia.org/wiki/Thomas_Fire. Accessed 28 Nov. 2023."
+    "text": "References\nCalifornia Open Data Portal (2016), CA Geographic Boundaries [Data File] Available from: https://data.ca.gov/dataset/ca-geographic-boundaries. Access date: December 13, 2023.\nCalifornia State Geoportal. (2023, August 7), California Fire Perimeters (all) [Data file] Available from: https://gis.data.ca.gov/datasets/CALFIRE-Forestry::california-fire-perimeters-all-1/about. Access date: November 28, 2023.\nEarth Resources Observation And Science (EROS) Center. Collection-2 Landsat 8-9 OLI (Operational Land Imager) and TIRS (Thermal Infrared Sensor) Level-2 Science Products. U.S. Geological Survey, 2013, doi:10.5066/P9OGBGM6.\nEnvironmental Protection Agency (EPA). (2023, November 9), Air Data: Air Quality Data Collected at Outdoor Monitors Across the US. Pre-Generated Data Files [URL] Available from: https://aqs.epa.gov/aqsweb/airdata/download_files.html#AQI. Access date: November 28, 2023.\n“Thomas Fire.” Wikipedia, Wikimedia Foundation, 9 Nov. 2023, en.wikipedia.org/wiki/Thomas_Fire. Accessed 28 Nov. 2023."
+  },
+  {
+    "objectID": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#mapping-affected-counties",
+    "href": "blog-posts/2023-12-13-thomas-fire-perimeter/index.html#mapping-affected-counties",
+    "title": "AQI During the California, Thomas Fire (2017-18)",
+    "section": "Mapping Affected Counties",
+    "text": "Mapping Affected Counties\nBoth Ventura and Santa Barbara counties were impacted by the 2017 Thomas Fire. The following map shows the extent of both counties\n\nca_counties = gpd.read_file(os.path.join(os.getcwd(), 'data', 'county-lines','CA_Counties_TIGER2016.shp'))\nimpacted_counties = ca_counties[(ca_counties.NAME == 'Ventura') | (ca_counties.NAME == 'Santa Barbara')]\n\n\nfig, ax = plt.subplots() #create figure\n\nimpacted_counties.to_crs(epsg=3857).plot(ax = ax, figsize = (5,5), alpha = 0.3,\n                                        column = 'NAME', edgecolor='k',\n                                        legend = True,\n                                         legend_kwds={'loc': 'lower right'})\n\ncx.add_basemap(ax, source=cx.providers.Esri.NatGeoWorldMap)\n\n# update title and axes\nax.set_title(\"Counties Impacted by Thomas Fire\", fontdict={\"fontsize\": \"16\"})\nax.set_axis_off()\nplt.savefig('images/impacted-counties.png')"
   }
 ]
