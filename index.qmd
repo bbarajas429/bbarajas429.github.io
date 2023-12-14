@@ -1,11 +1,11 @@
 ---
 title: "Briana Barajas"
-image: /images/yose-pic.jpeg
+image: /images/yose-pic-2.jpeg
 toc: false
 about:
   template: trestles
-  image-shape: rounded
-  image-width: 15em
+  image-shape: round
+  image-width: 16em
   links: 
     - text: Github
       href: https://github.com/bbarajas429
