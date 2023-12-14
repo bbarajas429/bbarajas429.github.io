@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Briana Barajas">
+<meta name="dcterms.date" content="2023-12-13">
+<meta name="description" content="An analysis of the Thomas Fire, including a raster image of the fire’s perimeter and plots depicting the air quality (AQI) in affected counties.">
 
-<title>AQI During the California, Thomas Fire (2017-18)</title>
+<title>Air Quality Assesment of California Thomas Fire</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -140,14 +143,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">AQI During the California, Thomas Fire (2017-18)</h1>
-                      </div>
+      <h1 class="title">Air Quality Assesment of California Thomas Fire</h1>
+                  <div>
+        <div class="description">
+          An analysis of the Thomas Fire, including a raster image of the fire’s perimeter and plots depicting the air quality (AQI) in affected counties.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">MEDS</div>
+                <div class="quarto-category">Remote sensing</div>
+              </div>
+                  </div>
   </div>
     
-  
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author"><a href="https://briana-barajas.github.io/">Briana Barajas</a> </p>
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              <a href="https://bren.ucsb.edu/masters-programs/master-environmental-data-science">
+              MEDS
+              </a>
+            </p>
+        </div>
+      </div>
+
   <div class="quarto-title-meta">
 
-      
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 13, 2023</p>
+      </div>
+    </div>
     
       
     </div>
@@ -193,8 +227,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p><strong>Author:</strong> Briana Barajas</p>
-<p><strong>Github repository:</strong> <a href="'https://github.com/briana-barajas/thomas-fire-aqi'">link here</a></p>
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">Background</h2>
 <p>The Thomas Fire began late December (2017) in Ventura County and continued to affect both Santa Barbara and Ventura counties into the new year. This analysis uses raster data to produce a map of the fire’s perimeter. Additionally, a simple visualization was created to demonstrated the severity of the Thomas Fire’s affect on air quality (AQI) in both counties.</p>
@@ -204,22 +236,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="raster-data" class="level3">
 <h3 class="anchored" data-anchor-id="raster-data">Raster Data</h3>
 <p>This dataset, from the Landsat Collection 2 Level-2, contains red, green, near-infrared, and shortwave infrared layers. The data was originally collected by the Landsat 8 satellite, and was corrected for surface reflectance and simplified.</p>
-<p><strong>Useful Links:</strong> * <a href="'https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites'">Band designations for Landsat satellites</a> * <a href="'https://www.usgs.gov/media/images/common-landsat-band-combinations'">Common Landsat band combos</a> * <a href="'https://www.usgs.gov/faqs/how-do-i-use-a-scale-factor-landsat-level-2-science-products'">Scale factor with Landsat Level-2 science products</a> * <a href="'https://planetarycomputer.microsoft.com/dataset/landsat-c2-l2'">Final proccess collection from Microsoft Planetary Computer</a></p>
+<p>Useful Links:</p>
+<ul>
+<li><a href="'https://www.usgs.gov/faqs/what-are-band-designations-landsat-satellites'">Band designations for Landsat satellites</a></li>
+<li><a href="'https://www.usgs.gov/media/images/common-landsat-band-combinations'">Common Landsat band combos</a></li>
+<li><a href="'https://www.usgs.gov/faqs/how-do-i-use-a-scale-factor-landsat-level-2-science-products'">Scale factor with Landsat Level-2 science products</a></li>
+<li><a href="'https://planetarycomputer.microsoft.com/dataset/landsat-c2-l2'">Final process collection from Microsoft Planetary Computer</a></li>
+</ul>
 </section>
 <section id="fire-perimeter-data" class="level3">
 <h3 class="anchored" data-anchor-id="fire-perimeter-data">Fire Perimeter Data</h3>
 <p>CAL Fire provides annual geographic data on fire perimeters. The fire started December 4th, 2017 and was contained by January 12th, 2018. Since the majority of fire growth was in 2017, this analysis will use only the 2017 data.</p>
-<p><strong>Useful Links:</strong> <a href="'https://gis.data.ca.gov/datasets/CALFIRE-Forestry::california-fire-perimeters-all-1/about'">Fire perimeter</a></p>
+<p>Useful Links: <a href="'https://gis.data.ca.gov/datasets/CALFIRE-Forestry::california-fire-perimeters-all-1/about'">Fire perimeter</a></p>
 </section>
 <section id="air-quality-data" class="level3">
 <h3 class="anchored" data-anchor-id="air-quality-data">Air Quality Data</h3>
 <p>The Air Quality Data can be pulled from the U.S. Environmental Protection Agency (EPA). This dataset provides air quality data from counties throughout the United States and can be filtered to examine Santa Barbara County during the duration of the Thomas Fire.</p>
-<p><strong>Useful Links:</strong> <a href="'https://www.epa.gov/air-trends/air-quality-cities-and-counties'">Air quality</a></p>
+<p>Useful Links: <a href="'https://www.epa.gov/air-trends/air-quality-cities-and-counties'">Air quality</a></p>
 </section>
 <section id="county-perimeter-data" class="level3">
 <h3 class="anchored" data-anchor-id="county-perimeter-data">County Perimeter Data</h3>
 <p>California provides shapefiles on all counties within the state.</p>
-<p><strong>Useful Links:</strong> <a href="'https://data.ca.gov/dataset/ca-geographic-boundaries'">County perimeters</a></p>
+<p>Useful Links: <a href="'https://data.ca.gov/dataset/ca-geographic-boundaries'">County perimeters</a></p>
 </section>
 </section>
 <section id="libraries-and-functions" class="level2">
@@ -400,7 +438,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{barajas2023,
+  author = {Barajas, Briana},
+  title = {Air {Quality} {Assesment} of {California} {Thomas} {Fire}},
+  date = {2023-12-13},
+  url = {https://github.com/briana-barajas/thomas-fire-aqi},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-barajas2023" class="csl-entry quarto-appendix-citeas" role="listitem">
+Barajas, Briana. 2023. <span>“Air Quality Assesment of California Thomas
+Fire.”</span> December 13, 2023. <a href="https://github.com/briana-barajas/thomas-fire-aqi">https://github.com/briana-barajas/thomas-fire-aqi</a>.
+</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

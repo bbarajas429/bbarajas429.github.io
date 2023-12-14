@@ -11,7 +11,7 @@ categories: [Quarto, MEDS, Workshop]
 citation:
   url: https://bbarajas429.github.io/blog-posts/2023-10-23-second-post/
 image: preview-image.webp
-draft: false
+draft: true
 footnotes-hover: true
 ---
 
