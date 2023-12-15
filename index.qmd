@@ -1,0 +1,27 @@
+---
+title: "Briana Barajas"
+image: /images/yose-pic-2.jpeg
+toc: false
+about:
+  template: trestles
+  image-shape: round
+  image-width: 16em
+  links: 
+    - text: Github
+      href: https://github.com/bbarajas429
+      icon: github
+    - text: Linkedin
+      href: https://www.linkedin.com/in/briana-barajas-544022293/ 
+      icon: linkedin
+    - text: Email
+      href: mailto::bbarajas429@ucsb.bren.edu
+      icon: envelope
+---
+
+# Welcome 🐛 {.center-text-title}
+
+My name is Briana, and I'm a budding data scientist, working on my Master of Environmental Data Science. I love learning about birds, bugs, microbes and all things nature. When I'm not at the computer I enjoy running, bullet journaling, birding, and the occasional book.
+
+# Project Highlights {.center-text-title}
+
+Coming soon

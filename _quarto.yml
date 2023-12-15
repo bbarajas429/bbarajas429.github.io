@@ -1,0 +1,30 @@
+project:
+  type: website
+  output-dir: docs
+website:
+  navbar:
+    title: false
+    logo: images/logo.png
+    logo-alt: "Briana"
+    right: 
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: docs/bb-resume.pdf
+        text: Resume
+      - href: Blog.qmd
+        text: Blog
+    page-footer:
+      background: dark
+      left: "Text Sample"
+    
+format:
+  html:
+    theme: 
+      - styles.scss
+    mainfont: Lato
+    toc: true
+
+editor: visual
+
