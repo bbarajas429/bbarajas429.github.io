@@ -7,7 +7,7 @@ author:
     affiliation: MEDS
     affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science
 date: 12-15-2023
-categories: [MEDS, NDVI, Remote Sensing]
+categories: [MEDS, R, Remote sensing]
 citation:
   url: https://github.com/briana-barajas/santa-clara-river-ndvi
 image: sc-river.jpeg
