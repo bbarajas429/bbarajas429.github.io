@@ -17,11 +17,10 @@ about:
       href: mailto::bbarajas429@ucsb.bren.edu
       icon: envelope
 ---
-
+|
+|
+|
 # Welcome 🐛 {.center-text-title}
 
-My name is Briana, and I'm a budding data scientist, working on my Master of Environmental Data Science. I love learning about birds, bugs, microbes and all things nature. When I'm not at the computer I enjoy running, bullet journaling, birding, and the occasional book.
+My name is Briana Barajas, and I am a current graduate student working on my Master of Environmental Data Science. I love learning about birds, bugs, microbes and all things nature. When I'm not at the computer I enjoy running, birding, and updating my bullet journal.
 
-# Project Highlights {.center-text-title}
-
-Coming soon

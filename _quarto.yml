@@ -1,7 +1,9 @@
 project:
   type: website
   output-dir: docs
+
 website:
+  favicon: images/leaf.png
   navbar:
     title: false
     logo: images/logo.png
