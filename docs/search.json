@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Briana Barajas",
     "section": "",
-    "text": "Welcome 🐛\nMy name is Briana Barajas, and I am a current graduate student working on my Master of Environmental Data Science. I love learning about birds, bugs, microbes and all things nature. When I’m not at the computer I enjoy running, birding, and updating my bullet journal."
+    "text": "Welcome 🐛\nMy name is Briana Barajas, and I am a current graduate student working on my Master of Environmental Data Science. I enjoy learning about plants and their fascinating biotic relationships. When I’m not at the computer I enjoy running, birding, and updating my bullet journal."
   },
   {
     "objectID": "index.html#about-me",
@@ -516,5 +516,12 @@
     "title": "Drought Tolerance in Tropical Tree Species",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nEffects of Drought on Forests and Rangelands | Climate Change Resource Center. https://www.fs.usda.gov/ccrc/topics/effects-drought-forests-and-rangelands. Accessed 10 Dec. 2023.↩︎\nRabinowitz, Harold, and Suzanne Vogel, editors. “Chapter 11 - Style and Usage in Earth Science and Environmental Science.” The Manual of Scientific Style, Academic Press, 2009, pp. 427–68. ScienceDirect, https://doi.org/10.1016/B978-012373980-3.50015-0.↩︎"
+  },
+  {
+    "objectID": "about.html#bird-watching",
+    "href": "about.html#bird-watching",
+    "title": "About Me",
+    "section": "Bird Watching",
+    "text": "Bird Watching\nPart of my undergraduate coursework included a class on vertebrates, with a lab that consisted primarily of bird watching. I quickly got hooked and I purchased binoculars and birding guide once the class ended. I keep track of most of my finds using the Merlin and eBird apps, which are maintained by the Cornell Lab of Ornithology.\nI thought it would be fun to visualize my personal bird sightings using a leaflet map:\n\n\nView Code\nbirds %&gt;% \n  leaflet() %&gt;% \n  addProviderTiles(providers$Jawg.Streets,\n                   options = providerTileOptions(accessToken = token)) %&gt;% \n  addMarkers(label = birds$common_name,\n             popup = paste0(birds$common_name, ' (',\n                            birds$scientific_name, ')'),\n             clusterOptions = markerClusterOptions(),\n             icon = makeIcon(iconUrl = iconpath,\n                             iconWidth = 32, iconHeight = 32))"
   }
 ]

@@ -6,7 +6,7 @@ website:
   favicon: images/leaf.png
   navbar:
     title: false
-    logo: images/logo.png
+    logo: images/Picture5.png
     logo-alt: "Briana"
     right: 
       - href: index.qmd

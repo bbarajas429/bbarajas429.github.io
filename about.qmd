@@ -1,6 +1,10 @@
 ---
 title: "About Me"
 toc: true
+format: 
+  html:
+    code-fold: true
+    code-summary: "View Code"
 ---
 
 ## Personal Bio
@@ -14,3 +18,124 @@ Briana is now pursuing a Master of Environmental Data Science at the UC Santa Ba
 Master of Environmental Data Science (Expected June 2024)
 
 B.S. Zoology - University of California, Santa Barbara (2022)
+
+## Bird Watching
+
+Part of my undergraduate coursework included a class on vertebrates, with a lab that consisted primarily of bird watching. I quickly got hooked and I purchased binoculars and birding guide once the class ended. I keep track of most of my finds using the Merlin and eBird apps, which are maintained by the Cornell Lab of Ornithology.
+
+I thought it would be fun to visualize my personal bird sightings using a `leaflet` map:
+
+```{r, results='hide', echo=FALSE, message = FALSE, warning = FALSE}
+# libraries
+library(tidyverse)
+library(janitor)
+library(here)
+library(leaflet)
+library(sf)
+
+# read data
+birds <- read_csv('life-list/ebird_world_life_list.csv') %>% 
+  clean_names() %>% #clean col names
+  filter(countable != 0) #remove obs that don't count
+```
+
+```{r, echo=FALSE}
+# add latititudes
+birds <- birds %>% 
+  mutate(latitude = case_when(location == 'Alice Keck' ~ '34.429166',
+                              location == 'Apt' ~ '34.415086',
+                              location == 'Bragg Botanical Garden' ~ '39.409404',
+                              location == 'Bridalveil Straight' ~ '37.719070',
+                              location == 'Campus Beach' ~ '34.408739',
+                              location == 'Castle Rock' ~'38.989404',
+                              location == 'CCBER' ~ '34.419488',
+                              location == 'CRZ Plains' ~ '35.195162',
+                              location == 'CRZ Plains 2' ~ '35.195162',
+                              location == 'Dev Slough' ~ '34.408242',
+                              location == 'Eagle Energy' ~ '34.952157',
+                              location == 'Grove' ~ '34.420159',
+                              location == 'Indian Village' ~ '37.748998',
+                              location == 'Lagoon' ~ '34.411366',
+                              location == 'Lake Los Carneros' ~ '34.441389',
+                              location == 'Lake Los Carneros (water)' ~ '34.441841',
+                              location == 'Lake Los Carneros 2' ~ '34.441389',
+                              location == "Lover's Loop Trail" ~ '34.741097',
+                              location == 'MN House' ~ '34.184626',
+                              location == 'Mugu Beach' ~ '34.109835',
+                              location == 'Mugu Park 2' ~ '34.126372',
+                              location == 'Music Library' ~ '34.413062',
+                              location == 'NBVC Soccer Field' ~ '34.184626',
+                              location == 'Oxn' ~ '34.184626',
+                              location == 'Psych Building' ~ '34.413062',
+                              location == 'SB Pistachio' ~ '34.847064',
+                              location == 'sb-zoo-natives' ~ '34.420662',
+                              location == 'Soda Lake' ~ '35.195162',
+                              location == 'Sup House' ~ '37.741642',
+                              location == 'Tiffany Park' ~ '34.952157',
+                              location == 'Traffic Management Office' ~ '37.741642',
+                              location == 'Vet Resource Center' ~ '34.413062',
+                              location == 'Willoeglen Park' ~ '34.450331',
+                              location == 'YOS 22 Apt' ~ '37.672375'))
+```
+
+```{r, echo=FALSE}
+# add longitudes
+birds <- birds %>% 
+  mutate(longitude = case_when(location == 'Alice Keck' ~ '-119.705992',
+                        location == 'Apt' ~ '-119.857020',
+                        location == 'Bragg Botanical Garden' ~ '-123.809236',
+                        location == 'Bridalveil Straight' ~ '-119.648158',
+                        location == 'Campus Beach' ~ '-119.842396',
+                        location == 'Castle Rock' ~'-119.908882',
+                        location == 'CCBER' ~ '-119.855371',
+                        location == 'CRZ Plains' ~ '-119.860073',
+                        location == 'CRZ Plains 2' ~ '-119.860073',
+                        location == 'Dev Slough' ~ '-119.877595',
+                        location == 'Eagle Energy' ~ '-120.451558',
+                        location == 'Grove' ~ '-119.851430',
+                        location == 'Indian Village' ~ '-119.587949',
+                        location == 'Lagoon' ~ '-119.850344',
+                        location == 'Lake Los Carneros' ~ '-119.851803',
+                        location == 'Lake Los Carneros (water)' ~ '-119.848191',
+                        location == 'Lake Los Carneros 2' ~ '-119.851803',
+                        location == "Lover's Loop Trail" ~ '-120.062162',
+                        location == 'MN House' ~ '-119.186175',
+                        location == 'Mugu Beach' ~ '-119.123004',
+                        location == 'Mugu Park 2' ~ '-119.094583',
+                        location == 'Music Library' ~ '-119.849671',
+                        location == 'NBVC Soccer Field' ~ '-119.186175',
+                        location == 'Oxn' ~ '-119.186175',
+                        location == 'Psych Building' ~ '-119.849671',
+                        location == 'SB Pistachio' ~ '-119.481744',
+                        location == 'sb-zoo-natives' ~ '-119.665089',
+                        location == 'Soda Lake' ~ '-119.860073',
+                        location == 'Sup House' ~ '-119.599128',
+                        location == 'Tiffany Park' ~ '-120.451558',
+                        location == 'Traffic Management Office' ~ '-119.599128',
+                        location == 'Vet Resource Center' ~ '-119.849671',
+                        location == 'Willoeglen Park' ~ '-119.744329',
+                        location == 'YOS 22 Apt' ~ '-119.807656'))
+```
+
+```{r, echo=FALSE}
+## === Preparation ===
+# add CRS
+birds <- birds %>%   st_as_sf(coords = c('longitude', 'latitude'), crs = 'EPSG:4236')
+
+# create icon path and token
+token <- 'Wrbj5TCS0i2D12kEn3oWNQcAWfTsF6eFF31F67I2o2QhgEXReZOemCghmyeR7j6Z'
+iconpath <- here('life-list/bird-icon.png')
+```
+
+```{r, warning=FALSE}
+birds %>% 
+  leaflet() %>% 
+  addProviderTiles(providers$Jawg.Streets,
+                   options = providerTileOptions(accessToken = token)) %>% 
+  addMarkers(label = birds$common_name,
+             popup = paste0(birds$common_name, ' (',
+                            birds$scientific_name, ')'),
+             clusterOptions = markerClusterOptions(),
+             icon = makeIcon(iconUrl = iconpath,
+                             iconWidth = 32, iconHeight = 32))
+```

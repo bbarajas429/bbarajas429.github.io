@@ -1,11 +1,12 @@
 ---
 title: "Briana Barajas"
-image: /images/yose-pic-2.jpeg
+subtitle: "Plant Pathology | Data Science"
+image: /images/outdoor-headshot.jpeg
 toc: false
 about:
   template: trestles
   image-shape: round
-  image-width: 16em
+  image-width: 18em
   links: 
     - text: Github
       href: https://github.com/bbarajas429
@@ -17,10 +18,12 @@ about:
       href: mailto::bbarajas429@ucsb.bren.edu
       icon: envelope
 ---
-|
-|
-|
+
+| 
+| 
+| 
+| 
+
 # Welcome 🐛 {.center-text-title}
 
-My name is Briana Barajas, and I am a current graduate student working on my Master of Environmental Data Science. I love learning about birds, bugs, microbes and all things nature. When I'm not at the computer I enjoy running, birding, and updating my bullet journal.
-
+My name is Briana Barajas, and I am a current graduate student working on my Master of Environmental Data Science. I enjoy learning about plants and their fascinating biotic relationships. When I'm not at the computer I enjoy running, birding, and updating my bullet journal.
