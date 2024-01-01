@@ -25,7 +25,7 @@
     "href": "about.html#education",
     "title": "About Me",
     "section": "Education",
-    "text": "Education\nMaster of Environmental Data Science (Expected June 2024)\nB.S. Zoology - University of California, Santa Barbara (2022)"
+    "text": "Education\nMaster of Environmental Data Science - University of California, Santa Barbara (Expected June 2024)\nB.S. Zoology - University of California, Santa Barbara (2022)"
   },
   {
     "objectID": "resources.html",
@@ -522,6 +522,6 @@
     "href": "about.html#bird-watching",
     "title": "About Me",
     "section": "Bird Watching",
-    "text": "Bird Watching\nPart of my undergraduate coursework included a class on vertebrates, with a lab that consisted primarily of bird watching. I quickly got hooked and I purchased binoculars and birding guide once the class ended. I keep track of most of my finds using the Merlin and eBird apps, which are maintained by the Cornell Lab of Ornithology.\nI thought it would be fun to visualize my personal bird sightings using a leaflet map:\n\n\nView Code\nbirds %&gt;% \n  leaflet() %&gt;% \n  addProviderTiles(providers$Jawg.Streets,\n                   options = providerTileOptions(accessToken = token)) %&gt;% \n  addMarkers(label = birds$common_name,\n             popup = paste0(birds$common_name, ' (',\n                            birds$scientific_name, ')'),\n             clusterOptions = markerClusterOptions(),\n             icon = makeIcon(iconUrl = iconpath,\n                             iconWidth = 32, iconHeight = 32))"
+    "text": "Bird Watching\nPart of my undergraduate coursework included a class on vertebrates, with a lab that consisted primarily of bird watching. I quickly got hooked and purchased binoculars and a birding guide soon after class ended. I keep track of most of my finds using the Merlin and eBird apps, which are maintained by the Cornell Lab of Ornithology.\nI thought it would be fun to visualize my personal bird sightings using a leaflet map:\n\n\nView Code\nbirds %&gt;% \n  leaflet() %&gt;% \n  addProviderTiles(providers$Jawg.Streets,\n                   options = providerTileOptions(accessToken = token)) %&gt;% \n  addMarkers(label = birds$common_name,\n             popup = paste0(birds$common_name, ' (',\n                            birds$scientific_name, ')'),\n             clusterOptions = markerClusterOptions(),\n             icon = makeIcon(iconUrl = iconpath,\n                             iconWidth = 32, iconHeight = 32))"
   }
 ]

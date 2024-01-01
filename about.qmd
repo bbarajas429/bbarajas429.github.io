@@ -15,13 +15,13 @@ Briana is now pursuing a Master of Environmental Data Science at the UC Santa Ba
 
 ## Education
 
-Master of Environmental Data Science (Expected June 2024)
+Master of Environmental Data Science - University of California, Santa Barbara (Expected June 2024)
 
 B.S. Zoology - University of California, Santa Barbara (2022)
 
 ## Bird Watching
 
-Part of my undergraduate coursework included a class on vertebrates, with a lab that consisted primarily of bird watching. I quickly got hooked and I purchased binoculars and birding guide once the class ended. I keep track of most of my finds using the Merlin and eBird apps, which are maintained by the Cornell Lab of Ornithology.
+Part of my undergraduate coursework included a class on vertebrates, with a lab that consisted primarily of bird watching. I quickly got hooked and purchased binoculars and a birding guide soon after class ended. I keep track of most of my finds using the Merlin and eBird apps, which are maintained by the Cornell Lab of Ornithology.
 
 I thought it would be fun to visualize my personal bird sightings using a `leaflet` map:
 
