@@ -3,7 +3,7 @@
 // Import fonts
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
 
-//Colors
+// Old Colors
 $white: #FBFBFB;
 $pale-blue: #f0f9fc;
 $dark-orange: #E7862F;
@@ -14,25 +14,28 @@ $light-gray: #D8CEC6;
 $dark-gray: #8A8A8A; 
 $black: #000000;
 
-$green-gray: #EFEFEC;
-$light-bg: #7BBDBC;
-$deep-bg: #327463;
-$terra: #CB5B36;
+// Current colors
+$white-glove: #EFEFEC;
+$cuttle-fish: #7BBDBC;
+$secret-garden: #327463;
+$campfire: #CB5B36;
+$heart-potion: #A67BBD;
+$terrestrial: #2A6455;
 
 // Colors - base document
-$body-bg: $green-gray; // page background
-$link-color: $terra; 
+$body-bg: $white-glove; // page background
+$link-color: $heart-potion; 
 
 // Color - navigation 
-$navbar-bg: $light-bg;
+$navbar-bg: $cuttle-fish; //navigation bar 
 $navbar-fg: $black;
-$navbar-hl: $green-gray; // highlight hover color
+$navbar-hl: $white-glove; // highlight hover color
 
 // Colors - table of contents
-$toc-color: $deep-bg; // color of selected page from toc
+$toc-color: $terrestrial; // color of selected page from toc
 
 // Color
-$code-color: $deep-bg; // inline code color
+$code-color: $campfire; // inline code color
 
 /*-- scss:rules --*/
 h1 {
@@ -40,7 +43,7 @@ h1 {
 }
 h2 {
   letter-spacing: 2px;
-  color: $deep-bg;
+  color: $terrestrial;
 }
 
 .title {
