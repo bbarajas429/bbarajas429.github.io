@@ -7,7 +7,6 @@ website:
   navbar:
     title: false
     logo: images/Picture5.png
-    logo-alt: "Briana"
     right: 
       - href: index.qmd
         text: Home
