@@ -17,6 +17,7 @@ $black: #000000;
 // Current colors
 $white-glove: #EFEFEC;
 $cuttle-fish: #7BBDBC;
+$wave: #A1D0CF;
 $secret-garden: #327463;
 $campfire: #CB5B36;
 $heart-potion: #A67BBD;
@@ -30,6 +31,7 @@ $link-color: $heart-potion;
 $navbar-bg: $cuttle-fish; //navigation bar 
 $navbar-fg: $black;
 $navbar-hl: $white-glove; // highlight hover color
+$footer-bg: $wave;
 
 // Colors - table of contents
 $toc-color: $terrestrial; // color of selected page from toc
@@ -85,5 +87,7 @@ h2 {
   transform: translateY(-4px);
 }
 
-
-
+.footer{
+  height: 4px;
+  box-sizing: content-box;
+}

@@ -16,9 +16,12 @@ website:
         text: Resume
       - href: Blog.qmd
         text: Blog
-    page-footer:
-      background: dark
-      left: "Text Sample"
+  page-footer:
+    background: light
+    left: "Copyright 2023, Briana Barajas"
+    right: 
+      - icon : github
+        href: https://github.com/briana-barajas
     
 format:
   html:
