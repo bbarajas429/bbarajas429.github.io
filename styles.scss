@@ -37,10 +37,11 @@ $toc-color: $terrestrial; // color of selected page from toc
 // Color
 $code-color: $campfire; // inline code color
 
-/*-- scss:rules --*/
-h1 {
-  
-}
+
+
+/*======= scss:rules =======*/
+
+// Headers
 h2 {
   letter-spacing: 2px;
   color: $terrestrial;
@@ -54,7 +55,35 @@ h2 {
   text-align: center;
 }
 
+// Logo Image Size
 .navbar-brand img { 
   max-height: 50px;
   width: auto;
 }
+
+.navbar-logo{
+  transition: all 0.3s;
+}
+
+.navbar-logo:hover{
+  transform: translateY(-4px);
+}
+
+// Animate About Links & NavBar
+.about-link{
+  transition: all 0.3s;
+}
+.about-link:hover {
+  transform: translateY(-9px);
+}
+
+.nav-item{
+  transition: all 0.3s;
+}
+
+.nav-item:hover{
+  transform: translateY(-4px);
+}
+
+
+

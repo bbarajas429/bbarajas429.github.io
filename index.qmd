@@ -9,7 +9,7 @@ about:
   image-width: 18em
   links: 
     - text: Github
-      href: https://github.com/bbarajas429
+      href: https://github.com/briana-barajas
       icon: github
     - text: Linkedin
       href: https://www.linkedin.com/in/briana-barajas-544022293/ 
