@@ -3,26 +3,35 @@ project:
   output-dir: docs
 
 website:
-  favicon: images/leaf.png
+  favicon: images/favicon.png
   navbar:
     title: false
-    logo: images/Picture5.png
+    logo: images/logo.png
     right: 
-      - href: index.qmd
-        text: Home
       - href: about.qmd
         text: About
       - href: docs/bb-resume.pdf
         text: Resume
       - href: Blog.qmd
         text: Blog
+      - text: "Contact"
+        menu: 
+          - icon: github
+            text: GitHub
+            href: https://github.com/briana-barajas
+          - icon: linkedin
+            text: Linkedin
+            href: https://www.linkedin.com/in/briana-barajas-544022293/
+          - icon: envelope
+            text: Email
+            href: mailto::bbarajas429@ucsb.bren.edu
   page-footer:
     background: light
     left: "Copyright 2023, Briana Barajas"
     right: 
       - icon : github
         href: https://github.com/briana-barajas
-    
+      
 format:
   html:
     theme: 

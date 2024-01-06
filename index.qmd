@@ -8,7 +8,7 @@ about:
   image-shape: round
   image-width: 18em
   links: 
-    - text: Github
+    - text: GitHub
       href: https://github.com/briana-barajas
       icon: github
     - text: Linkedin
