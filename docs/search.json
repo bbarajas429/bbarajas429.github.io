@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Briana Barajas",
     "section": "",
-    "text": "Welcome 🐛\nMy name is Briana Barajas, and I am a current graduate student earning a master's degree in environmental data science. I enjoy learning about plants and their fascinating symbiotic relationships. When I’m not at the computer I enjoy running, birding, and updating my bullet journal."
+    "text": "Welcome 🐛\nMy name is Briana Barajas, and I am a current graduate student earning a master’s degree in environmental data science. I enjoy learning about plants and their fascinating symbiotic relationships. When I’m not at the computer I enjoy running, birding, and updating my bullet journal."
   },
   {
     "objectID": "index.html#about-me",
@@ -522,7 +522,7 @@
     "href": "about.html#bird-watching",
     "title": "About Me",
     "section": "Bird Watching",
-    "text": "Bird Watching\nPart of my undergraduate coursework included a vertebrate lab that consisted primarily of bird watching. I quickly got hooked and purchased binoculars soon after completing the course. I keep track of most of my finds using the Merlin and eBird apps, which are maintained by the Cornell Lab of Ornithology.\nI thought it would be fun to visualize my personal bird sightings using a leaflet map:\n\n\nView Code\nbirds %&gt;% \n  leaflet() %&gt;% \n  addProviderTiles(providers$Jawg.Streets,\n                   options = providerTileOptions(accessToken = token)) %&gt;% \n  addMarkers(label = birds$common_name,\n             popup = paste0(birds$common_name, ' (',\n                            birds$scientific_name, ')'),\n             clusterOptions = markerClusterOptions(),\n             icon = makeIcon(iconUrl = iconpath,\n                             iconWidth = 32, iconHeight = 32))"
+    "text": "Bird Watching\nPart of my undergraduate coursework included a vertebrate lab that consisted primarily of bird watching. I quickly got hooked and purchased binoculars soon after completing the course. I keep track of most of my finds using the Merlin and eBird apps, which are maintained by the Cornell Lab of Ornithology.\nI thought it would be fun to visualize my personal bird sightings using a leaflet map:\n\n\nView Code\n# add CRS to lat/long points\nbirds &lt;- birds %&gt;%   st_as_sf(coords = c('longitude', 'latitude'), crs = 'EPSG:4236')\n\n# create map\nbirds %&gt;% \n  leaflet() %&gt;% \n  addProviderTiles(providers$Jawg.Streets,\n                   options = providerTileOptions(accessToken = token)) %&gt;% \n  addMarkers(label = birds$common_name,\n             popup = paste0(birds$common_name, ' (',\n                            birds$scientific_name, ')'),\n             clusterOptions = markerClusterOptions(),\n             icon = makeIcon(iconUrl = iconpath,\n                             iconWidth = 32, iconHeight = 32))"
   },
   {
     "objectID": "about.html#professional-background",
