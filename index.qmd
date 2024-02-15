@@ -26,4 +26,5 @@ about:
 
 # Welcome 🐛 {.center-text-title}
 
-My name is Briana Barajas, and I am a current graduate student earning a master's degree in environmental data science. I enjoy learning about plants and their fascinating symbiotic relationships. When I'm not at the computer I enjoy running, [birding](https://briana-barajas.github.io/about.html#bird-watching), and updating my bullet journal.
+<p class="center-text-about">My name is Briana Barajas, and I am a current graduate student earning a master's degree in environmental data science. I enjoy learning about plants and their fascinating symbiotic relationships. When I'm not at the computer I enjoy running, [birding](https://briana-barajas.github.io/about.html#bird-watching), and updating my bullet journal.</p>
+

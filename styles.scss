@@ -2,6 +2,7 @@
 
 // Import fonts
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 // Old Colors
 $white: #FBFBFB;
@@ -22,10 +23,11 @@ $secret-garden: #327463;
 $campfire: #CB5B36;
 $heart-potion: #A67BBD;
 $terrestrial: #2A6455;
+$grape: #893a6e;
 
 // Colors - base document
 $body-bg: $white-glove; // page background
-$link-color: $heart-potion; 
+$link-color: $grape; 
 
 // Color - navigation 
 $navbar-bg: $cuttle-fish; //navigation bar 
@@ -47,14 +49,26 @@ $code-color: $campfire; // inline code color
 h2 {
   letter-spacing: 2px;
   color: $terrestrial;
+  font-family: Playfair+Display;
 }
 
 .title {
   color: $black;
+  font-family: Playfair+Display;
 }
 
 .center-text-title {
   text-align: center;
+  font-family: Playfair+Display;
+}
+
+.center-text-about {
+  text-align: center;
+  font-family: Lato;
+}
+
+p{
+  font-family: Lato;
 }
 
 // Logo Image Size
