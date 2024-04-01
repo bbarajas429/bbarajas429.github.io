@@ -54,11 +54,13 @@ showtext_auto()
 
 ## Overarching Question
 
-Since capturing every individual within a population is not feasible, alternative methods must be used to estimate wildlife populations. The capture-mark-recapture technique (herein CMR) is one surveying technique used to calculate estimations of population, or survival over time. As with many mathematical analyses, there are some assumptions that much be met to calculate survival using CMR data. I decided to focus on survival since the data used here was used in a publication that commented on the species survival over several years ([Rowe et. al](https://wildlife.onlinelibrary.wiley.com/doi/10.1002/jwmg.22496)). To calculate survival, it is assumed that the likelihood of catching any individual is the same for all individuals in the population. With this in mind, I created several visualizations that answer the question, **what factors affect how easy it is to capture a frog?**
+The capture-mark-recapture technique (herein CMR) is a common surveying technique used to calculate estimations of populations or survival over time. As with many mathematical analyses, there are some assumptions that much be met to calculate survival using CMR data. The data used for my infographic was used in a publication that commented on the species survival over several years ([Rowe et. al](https://wildlife.onlinelibrary.wiley.com/doi/10.1002/jwmg.22496)). To calculate survival, it is assumed that the likelihood of catching any individual is the same for all individuals in the population. With this in mind, I created several visualizations that answer the question, **what factors affect how easy it is to capture a frog?**
 
 ## About the Data
 
-For the final visualizations, I used two different data frames within the same [data publication](https://www.usgs.gov/data/oregon-spotted-frog-rana-pretiosa-captures-and-after-drought-mitigation-jack-creek-oregon-2009) by the United States Geological Survey (USGS). The first data frame contained the data on CMR surveys of the Oregon Spotted frog (Rana pretiosa) from 2009-2021. The data was initially in spread so that every year and visit per year was an individual column of 0s and 1s, indicating whether or not an individual was captured. Using `pivot_longer` , I split year and visit number into individual columns. This allowed me to easily sum the data so that I could count the number of frogs detected based on particular groups (reach, size, and size). The second data frame contained data on environmental variables around the time the surveys were conducted. I only focused on the NDVI column in this data set, as I hypothesized that vegetation density might make it easier or harder to catch frogs. The U.S. Fish & Wildlife service also hosts a geographic data set with the species range of several threatened, and endangered species. I used the [species range data](https://ecos.fws.gov/ecp/species/6633) to create a custom map for the infographic.
+For the final visualizations, I used two different data frames within the same [data publication](https://www.usgs.gov/data/oregon-spotted-frog-rana-pretiosa-captures-and-after-drought-mitigation-jack-creek-oregon-2009) by the United States Geological Survey (USGS). The first data frame contained the data on CMR surveys of the Oregon Spotted frog (*Rana pretiosa*) from 2009-2021. The raw data was in "long" format, where every year and visit number were an individual column of 0s and 1s, indicating whether or not an individual was captured. Using `pivot_longer` , I split year and visit number into individual columns. This allowed me to easily sum the data so that I could count the number of frogs detected based on particular groups (reach, sex, and size).
+
+The second data frame contained data on environmental variables around the time the surveys were conducted. I only focused on the NDVI column in this data set, as I hypothesized that vegetation density might impact the ease of catching frogs. The U.S. Fish & Wildlife service also hosts a geographic data set with the species range of several threatened, and endangered species. I used the [species range data](https://ecos.fws.gov/ecp/species/6633) to create a custom range map for the infographic.
 
 ### Read in data
 
@@ -164,7 +166,7 @@ rm(env_raw, frogs_raw, query)
 
 ### Species Range Map
 
-The species range map was not technically one of my visualizations, so I spent less time on it. Still, I wanted to ensure the theme matched in terms of font and color. I selected a light green, as it popped on the gray and match the overall frog theme. The inset map is an image from the original publication. I added it to highlight the two sites that would be compared in the "vegetation" portion.
+The species range map was not one of the key visualizations, and required minimal data wrangling. The USFWS dataset included ranges for all threatened or endangered species, so I used a query to select only the Oregon Spotted Frog range. To better demonstrate the study area, I added an inset map with labeled locations of interest. This map is an image from the original publication and has the site names clearly labeled which would be important for the "vegetation" figure.
 
 ```{r}
 # create species range map
@@ -210,7 +212,7 @@ ggplot() +
 
 ### Males vs. Females
 
-Since I was comparing two counts, I wanted to find a way to apply the frog theme to a bar chart. I was originally looking at lollipop charts when I got the idea to connect the point to a curved line, so it appeared as though the frog was jumping. Since the data presented in this plot was so simple, I wanted to remove as many of the plot elements as possible. For example, instead of a legend I directly wrote out the frog counts by each point. I also made the male and female frog different colors, which I kept consistent in the final inforgraphic caption. Additionally, after calculating the sum I changed the sex column to be the same character string so they would both be on the same axis.
+Since I was comparing counts, I decided I would create a unique version of a bar chart. I was originally looking at lollipop charts when I got the idea to connect the point to a curved line, so it appeared as though the frog was jumping. Since the data presented in this plot was so simple, I wanted to remove as many of the plot elements as possible. For example, instead of a legend I directly wrote out the frog counts by each point. I also made the male and female frog different colors, which I kept consistent in the final inforgraphic caption. Additionally, after calculating the sum I changed the sex column to be the same character string so both frogs would both be on the same axis.
 
 ```{r}
 ## ............. Data Preparation..................
@@ -274,7 +276,7 @@ ggplot(data = mf_count) +
 
 ### Size Distribution
 
-Since the size of frogs are a continuous range, I wanted to focus on which sizes were most common instead of directly including counts. Ideally, the distribution of frogs caught should be normally distributed, so I used arrows and notes to highlight where this was not the case. I chose the green color to continue the frog theme, and kept all my annotations black so they popped against the white background. I decided to still keep the gridlines to the two peaks could be more easily compared. Different animals have different standards for being measured, so I wanted to be sure to include an image that shows how the frogs were measured. Frogs are measured from snout to a feature called the urostyle. I decided this would be too difficult to describe in an infographic, so I narrowed down the definition to "length."
+Since frog size is a continuous variable, I wanted to focus on which sizes were most common instead of calculating totals. Ideally, the distribution of frogs caught would be normally distributed, so I used arrows and notes to highlight where this was not the case. I chose the green color to continue the frog theme, and kept all my annotations black so they popped against the white background. I decided to keep the gridlines so the two peaks could be easily compared. Different species have different standards for being measured, so I wanted to include an image that shows how the frogs were measured. Frogs are measured from snout to urostyle. Instead of defining urostyle, I summarized this measurement as "length" for simplicity.
 
 ```{r}
 ## ............. Data Preparation..................
@@ -324,7 +326,7 @@ ggplot(frogs_subset, aes(x = sul_mm)) +
 
 ### Vegetation
 
-For vegetation, I wanted to highlight several parts of the data including year, average summer normalized difference vegetation index (NDVI), and frog count. To avoid overly complex figures, I decided to focus only on NDVI over time and compare frog counts directly within the graphic. I originally had a line graph that demonstrated the Middle Jack site consistently had a higher NDVI than Upper Jamison. To highlight the differences more than the trends over time, I decided to create a dumbell plot instead. I came up with the idea to have lilypads in a pond, and decided that the color of the lilypad should match the sight. Since Middle Jack has more dense vegetation (higher NDVI), I made the leaf more green than the one for Upper Jamison. I also know that NDVI is not intuitive, so I added a line at 0 and text highlighting that values above zero indicate more dense vegetation.
+For vegetation, I wanted to highlight several parts of the data including year, average summer normalized difference vegetation index (NDVI), and frog count. To avoid overly complex figures, I decided to focus only on NDVI over time and compare frog counts directly within the graphic. I originally created a line graph that demonstrated NDVI over time for both sites. I decided against this, because I was more interested in displaying the difference not changes. Instead of the line graph, I opted for a dumbell plot to better demonstrate theses differences. I wanted the data points to look like lilypads in a pond. Since Middle Jack has more dense vegetation (higher NDVI), I made the leaf more green than the one for Upper Jamison. I also know that NDVI is not an intuitive variable, so I added a line at 0 and text highlighting that values above zero indicate more dense vegetation.
 
 ```{r}
 ## ............. Data Preparation..................
@@ -397,6 +399,6 @@ ggplot(env_db_data) +
 
 ## Infographic
 
-After creating my plots in R, I switched over to Canva to create the final infographic. Unfortunately, I realized that I had not considered some of the requirements for exporting images using `ggsave`. Instead of re-coding the plots, I decided to adjust some of the final titles and images in Canva. Since my overarching question is not clear on graphics alone, I started my infographic with a short background section. I also added a real photo of the Oregon Spotted Frog to improve visualization quality. I added vegetation as the final section since it required the most context.
+After creating my plots in R, I switched over to Canva to create the final infographic. Unfortunately, I realized that I had not considered some of the requirements for exporting images using `ggsave`. Instead of updating the code, I decided to adjust some of the final titles and images in Canva. Since my overarching question is not clear using visuals alone, I started my infographic with a short background section.
 
 ![](infographic.png)
