@@ -7,7 +7,7 @@ author:
     affiliation: MEDS
     affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science
 date: 03-12-2024
-categories: [MEDS, R, visualization]
+categories: [MEDS, R, Visualization]
 citation:
   url: https://github.com/briana-barajas/barajas-eds240-hw4
 image: rana-pretiosa.jpeg
