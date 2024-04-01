@@ -10,7 +10,7 @@ website:
     right: 
       - href: about.qmd
         text: About
-      - href: docs/bb-resume.pdf
+      - href: docs/Barajas_Briana_Resume.pdf
         text: Resume
       - href: Blog.qmd
         text: Blog
