@@ -36,7 +36,52 @@ Before I could start writing code for the dashboard, I needed to decide how to s
 To prevent errors in the `category` and `subcategory` columns, I created a drop down list to choose from. This would minimize misspellings and prevent the creation of duplicate columns. The `split` column is a binary to indicate if a single transaction falls under two difference categories (as shown in the Gift-Grocery example). The `split` and `note` columns are useful when viewing the raw data, but were removed before the data visualization step.
 
 ## Spending by Category
-Note
+My first visualization depicts categorized spending over any desired interval of time. In order to achieve this, I needed a reactive data frame that accepted date range, and category inputs.
+
+::: panel-tabset
+#### Server.R
+text
+
+#### ui.R
+text 2
+:::
+
+
+Mint had the option to toggle between a bar chart and a pie chart, but I focused on the bar chart since it's easier to compare groups visually. I started by creating the bar chart outside of the app, using `ggplot`. Instead of having a table of totals by category, I directly printed the totals on the bar chart.
+
+```{r, eval=FALSE}
+  output$cat_bar_chart_output <- renderPlot({
+    
+    # code for bar chart ----
+    ggplot(spending_by_cat_df(), aes(x = reorder(x = category, X = total_spent), 
+                                     y = total_spent, fill = category)) +
+      geom_col(aes(fill = category), show.legend = FALSE) +
+      scale_fill_manual(values = c("Shopping" = "#D6306D",
+                                   "Home" = "#72C8FF",
+                                   "Grocery" = "#7556ff",
+                                   "Education" = "#FEC009",
+                                   "Auto" = "#1BC599", 
+                                   "Gifts" = "#FD8588",
+                                   "Travel" = "#B4A4FE",
+                                   "Amusement" = "#FD9C4F",
+                                   "Health" = "#6FF7B4")) +
+      geom_text(aes(label = scales::dollar(round(total_spent, 0)), 
+                    hjust = -0.2), size = 5) +
+      scale_y_continuous(labels = scales::label_dollar(scale = 1),
+                         limits = c(0, 1000)) +
+      theme_light() +
+      labs(fill = "Category", y = "Total Spent") +
+      theme(axis.text.y = element_text(size = 16),
+            axis.text.x = element_text(size = 12),
+            axis.title.x = element_text(size = 16),
+            axis.title.y = element_blank(),
+            panel.border = element_blank()) +
+      coord_flip()
+    
+  })
+```
+
+
 
 ## Budget
 Note
