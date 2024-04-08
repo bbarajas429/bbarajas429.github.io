@@ -1,0 +1,45 @@
+---
+title: "Visualizing My Personal Spending Data Using R-Shiny"
+description: "Using R-Shiny to re-create the Mint (by Intuit) interactive dashboard"
+author: 
+  - name: "Briana Barajas"
+    url: https://briana-barajas.github.io/
+date: 04-10-2024
+categories: [R, Visualization, Dashboard]
+image: piggy-bank.jpeg
+draft: TRUE
+footnotes-hover: TRUE
+output: html_document
+format: 
+  html:
+    code-fold: TRUE
+    code-summary: "View Code"    
+---
+
+## Background
+
+In December 2023 it was announced that the Mint personal finance tool, hosted by [Intuit](https://www.intuit.com/), would no longer be supported. Mint users, such as myself, could download their historical spending data as a CSV file or switch over to [Credit Karma](https://www.creditkarma.com/). I initially transferred my data to Credit Karma, but I was not thrilled with the user interface. Unsurprisingly the site was focused more on tracking credit history, and I missed the simple interactive plots. In a bid to take control of my personal data, and to create an interactive dashboard on my own I decided to recreate the old dashboard (below).
+
+![](mint-spending-original.png){fig-align="center" width="974"}
+
+## Organizing the Data
+
+Before I could start writing code for the dashboard, I needed to decide how to structure my data. Mint's tool grouped spending based on categories they provided. Since I had been Mint for 4 years, I was familiar with my top spending categories and decided to keep most of the naming conventions. Using an Excel spreadsheet, I created a data table for my transaction history with the following structure:
+
+| purchase_date | store | total_cost | category | subcategory | split | note                     |
+|--------------|---------|-----------|------------|--------------|---------|-----|
+| 2/18/24       | shop1 | 12.34      | Home     | Supplies    | 0     | NA                       |
+| 2/28/24       | shop2 | 41.23      | Auto     | Gas         | 0     | NA                       |
+| 3/01/24       | shop3 | 10.00      | Gift     | Donation    | 1     | Donated at grocery store |
+| 3/01/24       | shop3 | 5.92       | Grocery  | Grocery     | 1     | NA                       |
+
+To prevent errors in the `category` and `subcategory` columns, I created a drop down list to choose from. This would minimize misspellings and prevent the creation of duplicate columns. The `split` column is a binary to indicate if a single transaction falls under two difference categories (as shown in the Gift-Grocery example). The `split` and `note` columns are useful when viewing the raw data, but were removed before the data visualization step.
+
+## Spending by Category
+Note
+
+## Budget
+Note
+
+## Conclusion
+Note
