@@ -9,9 +9,9 @@ format:
 
 ## Professional Background
 
-I graduated from the University of California, Santa Barbara in 2022 with a B.S. in Zoology. During that time, I assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. After graduating, I held various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture. It is through these experiences that I found a passion for the intersection between land management and integrated pest management.\
+I graduated from the University of California, Santa Barbara in 2022 with a B.S. in Zoology. During that time, I assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. After graduating, I held various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture.\
 \
-I am currently pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, I hope to use remote sensing data to examine how forest ecosystem stressors, such as insect-transmitted pathogens, impact ecosystem function. My goal is to contribute to informed decision-making regarding the management of public lands.
+I am currently pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, I hope to use spatial data to assess landscape changes, and the impact of ecosystem stressors including climate change, disease, and invasive species.
 
 ## Education
 
@@ -21,7 +21,7 @@ B.S. Zoology - University of California, Santa Barbara (2022)
 
 ## Bird Watching
 
-Part of my undergraduate coursework included a vertebrate lab that consisted primarily of bird watching. I quickly got hooked and purchased binoculars soon after completing the course. I keep track of most of my finds using the Merlin and eBird apps, which are maintained by the [Cornell Lab of Ornithology.](https://www.birds.cornell.edu/home/)
+One of my favorite undergraduate classes was my vertebrate lab. I had the opportunity to visit sites across Santa Barbara to go bird watching, and learn about wildlife surveying techniques. I have continued to bird watch ever since, and keep track of my sightings using the Merlin and eBird apps, which are maintained by the [Cornell Lab of Ornithology.](https://www.birds.cornell.edu/home/)
 
 I thought it would be fun to visualize my personal bird sightings using a `leaflet` map:
 
