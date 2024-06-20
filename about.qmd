@@ -11,11 +11,11 @@ format:
 
 I graduated from the University of California, Santa Barbara in 2022 with a B.S. in Zoology. During that time, I assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. After graduating, I held various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture.\
 \
-I am currently pursuing a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, I hope to use spatial data to assess landscape changes, and the impact of ecosystem stressors including climate change, disease, and invasive species.
+I went on to pursue a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, I hope to use spatial data to assess landscape changes, and the impact of ecosystem stressors including climate change, disease, and invasive species.
 
 ## Education
 
-Master of Environmental Data Science - University of California, Santa Barbara (Expected June 2024)
+Master of Environmental Data Science - University of California, Santa Barbara (2024)
 
 B.S. Zoology - University of California, Santa Barbara (2022)
 

@@ -28,6 +28,6 @@ about:
 
 <p class="center-text-about">
 
-My name is Briana Barajas, and I am a currently a graduate student earning my Master's of Environmental Data Science. I am excited to tackle data-driven questions about conservation, and the changing landscape. Outside of coding, I spending my time [bird watching](https://briana-barajas.github.io/about.html#bird-watching), running, and reading.
+Welcome to my page! I am a budding environmental data scientist ready to tackle questions about conservation and the ever-changing landscape. Outside of coding, I spending my time [bird watching](https://briana-barajas.github.io/about.html#bird-watching), swimming, and reading.
 
 </p>
