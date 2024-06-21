@@ -54,33 +54,31 @@ clim_2015_2023 <- read_csv(here('blog-posts/2023-12-10-luquillo-drought/data/NAD
 
 ## Motivation
 
-Climate change, in conjunction with other environmental stressors, continue to threaten forests around the world. Mass tree deaths, fires, and deforestation can create a negative feedback loop, turning these well-recognized carbon sinks into a source. Forests are also recognized for their role in preventing erosion, filtering air pollution, and providing habitat and recreation for people and wildlife alike.
+Climate change, in conjunction with other environmental stressors, continue to threaten forests around the world. Mass tree deaths, fires, and deforestation can create a negative feedback loop, turning these well-recognized carbon sinks into a carbon source. Forests are also recognized for their role in preventing erosion, filtering air, and providing habitat and recreation.
 
-Droughts have been proven to adversely affect forest health. Minimal and inconsistent water supply affects phenology and increases the chance of insect outbreaks or wildfires[^1]. While the severity of these threats is not novel to me, I recognized that most of my knowledge on the topic at hand was based on studies conducted in temperate forests. I was curious to learn more about how forests impacted tropical species, which I presume would be far less adapted to severe weather fluctuations.
+Droughts have been proven to adversely affect forest health. Minimal and inconsistent water supply affects phenology and increases the chance of insect outbreaks or wildfires[^1]. While the severity of these threats is not novel to me, I recognized that most of my knowledge on the topic was based on studies conducted in temperate forests. I was curious to learn more about how droughts impacted tropical species, which are less adapted to severe weather fluctuations.
 
 [^1]: *Effects of Drought on Forests and Rangelands \| Climate Change Resource Center*. <https://www.fs.usda.gov/ccrc/topics/effects-drought-forests-and-rangelands>. Accessed 10 Dec. 2023.
 
 ## Goal
 
-Conduct various linear regressions to mathematically summarize tropical forest growth under drought conditions, and examine if tree species belonging to families with widespread distributions exhibit lower drought vulnerability.
+To conduct a statistical assessment of tropical tree growth under drought conditions. This was accomplished using a series of linear regressions to model the relationship between tree growth and several climate variables. Using these regressions, I sought to examine if tree species with a widespread familial distribution (left) were better prepared for droughts than species with narrow familial distribution (right).
 
 [![Distribution data from Global Biodiversity Information Facility (GBIF)](family-distribution.png){fig-align="center"}](https://www.gbif.org/)
-
-Since species distributions for tree species in this study are not readily available, I will be comparing species from lineages with wide versus narrow distributions.
 
 ## Data
 
 #### About the Data
 
-Data on tree diameter changes were available through the DataONE interface. This dataset includes measures of tree diameter at breast height (dbh) for several tropical tree species in the Luquillo National Research Forest in Puerto Rico. I chose this data since the Luquillo Forest is part of the Long-Term Ecological Research Network, and meteorological data in this area was well recorded. Additionally, these diameter measurements were taken during a notable drought, lasting from 2013-2016. 
+Data of tree diameter over time is publicly available from the DataONE repository. This dataset includes measures of tree diameter at breast height (dbh) for several tropical tree species in the Luquillo National Research Forest in Puerto Rico. The Luquillo Forest is part of the Long-Term Ecological Research Network (LTER), so substantial meteorological data for the area was also available. The diameter measurements were taken during a severe drought, lasting from 2013 to 2016.
 
-To avoid model overfitting, I only wanted to include climate variables that both represent drought conditions and have a potentially larger impact on tree growth. I used mean average temperature and total rainfall to relate tree growth and drought. I also decided to include photosynthetic photon flux density (ppfd), since it directly relates to plants. PPFD is a measure of the number of photons between the 400 and 700nm wavelengths that are hitting surfaces per unit time. These wavelengths are optimal for plant molecules to absorb[^2].
+Although there were several climate variables available, I reduced the number of variables in the models to minimize the possibility of over fitting. Mean average temperature and total rainfall were included to summarize the effects of drought. Photosynthetic photon flux density (ppfd) was also included. PPFD is a measurement of the number of photons between 400 and 700 nm in wavelength, and how frequently these waves this the leaf's surface. This wavelength range is optimal for plant molecules to absorb, thus ppfd acts as a measurement of energy available for plants.[^2]
 
 [^2]: Rabinowitz, Harold, and Suzanne Vogel, editors. "Chapter 11 - Style and Usage in Earth Science and Environmental Science." *The Manual of Scientific Style*, Academic Press, 2009, pp. 427--68. *ScienceDirect*, <https://doi.org/10.1016/B978-012373980-3.50015-0>.
 
 #### Tree Species
 
-To improve predictive capabilities, I selected the four most sampled species that fell within one of two categories for familial distribution. Species and family information was pulled from the metadata, but I will summarize it here:
+In an effort to minimize error, modeling was limited to the four most sampled tree species. Species were also selected based on their taxonomic family, and whether that family had a wide or narrow distribution. Species and family information was provided in the metadata, but I will summarize it here:
 
 | Abbreviation |        Species        |    Family     | Family Distribution |
 |:------------:|:---------------------:|:-------------:|:-------------------:|
@@ -185,7 +183,7 @@ clim_dbh_full <- left_join(dbh, daily_conditions, by = c('date','year_mo'))
 
 #### Exploration - Climate Trends
 
-The following plots show time series decomposition from June 2014 to July 2016 for average monthly temperature and total monthly rainfall. Although the seasonality component contributes more to the overall shape of the line, the decomposed trends still demonstrate signs of drought (increasing temperature and decreasing rainfall).
+The following plots show time series decomposition from June 2014 to July 2016 for average monthly temperature and total monthly rainfall. The `seasonal_year` plot suggest that seasonality has a high contribution to changes in rainfall and temperature. By removing seasonal fluctuations, you can view the overall `trend` exhibited by the climate variables. The increase in temperature and decrease in rainfall display the symptoms of drought.
 
 ::: panel-tabset
 #### Rainfall Decomposition
@@ -215,7 +213,7 @@ components(temp_dcmp) %>% autoplot()
 
 #### Exploration - Diameter Trends
 
-Diameter trends for all species selected appear linear, so testing linear regression fit is within reason.
+Diameter trends for all species selected appear linear:
 
 ```{r}
 ggplot(data = dbh, aes(x=date, y= mean_daily_dbh, col = distribution)) +
@@ -234,9 +232,9 @@ ggplot(data = dbh, aes(x=date, y= mean_daily_dbh, col = distribution)) +
 
 ### Simple linear regression
 
-A simple linear regression time series looking at tree diameter (y) over time (x) for four species. This can be written out mathematically as:$$ \hat{y} = \beta_0 + \beta_1 x_1  $$
+A simple time series regression looking at tree diameter (y) over time (x) for the four species was conducted first. This can be written out mathematically as:$$ \hat{y} = \beta_0 + \beta_1 x_1  $$
 
-Where $\beta_1$ is the average change in dbh given a one unit change in time ($x_1$), and $\beta_0$ is the estimated diameter when time ($x_1$) is zero.
+Where $\beta_1$ is the average change in diameter given a one unit change in time ($x_1$), and $\beta_0$ is the estimated diameter when time ($x_1$) is zero.
 
 ```{r}
 # create subsets for each individual species
@@ -314,7 +312,7 @@ casarb_model3 <- dynlm(mean_daily_dbh ~ lag(tot_rain_mm, 1) + lag(avg_temp_c, 1)
                          lag(avg_ppfd_mmol_m2, 1), data = casarb)
 ```
 
-I did not run these models, as I realized they were producing very high adjusted r-squared values, between 0.96-1. Oftentimes inflated adjusted r-sqaured values are caused by autocorrelation, which violates one of the assumptions that must be met to run a dynamic linear model. The autocorrelation between previous and current diameter breast height was very high, and can be seen by creating an ACF plot:
+Upon running these models, I recognized they were producing abnormally high values of r-squared (between 0.96 and 1). Inflated values of the adjusted r-squared can be caused by autocorrelation, which violates one of the assumptions that must be met to run a dynamic linear model. The autocorrelation between previous and current diameter breast height was very high, and can be seen by creating an ACF plot:
 
 ```{r}
 acf(casarb$mean_daily_dbh, lag.max = 12, na.action = na.pass,  main = 'Autocorrelation for CASARB Diameter')
@@ -322,12 +320,12 @@ acf(casarb$mean_daily_dbh, lag.max = 12, na.action = na.pass,  main = 'Autocorre
 
 ## Results
 
-After running several regressions, I found that increasing complexity rarely improved the model. In fact, the simple static time series for *C. arborea* (CASARB) was one of the most accurate, with a model that explained 70% of variation in diameter growth (y). CASARB has the largest increase in mean diameter height between the first and last measurement, and I believe this is what produced such a well-fitting model. Given more time, I predict that time alone would be a much better indicator of diameter growth than what is demonstrated here. All species except *M. bidentata* (MANBID) experienced decreases in adjusted r-squared values when climate variables were added. This suggests climate variables were likely excessive and caused overfitting, but the one exception is interesting. By adding climate variables, the new MANBID model explained 30% of variation in diameter, as opposed to 12% in the initial model. While this percentage is still rather low, it suggests potential discrepancies between which tree species are more rapidly impacted by climate.
+After running several regressions, I found that the addition of climate variables did not improve the model's predictive capabilities. In fact, the simple time series for *C. arborea* (CASARB) was the most accurate, with a model that explained 70% of variation in diameter growth (y). CASARB has the largest increase in mean diameter height between the first and last measurement, and I believe this is what produced such a well-performing model. Given more time, I predict that time alone would be a much better indicator of diameter growth than what is demonstrated here. All species except *M. bidentata* (MANBID) experienced decreases in adjusted r-squared values when climate variables were added. This suggests climate variables caused overfitting, but the one exception is interesting. By adding climate variables, the MANBID model explained 30% of variation in diameter, as opposed to 12% in the initial model. While this percentage is still rather low, it suggests potential discrepancies between which tree species are more rapidly impacted by climate.
 
 ## Limitations
 
-Given more time, I would have analyzed the change in diameter at breast height between measurements instead of dbh itself. This could potentially reduce autocorrelation, so a dynamic time series could be run instead. Alternatively, an auto regressive moving average (or ARIMA) model would allow me to compare these changes regardless of the high autocorrelation. As mentioned, I suspect that data collected over a longer period of time would demonstrate a stronger linear relationship between tree diameter and time. To expand this analysis, growth rates during periods of drought could be compared to rates during favorable climate conditions.
+Given more time, I would have analyzed the change in diameter at breast height between measurements instead of the diameter itself. This could reduce the impact of autocorrelation, so a dynamic time series could be run instead. Alternatively, an auto regressive moving average (or ARIMA) model would allow me to compare diameters regardless of the high autocorrelation. As mentioned, I suspect that data collected over a longer period would demonstrate a stronger linear relationship between tree diameter and time. To expand this analysis, growth rates during periods of drought could be compared to rates during favorable climate conditions.
 
 ## Conclusion
 
-Much more work needs to be done to properly assess the impact that climate change has on tropical rain forests, and how these impacts may different from temperature forests. Data on trees physiological responses can be much harder to collect, leaving gaps in historic records. Similarly, distribution data can be hard to difficult consolidate. Still, improvements in technology, climate science, and environmental empathy continue to lead us in the right direction.
+Much more work needs to be done to properly assess the impact that climate change has on tropical rain forests, and how these impacts may be different from temperate forests. Data on trees physiological responses can be much harder to collect, leaving gaps in historic records. Similarly, species distribution data can be hard to difficult consolidate. Still, improvements in technology, climate science, and environmental empathy continue to lead us in the right direction.
