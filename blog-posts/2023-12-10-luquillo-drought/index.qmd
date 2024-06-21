@@ -24,7 +24,7 @@ format:
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-```{r}
+```{r, include=FALSE}
 library(tidyverse)
 library(here)
 library(janitor)
