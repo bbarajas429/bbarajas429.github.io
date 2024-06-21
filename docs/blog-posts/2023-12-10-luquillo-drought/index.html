@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,12 +20,11 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -50,13 +49,43 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -83,13 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -98,73 +121,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../images/logo.png" alt="" class="navbar-logo">
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../Barajas_Briana_Resume.pdf"> 
-<span class="menu-text">Resume</span></a>
+    <a class="nav-link" href="../../Barajas_Briana_Resume.pdf">
+ <span class="menu-text">Resume</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../Blog.html"> 
-<span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="../../Blog.html">
+ <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-contact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -189,9 +181,8 @@ window.Quarto = {
     </ul>
   </li>
 </ul>
+              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
-</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -218,16 +209,16 @@ window.Quarto = {
     <div class="quarto-title-meta-heading">Affiliation</div>
     
       <div class="quarto-title-meta-contents">
-      <p class="author"><a href="https://briana-barajas.github.io/">Briana Barajas</a> </p>
+      <a href="https://briana-barajas.github.io/">Briana Barajas</a> 
     </div>
-    <div class="quarto-title-meta-contents">
+      <div class="quarto-title-meta-contents">
           <p class="affiliation">
               <a href="https://bren.ucsb.edu/masters-programs/master-environmental-data-science">
               MEDS
               </a>
             </p>
         </div>
-    </div>
+      </div>
 
   <div class="quarto-title-meta">
 
@@ -257,7 +248,12 @@ window.Quarto = {
   <li><a href="#analysis---static-time-series" id="toc-analysis---static-time-series" class="nav-link" data-scroll-target="#analysis---static-time-series">Analysis - Static Time Series</a>
   <ul class="collapse">
   <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple linear regression</a></li>
+  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression</a></li>
   </ul></li>
+  <li><a href="#analysis---dynamic-time-series" id="toc-analysis---dynamic-time-series" class="nav-link" data-scroll-target="#analysis---dynamic-time-series">Analysis - Dynamic Time Series</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
     </div>
@@ -267,9 +263,8 @@ window.Quarto = {
 
 
 
-
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>View Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
@@ -305,12 +300,8 @@ window.Quarto = {
 <p>To conduct a statistical assessment of tropical tree growth under drought conditions. This was accomplished using a series of linear regressions to model the relationship between tree growth and several climate variables. Using these regressions, I sought to examine if tree species with a widespread familial distribution (left) were better prepared for droughts than species with narrow familial distribution (right).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://www.gbif.org/"><img src="family-distribution.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Distribution data from Global Biodiversity Information Facility (GBIF)"></a></p>
-</figure>
-</div>
-<figcaption>Distribution data from Global Biodiversity Information Facility (GBIF)</figcaption>
+<p><a href="https://www.gbif.org/"><img src="family-distribution.png" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">Distribution data from Global Biodiversity Information Facility (GBIF)</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -371,7 +362,7 @@ window.Quarto = {
 <h4 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h4>
 <p>Although data collection for tree diameters began in 2011, measurements were not consistently taken until June 2014. In order to create time series models without significant data gaps, I restricted the data from June 2014 to July 2016, when diameter data was collected monthly.</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>View Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## =====================================</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">##           Clean Tree Data        ----</span></span>
@@ -409,7 +400,7 @@ window.Quarto = {
 </div>
 <p>Climate data that was collected daily had far more missing values than data collected hourly, so I used hourly climate data to calculate daily and monthly averages.</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>View Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## =====================================</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">##           Clean Climate Data     ----</span></span>
@@ -471,12 +462,12 @@ window.Quarto = {
 <section id="exploration---climate-trends" class="level4">
 <h4 class="anchored" data-anchor-id="exploration---climate-trends">Exploration - Climate Trends</h4>
 <p>The following plots show time series decomposition from June 2014 to July 2016 for average monthly temperature and total monthly rainfall. The <code>seasonal_year</code> plot suggest that seasonality has a high contribution to changes in rainfall and temperature. By removing seasonal fluctuations, you can view the overall <code>trend</code> exhibited by the climate variables. The increase in temperature and decrease in rainfall display the symptoms of drought.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
+<div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Rainfall Decomposition</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Temperature Decomposition</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>View Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># decompose monthly rain variable</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>rain_dcmp <span class="ot">&lt;-</span> monthly_conditions <span class="sc">%&gt;%</span> </span>
@@ -487,17 +478,13 @@ window.Quarto = {
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">components</span>(rain_dcmp) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>View Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># decompose monthly average temperature</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>temp_dcmp <span class="ot">&lt;-</span> monthly_conditions <span class="sc">%&gt;%</span> </span>
@@ -508,11 +495,7 @@ window.Quarto = {
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">components</span>(temp_dcmp) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -523,7 +506,7 @@ window.Quarto = {
 <h4 class="anchored" data-anchor-id="exploration---diameter-trends">Exploration - Diameter Trends</h4>
 <p>Diameter trends for all species selected appear linear overall. Some species experienced faster relative growth, particularly CASARB and MANBID which had smaller diameters overall.</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>View Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dbh, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span> mean_daily_dbh, <span class="at">col =</span> distribution)) <span class="sc">+</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -537,11 +520,7 @@ window.Quarto = {
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -550,22 +529,22 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="analysis---static-time-series">Analysis - Static Time Series</h2>
 <p>In order to summarize the results I was most interested in, I developed the following function:</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>View Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create function to run model and clean results</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tidy_results_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(model, data){</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># clean model outputs</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  tidy <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(model)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  summary <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">glance</span>(model)</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># combine desired results</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  tidy<span class="sc">$</span>adj_r_squared <span class="ot">&lt;-</span> <span class="fu">c</span>(summary<span class="sc">$</span>adj.r.squared, <span class="cn">NA</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  tidy<span class="sc">$</span>r_sqaured <span class="ot">&lt;-</span> <span class="fu">c</span>(summary<span class="sc">$</span>r.squared, <span class="cn">NA</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># combine desired results (keeping R/R^2 only once)</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  tidy<span class="sc">$</span>adj_r_squared <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(tidy) <span class="sc">==</span> <span class="dv">1</span>, summary<span class="sc">$</span>adj.r.squared, <span class="cn">NA</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  tidy<span class="sc">$</span>r_squared <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(tidy) <span class="sc">==</span> <span class="dv">1</span>, summary<span class="sc">$</span>r.squared, <span class="cn">NA</span>)</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># save results to environment</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assign</span>(<span class="fu">paste0</span>(<span class="fu">tolower</span>(<span class="fu">unique</span>(data<span class="sc">$</span>species)), <span class="st">"_model"</span>), tidy, <span class="at">envir =</span> .GlobalEnv)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -574,46 +553,45 @@ window.Quarto = {
 <p>A simple time series regression looking at tree diameter (y) over time (x) for the four species was conducted first. This can be written out mathematically as:<span class="math display">\[ \hat{y} = \beta_0 + \beta_1 x_1  \]</span></p>
 <p>Where <span class="math inline">\(\beta_1\)</span> is the average change in diameter given a one unit change in time (<span class="math inline">\(x_1\)</span>), and <span class="math inline">\(\beta_0\)</span> is the estimated diameter when time (<span class="math inline">\(x_1\)</span>) is zero.</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>View Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># apply function to all species</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">unique</span>(clim_dbh_full<span class="sc">$</span>species)) {</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> clim_dbh_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">==</span> i)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date, <span class="at">data =</span> data)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy_results_fun</span>(model, data)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># combine species based on distributions</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>wide <span class="ot">&lt;-</span> <span class="fu">rbind</span>(inglau_model, casarb_model) <span class="sc">%&gt;%</span> <span class="fu">gt</span>()</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>narrow <span class="ot">&lt;-</span> <span class="fu">rbind</span>(dacexc_model, manbid_model) <span class="sc">%&gt;%</span> <span class="fu">gt</span>()</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># view for wide distribution</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>wide <span class="sc">%&gt;%</span> </span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="st">"Wide Familial Distribution"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"I. laurina"</span>, <span class="at">rows =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"C. arborea"</span>, <span class="at">rows =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">row_group.background.color =</span> <span class="st">"grey90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> clim_dbh_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">==</span> i)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date, <span class="at">data =</span> data)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy_results_fun</span>(model, data)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># combine species based on distributions</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>wide <span class="ot">&lt;-</span> <span class="fu">rbind</span>(inglau_model, casarb_model) <span class="sc">%&gt;%</span> <span class="fu">gt</span>()</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>narrow <span class="ot">&lt;-</span> <span class="fu">rbind</span>(dacexc_model, manbid_model) <span class="sc">%&gt;%</span> <span class="fu">gt</span>()</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># view for wide distribution</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>wide <span class="sc">%&gt;%</span> </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="st">"Wide Distribution"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"I. laurina"</span>, <span class="at">rows =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"C. arborea"</span>, <span class="at">rows =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">row_group.background.color =</span> <span class="st">"grey90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
-<div id="zrccepqswu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zrccepqswu table {
+
+<div id="udwnbvvycc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#udwnbvvycc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zrccepqswu thead, #zrccepqswu tbody, #zrccepqswu tfoot, #zrccepqswu tr, #zrccepqswu td, #zrccepqswu th {
+#udwnbvvycc thead, #udwnbvvycc tbody, #udwnbvvycc tfoot, #udwnbvvycc tr, #udwnbvvycc td, #udwnbvvycc th {
   border-style: none;
 }
 
-#zrccepqswu p {
+#udwnbvvycc p {
   margin: 0;
   padding: 0;
 }
 
-#zrccepqswu .gt_table {
+#udwnbvvycc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -639,12 +617,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#zrccepqswu .gt_caption {
+#udwnbvvycc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zrccepqswu .gt_title {
+#udwnbvvycc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -656,7 +634,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#zrccepqswu .gt_subtitle {
+#udwnbvvycc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -668,7 +646,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#zrccepqswu .gt_heading {
+#udwnbvvycc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -680,13 +658,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#zrccepqswu .gt_bottom_border {
+#udwnbvvycc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zrccepqswu .gt_col_headings {
+#udwnbvvycc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -701,7 +679,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#zrccepqswu .gt_col_heading {
+#udwnbvvycc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -721,7 +699,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#zrccepqswu .gt_column_spanner_outer {
+#udwnbvvycc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -733,15 +711,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#zrccepqswu .gt_column_spanner_outer:first-child {
+#udwnbvvycc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zrccepqswu .gt_column_spanner_outer:last-child {
+#udwnbvvycc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zrccepqswu .gt_column_spanner {
+#udwnbvvycc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -753,11 +731,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#zrccepqswu .gt_spanner_row {
+#udwnbvvycc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zrccepqswu .gt_group_heading {
+#udwnbvvycc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -783,7 +761,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#zrccepqswu .gt_empty_group_heading {
+#udwnbvvycc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #E5E5E5;
@@ -798,15 +776,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#zrccepqswu .gt_from_md > :first-child {
+#udwnbvvycc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zrccepqswu .gt_from_md > :last-child {
+#udwnbvvycc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zrccepqswu .gt_row {
+#udwnbvvycc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -825,7 +803,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#zrccepqswu .gt_stub {
+#udwnbvvycc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -838,7 +816,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#zrccepqswu .gt_stub_row_group {
+#udwnbvvycc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -852,15 +830,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#zrccepqswu .gt_row_group_first td {
+#udwnbvvycc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zrccepqswu .gt_row_group_first th {
+#udwnbvvycc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zrccepqswu .gt_summary_row {
+#udwnbvvycc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -870,16 +848,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#zrccepqswu .gt_first_summary_row {
+#udwnbvvycc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zrccepqswu .gt_first_summary_row.thick {
+#udwnbvvycc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zrccepqswu .gt_last_summary_row {
+#udwnbvvycc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -889,7 +867,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#zrccepqswu .gt_grand_summary_row {
+#udwnbvvycc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -899,7 +877,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#zrccepqswu .gt_first_grand_summary_row {
+#udwnbvvycc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -909,7 +887,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#zrccepqswu .gt_last_grand_summary_row_top {
+#udwnbvvycc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -919,11 +897,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#zrccepqswu .gt_striped {
+#udwnbvvycc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zrccepqswu .gt_table_body {
+#udwnbvvycc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -932,7 +910,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#zrccepqswu .gt_footnotes {
+#udwnbvvycc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -946,7 +924,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#zrccepqswu .gt_footnote {
+#udwnbvvycc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -955,7 +933,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#zrccepqswu .gt_sourcenotes {
+#udwnbvvycc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -969,7 +947,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#zrccepqswu .gt_sourcenote {
+#udwnbvvycc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -977,159 +955,151 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#zrccepqswu .gt_left {
+#udwnbvvycc .gt_left {
   text-align: left;
 }
 
-#zrccepqswu .gt_center {
+#udwnbvvycc .gt_center {
   text-align: center;
 }
 
-#zrccepqswu .gt_right {
+#udwnbvvycc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zrccepqswu .gt_font_normal {
+#udwnbvvycc .gt_font_normal {
   font-weight: normal;
 }
 
-#zrccepqswu .gt_font_bold {
+#udwnbvvycc .gt_font_bold {
   font-weight: bold;
 }
 
-#zrccepqswu .gt_font_italic {
+#udwnbvvycc .gt_font_italic {
   font-style: italic;
 }
 
-#zrccepqswu .gt_super {
+#udwnbvvycc .gt_super {
   font-size: 65%;
 }
 
-#zrccepqswu .gt_footnote_marks {
+#udwnbvvycc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zrccepqswu .gt_asterisk {
+#udwnbvvycc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zrccepqswu .gt_indent_1 {
+#udwnbvvycc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zrccepqswu .gt_indent_2 {
+#udwnbvvycc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zrccepqswu .gt_indent_3 {
+#udwnbvvycc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zrccepqswu .gt_indent_4 {
+#udwnbvvycc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zrccepqswu .gt_indent_5 {
+#udwnbvvycc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-
-<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="header gt_heading">
-<th colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border">Wide Familial Distribution</th>
-</tr>
-<tr class="odd gt_col_headings">
-<th id="term" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">term</th>
-<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">estimate</th>
-<th id="std.error" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">std.error</th>
-<th id="statistic" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">statistic</th>
-<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">p.value</th>
-<th id="adj_r_squared" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">adj_r_squared</th>
-<th id="r_sqaured" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">r_sqaured</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd gt_group_heading_row">
-<td colspan="7" id="C. arborea" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">C. arborea</td>
-</tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_left" headers="C. arborea  term">(Intercept)</td>
-<td class="gt_row gt_right" headers="C. arborea  estimate">-55.41282623</td>
-<td class="gt_row gt_right" headers="C. arborea  std.error">2.007586e+01</td>
-<td class="gt_row gt_right" headers="C. arborea  statistic">-2.7601721</td>
-<td class="gt_row gt_right" headers="C. arborea  p.value">8.456750e-03</td>
-<td class="gt_row gt_right" headers="C. arborea  adj_r_squared">0.70391672</td>
-<td class="gt_row gt_right" headers="C. arborea  r_sqaured">0.71064589</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="C. arborea  term">date</td>
-<td class="gt_row gt_right" headers="C. arborea  estimate">0.01244958</td>
-<td class="gt_row gt_right" headers="C. arborea  std.error">1.211459e-03</td>
-<td class="gt_row gt_right" headers="C. arborea  statistic">10.2765188</td>
-<td class="gt_row gt_right" headers="C. arborea  p.value">3.747518e-13</td>
-<td class="gt_row gt_right" headers="C. arborea  adj_r_squared">NA</td>
-<td class="gt_row gt_right" headers="C. arborea  r_sqaured">NA</td>
-</tr>
-<tr class="even gt_group_heading_row">
-<td colspan="7" id="I. laurina" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">I. laurina</td>
-</tr>
-<tr class="odd gt_row_group_first">
-<td class="gt_row gt_left" headers="I. laurina  term">(Intercept)</td>
-<td class="gt_row gt_right" headers="I. laurina  estimate">-32.27795546</td>
-<td class="gt_row gt_right" headers="I. laurina  std.error">1.112263e+02</td>
-<td class="gt_row gt_right" headers="I. laurina  statistic">-0.2902007</td>
-<td class="gt_row gt_right" headers="I. laurina  p.value">7.730576e-01</td>
-<td class="gt_row gt_right" headers="I. laurina  adj_r_squared">0.05806837</td>
-<td class="gt_row gt_right" headers="I. laurina  r_sqaured">0.07947591</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="I. laurina  term">date</td>
-<td class="gt_row gt_right" headers="I. laurina  estimate">0.01293233</td>
-<td class="gt_row gt_right" headers="I. laurina  std.error">6.711850e-03</td>
-<td class="gt_row gt_right" headers="I. laurina  statistic">1.9267901</td>
-<td class="gt_row gt_right" headers="I. laurina  p.value">6.063085e-02</td>
-<td class="gt_row gt_right" headers="I. laurina  adj_r_squared">NA</td>
-<td class="gt_row gt_right" headers="I. laurina  r_sqaured">NA</td>
-</tr>
-</tbody>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Wide Distribution</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="term">term</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="estimate">estimate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="std.error">std.error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="statistic">statistic</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="p.value">p.value</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="adj_r_squared">adj_r_squared</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="r_squared">r_squared</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <th colspan="7" class="gt_group_heading" scope="colgroup" id="C. arborea">C. arborea</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="C. arborea  term" class="gt_row gt_left">(Intercept)</td>
+<td headers="C. arborea  estimate" class="gt_row gt_right">-55.41282623</td>
+<td headers="C. arborea  std.error" class="gt_row gt_right">2.007586e+01</td>
+<td headers="C. arborea  statistic" class="gt_row gt_right">-2.7601721</td>
+<td headers="C. arborea  p.value" class="gt_row gt_right">8.456750e-03</td>
+<td headers="C. arborea  adj_r_squared" class="gt_row gt_right">0.70391672</td>
+<td headers="C. arborea  r_squared" class="gt_row gt_right">0.71064589</td></tr>
+    <tr><td headers="C. arborea  term" class="gt_row gt_left">date</td>
+<td headers="C. arborea  estimate" class="gt_row gt_right">0.01244958</td>
+<td headers="C. arborea  std.error" class="gt_row gt_right">1.211459e-03</td>
+<td headers="C. arborea  statistic" class="gt_row gt_right">10.2765188</td>
+<td headers="C. arborea  p.value" class="gt_row gt_right">3.747518e-13</td>
+<td headers="C. arborea  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="C. arborea  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="7" class="gt_group_heading" scope="colgroup" id="I. laurina">I. laurina</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="I. laurina  term" class="gt_row gt_left">(Intercept)</td>
+<td headers="I. laurina  estimate" class="gt_row gt_right">-32.27795546</td>
+<td headers="I. laurina  std.error" class="gt_row gt_right">1.112263e+02</td>
+<td headers="I. laurina  statistic" class="gt_row gt_right">-0.2902007</td>
+<td headers="I. laurina  p.value" class="gt_row gt_right">7.730576e-01</td>
+<td headers="I. laurina  adj_r_squared" class="gt_row gt_right">0.05806837</td>
+<td headers="I. laurina  r_squared" class="gt_row gt_right">0.07947591</td></tr>
+    <tr><td headers="I. laurina  term" class="gt_row gt_left">date</td>
+<td headers="I. laurina  estimate" class="gt_row gt_right">0.01293233</td>
+<td headers="I. laurina  std.error" class="gt_row gt_right">6.711850e-03</td>
+<td headers="I. laurina  statistic" class="gt_row gt_right">1.9267901</td>
+<td headers="I. laurina  p.value" class="gt_row gt_right">6.063085e-02</td>
+<td headers="I. laurina  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="I. laurina  r_squared" class="gt_row gt_right">NA</td></tr>
+  </tbody>
+  
+  
 </table>
-
 </div>
 </div>
-</div>
-<details class="code-fold">
+<details>
 <summary>View Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view results for narrow distribution</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>narrow <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="st">"Wide Familial Distribution"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="st">"Narrow Distribution"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"D. excelsa"</span>, <span class="at">rows =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"M. bidentata"</span>, <span class="at">rows =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">row_group.background.color =</span> <span class="st">"grey90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
-<div id="hijwofhbnz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hijwofhbnz table {
+
+<div id="pkszqgjbzr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pkszqgjbzr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hijwofhbnz thead, #hijwofhbnz tbody, #hijwofhbnz tfoot, #hijwofhbnz tr, #hijwofhbnz td, #hijwofhbnz th {
+#pkszqgjbzr thead, #pkszqgjbzr tbody, #pkszqgjbzr tfoot, #pkszqgjbzr tr, #pkszqgjbzr td, #pkszqgjbzr th {
   border-style: none;
 }
 
-#hijwofhbnz p {
+#pkszqgjbzr p {
   margin: 0;
   padding: 0;
 }
 
-#hijwofhbnz .gt_table {
+#pkszqgjbzr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1155,12 +1125,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#hijwofhbnz .gt_caption {
+#pkszqgjbzr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hijwofhbnz .gt_title {
+#pkszqgjbzr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1172,7 +1142,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#hijwofhbnz .gt_subtitle {
+#pkszqgjbzr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1184,7 +1154,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#hijwofhbnz .gt_heading {
+#pkszqgjbzr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1196,13 +1166,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#hijwofhbnz .gt_bottom_border {
+#pkszqgjbzr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hijwofhbnz .gt_col_headings {
+#pkszqgjbzr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1217,7 +1187,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#hijwofhbnz .gt_col_heading {
+#pkszqgjbzr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1237,7 +1207,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#hijwofhbnz .gt_column_spanner_outer {
+#pkszqgjbzr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1249,15 +1219,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#hijwofhbnz .gt_column_spanner_outer:first-child {
+#pkszqgjbzr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hijwofhbnz .gt_column_spanner_outer:last-child {
+#pkszqgjbzr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hijwofhbnz .gt_column_spanner {
+#pkszqgjbzr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1269,11 +1239,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#hijwofhbnz .gt_spanner_row {
+#pkszqgjbzr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hijwofhbnz .gt_group_heading {
+#pkszqgjbzr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1299,7 +1269,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#hijwofhbnz .gt_empty_group_heading {
+#pkszqgjbzr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #E5E5E5;
@@ -1314,15 +1284,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#hijwofhbnz .gt_from_md > :first-child {
+#pkszqgjbzr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hijwofhbnz .gt_from_md > :last-child {
+#pkszqgjbzr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hijwofhbnz .gt_row {
+#pkszqgjbzr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1341,7 +1311,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#hijwofhbnz .gt_stub {
+#pkszqgjbzr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1354,7 +1324,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#hijwofhbnz .gt_stub_row_group {
+#pkszqgjbzr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1368,15 +1338,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#hijwofhbnz .gt_row_group_first td {
+#pkszqgjbzr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hijwofhbnz .gt_row_group_first th {
+#pkszqgjbzr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hijwofhbnz .gt_summary_row {
+#pkszqgjbzr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1386,16 +1356,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#hijwofhbnz .gt_first_summary_row {
+#pkszqgjbzr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hijwofhbnz .gt_first_summary_row.thick {
+#pkszqgjbzr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hijwofhbnz .gt_last_summary_row {
+#pkszqgjbzr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1405,7 +1375,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#hijwofhbnz .gt_grand_summary_row {
+#pkszqgjbzr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1415,7 +1385,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#hijwofhbnz .gt_first_grand_summary_row {
+#pkszqgjbzr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1425,7 +1395,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#hijwofhbnz .gt_last_grand_summary_row_top {
+#pkszqgjbzr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1435,11 +1405,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#hijwofhbnz .gt_striped {
+#pkszqgjbzr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hijwofhbnz .gt_table_body {
+#pkszqgjbzr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1448,7 +1418,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#hijwofhbnz .gt_footnotes {
+#pkszqgjbzr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1462,7 +1432,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#hijwofhbnz .gt_footnote {
+#pkszqgjbzr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1471,7 +1441,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#hijwofhbnz .gt_sourcenotes {
+#pkszqgjbzr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1485,7 +1455,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#hijwofhbnz .gt_sourcenote {
+#pkszqgjbzr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1493,135 +1463,1300 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#hijwofhbnz .gt_left {
+#pkszqgjbzr .gt_left {
   text-align: left;
 }
 
-#hijwofhbnz .gt_center {
+#pkszqgjbzr .gt_center {
   text-align: center;
 }
 
-#hijwofhbnz .gt_right {
+#pkszqgjbzr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hijwofhbnz .gt_font_normal {
+#pkszqgjbzr .gt_font_normal {
   font-weight: normal;
 }
 
-#hijwofhbnz .gt_font_bold {
+#pkszqgjbzr .gt_font_bold {
   font-weight: bold;
 }
 
-#hijwofhbnz .gt_font_italic {
+#pkszqgjbzr .gt_font_italic {
   font-style: italic;
 }
 
-#hijwofhbnz .gt_super {
+#pkszqgjbzr .gt_super {
   font-size: 65%;
 }
 
-#hijwofhbnz .gt_footnote_marks {
+#pkszqgjbzr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hijwofhbnz .gt_asterisk {
+#pkszqgjbzr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hijwofhbnz .gt_indent_1 {
+#pkszqgjbzr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hijwofhbnz .gt_indent_2 {
+#pkszqgjbzr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hijwofhbnz .gt_indent_3 {
+#pkszqgjbzr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hijwofhbnz .gt_indent_4 {
+#pkszqgjbzr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hijwofhbnz .gt_indent_5 {
+#pkszqgjbzr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-
-<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="header gt_heading">
-<th colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border">Wide Familial Distribution</th>
-</tr>
-<tr class="odd gt_col_headings">
-<th id="term" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">term</th>
-<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">estimate</th>
-<th id="std.error" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">std.error</th>
-<th id="statistic" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">statistic</th>
-<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">p.value</th>
-<th id="adj_r_squared" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">adj_r_squared</th>
-<th id="r_sqaured" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">r_sqaured</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd gt_group_heading_row">
-<td colspan="7" id="M. bidentata" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">M. bidentata</td>
-</tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_left" headers="M. bidentata  term">(Intercept)</td>
-<td class="gt_row gt_right" headers="M. bidentata  estimate">1.375030e+02</td>
-<td class="gt_row gt_right" headers="M. bidentata  std.error">8.129896e+00</td>
-<td class="gt_row gt_right" headers="M. bidentata  statistic">16.913252</td>
-<td class="gt_row gt_right" headers="M. bidentata  p.value">1.287841e-20</td>
-<td class="gt_row gt_right" headers="M. bidentata  adj_r_squared">0.12825930</td>
-<td class="gt_row gt_right" headers="M. bidentata  r_sqaured">0.1480716</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="M. bidentata  term">date</td>
-<td class="gt_row gt_right" headers="M. bidentata  estimate">1.341184e-03</td>
-<td class="gt_row gt_right" headers="M. bidentata  std.error">4.905911e-04</td>
-<td class="gt_row gt_right" headers="M. bidentata  statistic">2.733811</td>
-<td class="gt_row gt_right" headers="M. bidentata  p.value">9.053291e-03</td>
-<td class="gt_row gt_right" headers="M. bidentata  adj_r_squared">NA</td>
-<td class="gt_row gt_right" headers="M. bidentata  r_sqaured">NA</td>
-</tr>
-<tr class="even gt_group_heading_row">
-<td colspan="7" id="D. excelsa" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">D. excelsa</td>
-</tr>
-<tr class="odd gt_row_group_first">
-<td class="gt_row gt_left" headers="D. excelsa  term">(Intercept)</td>
-<td class="gt_row gt_right" headers="D. excelsa  estimate">2.224853e+02</td>
-<td class="gt_row gt_right" headers="D. excelsa  std.error">2.421531e+01</td>
-<td class="gt_row gt_right" headers="D. excelsa  statistic">9.187794</td>
-<td class="gt_row gt_right" headers="D. excelsa  p.value">1.058230e-11</td>
-<td class="gt_row gt_right" headers="D. excelsa  adj_r_squared">0.09937944</td>
-<td class="gt_row gt_right" headers="D. excelsa  r_sqaured">0.1198481</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="D. excelsa  term">date</td>
-<td class="gt_row gt_right" headers="D. excelsa  estimate">3.535865e-03</td>
-<td class="gt_row gt_right" headers="D. excelsa  std.error">1.461251e-03</td>
-<td class="gt_row gt_right" headers="D. excelsa  statistic">2.419753</td>
-<td class="gt_row gt_right" headers="D. excelsa  p.value">1.983184e-02</td>
-<td class="gt_row gt_right" headers="D. excelsa  adj_r_squared">NA</td>
-<td class="gt_row gt_right" headers="D. excelsa  r_sqaured">NA</td>
-</tr>
-</tbody>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Narrow Distribution</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="term">term</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="estimate">estimate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="std.error">std.error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="statistic">statistic</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="p.value">p.value</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="adj_r_squared">adj_r_squared</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="r_squared">r_squared</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <th colspan="7" class="gt_group_heading" scope="colgroup" id="M. bidentata">M. bidentata</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="M. bidentata  term" class="gt_row gt_left">(Intercept)</td>
+<td headers="M. bidentata  estimate" class="gt_row gt_right">1.375030e+02</td>
+<td headers="M. bidentata  std.error" class="gt_row gt_right">8.129896e+00</td>
+<td headers="M. bidentata  statistic" class="gt_row gt_right">16.913252</td>
+<td headers="M. bidentata  p.value" class="gt_row gt_right">1.287841e-20</td>
+<td headers="M. bidentata  adj_r_squared" class="gt_row gt_right">0.12825930</td>
+<td headers="M. bidentata  r_squared" class="gt_row gt_right">0.1480716</td></tr>
+    <tr><td headers="M. bidentata  term" class="gt_row gt_left">date</td>
+<td headers="M. bidentata  estimate" class="gt_row gt_right">1.341184e-03</td>
+<td headers="M. bidentata  std.error" class="gt_row gt_right">4.905911e-04</td>
+<td headers="M. bidentata  statistic" class="gt_row gt_right">2.733811</td>
+<td headers="M. bidentata  p.value" class="gt_row gt_right">9.053291e-03</td>
+<td headers="M. bidentata  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="M. bidentata  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="7" class="gt_group_heading" scope="colgroup" id="D. excelsa">D. excelsa</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="D. excelsa  term" class="gt_row gt_left">(Intercept)</td>
+<td headers="D. excelsa  estimate" class="gt_row gt_right">2.224853e+02</td>
+<td headers="D. excelsa  std.error" class="gt_row gt_right">2.421531e+01</td>
+<td headers="D. excelsa  statistic" class="gt_row gt_right">9.187794</td>
+<td headers="D. excelsa  p.value" class="gt_row gt_right">1.058230e-11</td>
+<td headers="D. excelsa  adj_r_squared" class="gt_row gt_right">0.09937944</td>
+<td headers="D. excelsa  r_squared" class="gt_row gt_right">0.1198481</td></tr>
+    <tr><td headers="D. excelsa  term" class="gt_row gt_left">date</td>
+<td headers="D. excelsa  estimate" class="gt_row gt_right">3.535865e-03</td>
+<td headers="D. excelsa  std.error" class="gt_row gt_right">1.461251e-03</td>
+<td headers="D. excelsa  statistic" class="gt_row gt_right">2.419753</td>
+<td headers="D. excelsa  p.value" class="gt_row gt_right">1.983184e-02</td>
+<td headers="D. excelsa  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="D. excelsa  r_squared" class="gt_row gt_right">NA</td></tr>
+  </tbody>
+  
+  
 </table>
-
 </div>
 </div>
 </div>
-</div>
-
-
 </section>
+<section id="multiple-linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-linear-regression">Multiple Linear Regression</h3>
+<p>This regression compares diameter over time, adding all climate variables as predictors to see if the models predictive capability improves. This can be written out mathematically as:<span class="math display">\[ \hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4\]</span></p>
+<p>Where <span class="math inline">\(x_2\)</span> through <span class="math inline">\(x_4\)</span> are the added climate variables.</p>
+<div class="cell">
+<details>
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># apply function to all species (now using multiple regression)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">unique</span>(clim_dbh_full<span class="sc">$</span>species)) {</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> clim_dbh_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">==</span> i)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date <span class="sc">+</span> tot_rain_mm <span class="sc">+</span> avg_temp_c <span class="sc">+</span> avg_ppfd_mmol_m2, <span class="at">data =</span> data)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy_results_fun</span>(model, data)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># combine species based on distributions</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>wide <span class="ot">&lt;-</span> <span class="fu">rbind</span>(inglau_model, casarb_model) <span class="sc">%&gt;%</span> <span class="fu">gt</span>()</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>narrow <span class="ot">&lt;-</span> <span class="fu">rbind</span>(dacexc_model, manbid_model) <span class="sc">%&gt;%</span> <span class="fu">gt</span>()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># view for wide distribution</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>wide <span class="sc">%&gt;%</span> </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="st">"Wide Familial Distribution"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"I. laurina"</span>, <span class="at">rows =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"C. arborea"</span>, <span class="at">rows =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">row_group.background.color =</span> <span class="st">"grey90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div id="xlytklvhuv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xlytklvhuv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#xlytklvhuv thead, #xlytklvhuv tbody, #xlytklvhuv tfoot, #xlytklvhuv tr, #xlytklvhuv td, #xlytklvhuv th {
+  border-style: none;
+}
+
+#xlytklvhuv p {
+  margin: 0;
+  padding: 0;
+}
+
+#xlytklvhuv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xlytklvhuv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xlytklvhuv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xlytklvhuv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xlytklvhuv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xlytklvhuv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlytklvhuv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xlytklvhuv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xlytklvhuv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xlytklvhuv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xlytklvhuv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xlytklvhuv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xlytklvhuv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#xlytklvhuv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #E5E5E5;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#xlytklvhuv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #E5E5E5;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xlytklvhuv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xlytklvhuv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xlytklvhuv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xlytklvhuv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlytklvhuv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#xlytklvhuv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#xlytklvhuv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#xlytklvhuv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlytklvhuv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#xlytklvhuv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#xlytklvhuv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlytklvhuv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlytklvhuv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xlytklvhuv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlytklvhuv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xlytklvhuv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xlytklvhuv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xlytklvhuv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlytklvhuv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xlytklvhuv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xlytklvhuv .gt_left {
+  text-align: left;
+}
+
+#xlytklvhuv .gt_center {
+  text-align: center;
+}
+
+#xlytklvhuv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xlytklvhuv .gt_font_normal {
+  font-weight: normal;
+}
+
+#xlytklvhuv .gt_font_bold {
+  font-weight: bold;
+}
+
+#xlytklvhuv .gt_font_italic {
+  font-style: italic;
+}
+
+#xlytklvhuv .gt_super {
+  font-size: 65%;
+}
+
+#xlytklvhuv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#xlytklvhuv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#xlytklvhuv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#xlytklvhuv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#xlytklvhuv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xlytklvhuv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xlytklvhuv .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Wide Familial Distribution</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="term">term</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="estimate">estimate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="std.error">std.error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="statistic">statistic</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="p.value">p.value</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="adj_r_squared">adj_r_squared</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="r_squared">r_squared</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <th colspan="7" class="gt_group_heading" scope="colgroup" id="C. arborea">C. arborea</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="C. arborea  term" class="gt_row gt_left">tot_rain_mm</td>
+<td headers="C. arborea  estimate" class="gt_row gt_right">2.340958e-02</td>
+<td headers="C. arborea  std.error" class="gt_row gt_right">5.056259e-02</td>
+<td headers="C. arborea  statistic" class="gt_row gt_right">0.4629823</td>
+<td headers="C. arborea  p.value" class="gt_row gt_right">6.461638e-01</td>
+<td headers="C. arborea  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="C. arborea  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="C. arborea  term" class="gt_row gt_left">avg_temp_c</td>
+<td headers="C. arborea  estimate" class="gt_row gt_right">-2.451045e-01</td>
+<td headers="C. arborea  std.error" class="gt_row gt_right">1.332287e+00</td>
+<td headers="C. arborea  statistic" class="gt_row gt_right">-0.1839728</td>
+<td headers="C. arborea  p.value" class="gt_row gt_right">8.550672e-01</td>
+<td headers="C. arborea  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="C. arborea  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="7" class="gt_group_heading" scope="colgroup" id="I. laurina">I. laurina</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="I. laurina  term" class="gt_row gt_left">(Intercept)</td>
+<td headers="I. laurina  estimate" class="gt_row gt_right">4.783913e+01</td>
+<td headers="I. laurina  std.error" class="gt_row gt_right">1.433299e+02</td>
+<td headers="I. laurina  statistic" class="gt_row gt_right">0.3337693</td>
+<td headers="I. laurina  p.value" class="gt_row gt_right">7.404901e-01</td>
+<td headers="I. laurina  adj_r_squared" class="gt_row gt_right">0.03878215</td>
+<td headers="I. laurina  r_squared" class="gt_row gt_right">0.1349039</td></tr>
+    <tr><td headers="I. laurina  term" class="gt_row gt_left">date</td>
+<td headers="I. laurina  estimate" class="gt_row gt_right">8.026665e-03</td>
+<td headers="I. laurina  std.error" class="gt_row gt_right">8.237144e-03</td>
+<td headers="I. laurina  statistic" class="gt_row gt_right">0.9744476</td>
+<td headers="I. laurina  p.value" class="gt_row gt_right">3.363370e-01</td>
+<td headers="I. laurina  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="I. laurina  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="7" class="gt_empty_group_heading" scope="colgroup" id=""></th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="NA  term" class="gt_row gt_left">avg_ppfd_mmol_m2</td>
+<td headers="NA  estimate" class="gt_row gt_right">7.171309e-03</td>
+<td headers="NA  std.error" class="gt_row gt_right">4.655729e-03</td>
+<td headers="NA  statistic" class="gt_row gt_right">1.5403194</td>
+<td headers="NA  p.value" class="gt_row gt_right">1.322274e-01</td>
+<td headers="NA  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="NA  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="NA  term" class="gt_row gt_left">(Intercept)</td>
+<td headers="NA  estimate" class="gt_row gt_right">-6.820285e+01</td>
+<td headers="NA  std.error" class="gt_row gt_right">2.488952e+01</td>
+<td headers="NA  statistic" class="gt_row gt_right">-2.7402240</td>
+<td headers="NA  p.value" class="gt_row gt_right">9.493995e-03</td>
+<td headers="NA  adj_r_squared" class="gt_row gt_right">0.70085629</td>
+<td headers="NA  r_squared" class="gt_row gt_right">0.7307707</td></tr>
+    <tr><td headers="NA  term" class="gt_row gt_left">date</td>
+<td headers="NA  estimate" class="gt_row gt_right">1.253374e-02</td>
+<td headers="NA  std.error" class="gt_row gt_right">1.430396e-03</td>
+<td headers="NA  statistic" class="gt_row gt_right">8.7624280</td>
+<td headers="NA  p.value" class="gt_row gt_right">1.872024e-10</td>
+<td headers="NA  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="NA  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="NA  term" class="gt_row gt_left">tot_rain_mm</td>
+<td headers="NA  estimate" class="gt_row gt_right">-1.407233e-03</td>
+<td headers="NA  std.error" class="gt_row gt_right">8.780290e-03</td>
+<td headers="NA  statistic" class="gt_row gt_right">-0.1602719</td>
+<td headers="NA  p.value" class="gt_row gt_right">8.735629e-01</td>
+<td headers="NA  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="NA  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="NA  term" class="gt_row gt_left">avg_temp_c</td>
+<td headers="NA  estimate" class="gt_row gt_right">4.870840e-01</td>
+<td headers="NA  std.error" class="gt_row gt_right">2.313541e-01</td>
+<td headers="NA  statistic" class="gt_row gt_right">2.1053612</td>
+<td headers="NA  p.value" class="gt_row gt_right">4.230170e-02</td>
+<td headers="NA  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="NA  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="NA  term" class="gt_row gt_left">avg_ppfd_mmol_m2</td>
+<td headers="NA  estimate" class="gt_row gt_right">-1.869582e-04</td>
+<td headers="NA  std.error" class="gt_row gt_right">8.084762e-04</td>
+<td headers="NA  statistic" class="gt_row gt_right">-0.2312476</td>
+<td headers="NA  p.value" class="gt_row gt_right">8.184318e-01</td>
+<td headers="NA  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="NA  r_squared" class="gt_row gt_right">NA</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+<details>
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view results for narrow distribution</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>narrow <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="st">"Wide Familial Distribution"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"D. excelsa"</span>, <span class="at">rows =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"M. bidentata"</span>, <span class="at">rows =</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">row_group.background.color =</span> <span class="st">"grey90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div id="yfxphzfwyp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yfxphzfwyp table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#yfxphzfwyp thead, #yfxphzfwyp tbody, #yfxphzfwyp tfoot, #yfxphzfwyp tr, #yfxphzfwyp td, #yfxphzfwyp th {
+  border-style: none;
+}
+
+#yfxphzfwyp p {
+  margin: 0;
+  padding: 0;
+}
+
+#yfxphzfwyp .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#yfxphzfwyp .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#yfxphzfwyp .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#yfxphzfwyp .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#yfxphzfwyp .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yfxphzfwyp .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yfxphzfwyp .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yfxphzfwyp .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#yfxphzfwyp .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#yfxphzfwyp .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#yfxphzfwyp .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#yfxphzfwyp .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#yfxphzfwyp .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#yfxphzfwyp .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #E5E5E5;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#yfxphzfwyp .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #E5E5E5;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#yfxphzfwyp .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#yfxphzfwyp .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#yfxphzfwyp .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#yfxphzfwyp .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yfxphzfwyp .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#yfxphzfwyp .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#yfxphzfwyp .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#yfxphzfwyp .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yfxphzfwyp .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#yfxphzfwyp .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#yfxphzfwyp .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yfxphzfwyp .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yfxphzfwyp .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#yfxphzfwyp .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yfxphzfwyp .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#yfxphzfwyp .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yfxphzfwyp .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yfxphzfwyp .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yfxphzfwyp .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yfxphzfwyp .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yfxphzfwyp .gt_left {
+  text-align: left;
+}
+
+#yfxphzfwyp .gt_center {
+  text-align: center;
+}
+
+#yfxphzfwyp .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#yfxphzfwyp .gt_font_normal {
+  font-weight: normal;
+}
+
+#yfxphzfwyp .gt_font_bold {
+  font-weight: bold;
+}
+
+#yfxphzfwyp .gt_font_italic {
+  font-style: italic;
+}
+
+#yfxphzfwyp .gt_super {
+  font-size: 65%;
+}
+
+#yfxphzfwyp .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#yfxphzfwyp .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#yfxphzfwyp .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#yfxphzfwyp .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#yfxphzfwyp .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#yfxphzfwyp .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#yfxphzfwyp .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Wide Familial Distribution</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="term">term</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="estimate">estimate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="std.error">std.error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="statistic">statistic</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="p.value">p.value</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="adj_r_squared">adj_r_squared</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="r_squared">r_squared</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <th colspan="7" class="gt_group_heading" scope="colgroup" id="M. bidentata">M. bidentata</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="M. bidentata  term" class="gt_row gt_left">(Intercept)</td>
+<td headers="M. bidentata  estimate" class="gt_row gt_right">154.179166615</td>
+<td headers="M. bidentata  std.error" class="gt_row gt_right">8.887599e+00</td>
+<td headers="M. bidentata  statistic" class="gt_row gt_right">17.3476733</td>
+<td headers="M. bidentata  p.value" class="gt_row gt_right">4.585745e-19</td>
+<td headers="M. bidentata  adj_r_squared" class="gt_row gt_right">0.31631057</td>
+<td headers="M. bidentata  r_squared" class="gt_row gt_right">0.3846795</td></tr>
+    <tr><td headers="M. bidentata  term" class="gt_row gt_left">date</td>
+<td headers="M. bidentata  estimate" class="gt_row gt_right">0.000420996</td>
+<td headers="M. bidentata  std.error" class="gt_row gt_right">5.107686e-04</td>
+<td headers="M. bidentata  statistic" class="gt_row gt_right">0.8242401</td>
+<td headers="M. bidentata  p.value" class="gt_row gt_right">4.152309e-01</td>
+<td headers="M. bidentata  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="M. bidentata  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="M. bidentata  term" class="gt_row gt_left">tot_rain_mm</td>
+<td headers="M. bidentata  estimate" class="gt_row gt_right">0.001982397</td>
+<td headers="M. bidentata  std.error" class="gt_row gt_right">3.135284e-03</td>
+<td headers="M. bidentata  statistic" class="gt_row gt_right">0.6322862</td>
+<td headers="M. bidentata  p.value" class="gt_row gt_right">5.311954e-01</td>
+<td headers="M. bidentata  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="M. bidentata  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="M. bidentata  term" class="gt_row gt_left">avg_temp_c</td>
+<td headers="M. bidentata  estimate" class="gt_row gt_right">-0.103431488</td>
+<td headers="M. bidentata  std.error" class="gt_row gt_right">8.261240e-02</td>
+<td headers="M. bidentata  statistic" class="gt_row gt_right">-1.2520093</td>
+<td headers="M. bidentata  p.value" class="gt_row gt_right">2.186401e-01</td>
+<td headers="M. bidentata  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="M. bidentata  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="M. bidentata  term" class="gt_row gt_left">avg_ppfd_mmol_m2</td>
+<td headers="M. bidentata  estimate" class="gt_row gt_right">0.001107643</td>
+<td headers="M. bidentata  std.error" class="gt_row gt_right">2.886923e-04</td>
+<td headers="M. bidentata  statistic" class="gt_row gt_right">3.8367595</td>
+<td headers="M. bidentata  p.value" class="gt_row gt_right">4.840707e-04</td>
+<td headers="M. bidentata  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="M. bidentata  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="7" class="gt_group_heading" scope="colgroup" id="D. excelsa">D. excelsa</th>
+    </tr>
+    <tr class="gt_row_group_first"><td headers="D. excelsa  term" class="gt_row gt_left">(Intercept)</td>
+<td headers="D. excelsa  estimate" class="gt_row gt_right">219.414487153</td>
+<td headers="D. excelsa  std.error" class="gt_row gt_right">3.146641e+01</td>
+<td headers="D. excelsa  statistic" class="gt_row gt_right">6.9729747</td>
+<td headers="D. excelsa  p.value" class="gt_row gt_right">3.562087e-08</td>
+<td headers="D. excelsa  adj_r_squared" class="gt_row gt_right">0.04477991</td>
+<td headers="D. excelsa  r_squared" class="gt_row gt_right">0.1403019</td></tr>
+    <tr><td headers="D. excelsa  term" class="gt_row gt_left">date</td>
+<td headers="D. excelsa  estimate" class="gt_row gt_right">0.003724497</td>
+<td headers="D. excelsa  std.error" class="gt_row gt_right">1.808369e-03</td>
+<td headers="D. excelsa  statistic" class="gt_row gt_right">2.0595893</td>
+<td headers="D. excelsa  p.value" class="gt_row gt_right">4.672527e-02</td>
+<td headers="D. excelsa  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="D. excelsa  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="D. excelsa  term" class="gt_row gt_left">tot_rain_mm</td>
+<td headers="D. excelsa  estimate" class="gt_row gt_right">-0.011572595</td>
+<td headers="D. excelsa  std.error" class="gt_row gt_right">1.110043e-02</td>
+<td headers="D. excelsa  statistic" class="gt_row gt_right">-1.0425362</td>
+<td headers="D. excelsa  p.value" class="gt_row gt_right">3.041140e-01</td>
+<td headers="D. excelsa  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="D. excelsa  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="D. excelsa  term" class="gt_row gt_left">avg_temp_c</td>
+<td headers="D. excelsa  estimate" class="gt_row gt_right">0.050401737</td>
+<td headers="D. excelsa  std.error" class="gt_row gt_right">2.924880e-01</td>
+<td headers="D. excelsa  statistic" class="gt_row gt_right">0.1723207</td>
+<td headers="D. excelsa  p.value" class="gt_row gt_right">8.641505e-01</td>
+<td headers="D. excelsa  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="D. excelsa  r_squared" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="D. excelsa  term" class="gt_row gt_left">avg_ppfd_mmol_m2</td>
+<td headers="D. excelsa  estimate" class="gt_row gt_right">-0.001100876</td>
+<td headers="D. excelsa  std.error" class="gt_row gt_right">1.022111e-03</td>
+<td headers="D. excelsa  statistic" class="gt_row gt_right">-1.0770616</td>
+<td headers="D. excelsa  p.value" class="gt_row gt_right">2.886176e-01</td>
+<td headers="D. excelsa  adj_r_squared" class="gt_row gt_right">NA</td>
+<td headers="D. excelsa  r_squared" class="gt_row gt_right">NA</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="analysis---dynamic-time-series" class="level2">
+<h2 class="anchored" data-anchor-id="analysis---dynamic-time-series">Analysis - Dynamic Time Series</h2>
+<p>Climate impacts on tree growth are likely not immediate, in order to produce a more accurate model it would be best to add a lag to tree growth. Ideally, this regression would test if current diameter at breast height is dependent on past diameter *and* past climate variables.</p>
+<div class="cell">
+<details>
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># conduct dynamic regression for a single species</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># apply function to all species (dynamic time series)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">unique</span>(clim_dbh_full<span class="sc">$</span>species)) {</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> clim_dbh_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">==</span> i)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(mean_daily_dbh <span class="sc">~</span> tot_rain_mm <span class="sc">+</span> </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">lag</span>(tot_rain_mm, <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                   avg_temp_c <span class="sc">+</span> </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">lag</span>(avg_temp_c, <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                   avg_ppfd_mmol_m2 <span class="sc">+</span> </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">lag</span>(avg_ppfd_mmol_m2, <span class="dv">1</span>), </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> data)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy_results_fun</span>(model, data)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Upon running these models, I recognized they were producing abnormally high values of r-squared (between 0.96 and 1). Inflated values of the adjusted r-squared can be caused by autocorrelation, which violates one of the assumptions that must be met to run a dynamic linear model. The autocorrelation between previous and current diameter breast height was very high, and can be seen by creating an ACF plot:</p>
+<div class="cell">
+<details>
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># isolate single species for example</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>casarb <span class="ot">&lt;-</span> clim_dbh_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"CASARB"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot autocorrelation</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(casarb<span class="sc">$</span>mean_daily_dbh, <span class="at">lag.max =</span> <span class="dv">12</span>, <span class="at">na.action =</span> na.pass,  <span class="at">main =</span> <span class="st">'Autocorrelation for CASARB Diameter'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>After running several regressions, I found that the addition of climate variables did not improve the model’s predictive capabilities. In fact, the simple time series for <em>C. arborea</em> (CASARB) was the most accurate, with a model that explained 70% of variation in diameter growth (y). CASARB has the largest increase in mean diameter height between the first and last measurement, and I believe this is what produced such a well-performing model. Given more time, I predict that time alone would be a much better indicator of diameter growth than what is demonstrated here. All species except <em>M. bidentata</em> (MANBID) experienced decreases in adjusted r-squared values when climate variables were added. This suggests climate variables caused overfitting, but the one exception is interesting. By adding climate variables, the MANBID model explained 30% of variation in diameter, as opposed to 12% in the initial model. While this percentage is still rather low, it suggests potential discrepancies between which tree species are more rapidly impacted by climate.</p>
+</section>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
+<p>Given more time, I would have analyzed the change in diameter at breast height between measurements instead of the diameter itself. This could reduce the impact of autocorrelation, so a dynamic time series could be run instead. Alternatively, an autoregressive moving average (or ARIMA) model would allow me to compare diameters regardless of the high autocorrelation. As mentioned, I suspect that data collected over a longer period would demonstrate a stronger linear relationship between tree diameter and time. To expand this analysis, growth rates during periods of drought could be compared to rates during favorable climate conditions.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Much more work needs to be done to properly assess the impact that climate change has on tropical rain forests, and how these impacts may be different from temperate forests. Data on trees physiological responses can be much harder to collect, leaving gaps in historic records. Similarly, species distribution data can be hard to difficult consolidate. Still, improvements in technology, climate science, and environmental empathy continue to lead us in the right direction.</p>
+
+
 </section>
 
 
@@ -1631,15 +2766,15 @@ window.Quarto = {
 <li id="fn1"><p><em>Effects of Drought on Forests and Rangelands | Climate Change Resource Center</em>. <a href="https://www.fs.usda.gov/ccrc/topics/effects-drought-forests-and-rangelands" class="uri">https://www.fs.usda.gov/ccrc/topics/effects-drought-forests-and-rangelands</a>. Accessed 10 Dec.&nbsp;2023.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Rabinowitz, Harold, and Suzanne Vogel, editors. “Chapter 11 - Style and Usage in Earth Science and Environmental Science.” <em>The Manual of Scientific Style</em>, Academic Press, 2009, pp.&nbsp;427–68. <em>ScienceDirect</em>, <a href="https://doi.org/10.1016/B978-012373980-3.50015-0" class="uri">https://doi.org/10.1016/B978-012373980-3.50015-0</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{barajas2023,
-  author = {Barajas, Briana},
+</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{barajas2023,
+  author = {Briana Barajas},
   title = {Drought {Tolerance} in {Tropical} {Tree} {Species}},
   date = {2023-12-10},
   url = {https://github.com/briana-barajas/luquillo-tree-growth},
   langid = {en}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-barajas2023" class="csl-entry quarto-appendix-citeas" role="listitem">
-Barajas, Briana. 2023. <span>“Drought Tolerance in Tropical Tree
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-barajas2023" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+Briana Barajas. 2023. <span>“Drought Tolerance in Tropical Tree
 Species.”</span> December 10, 2023. <a href="https://github.com/briana-barajas/luquillo-tree-growth">https://github.com/briana-barajas/luquillo-tree-growth</a>.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1669,23 +2804,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -1721,27 +2842,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1751,17 +2855,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1773,245 +2868,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -2054,12 +2913,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">
-<p>Copyright 2023, Briana Barajas</p>
-</div>   
-    <div class="nav-footer-center">
-      &nbsp;
-    </div>
+    <div class="nav-footer-left">Copyright 2023, Briana Barajas</div>   
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
@@ -2072,7 +2926,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-
 
 
 
