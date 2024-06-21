@@ -8,7 +8,7 @@
 
 <meta name="author" content="Briana Barajas">
 <meta name="dcterms.date" content="2023-12-10">
-<meta name="description" content="Comparison of linear models, summarizing tropical tree growth under drought conditions">
+<meta name="description" content="Comparison of linear models, summarizing tropical tree growth during a severe drought">
 
 <title>Drought Tolerance in Tropical Tree Species</title>
 <style>
@@ -202,7 +202,7 @@ window.Quarto = {
       <h1 class="title">Drought Tolerance in Tropical Tree Species</h1>
                   <div>
         <div class="description">
-          Comparison of linear models, summarizing tropical tree growth under drought conditions
+          Comparison of linear models, summarizing tropical tree growth during a severe drought
         </div>
       </div>
                           <div class="quarto-categories">
@@ -257,12 +257,7 @@ window.Quarto = {
   <li><a href="#analysis---static-time-series" id="toc-analysis---static-time-series" class="nav-link" data-scroll-target="#analysis---static-time-series">Analysis - Static Time Series</a>
   <ul class="collapse">
   <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple linear regression</a></li>
-  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression</a></li>
   </ul></li>
-  <li><a href="#analysis---dynamic-time-series" id="toc-analysis---dynamic-time-series" class="nav-link" data-scroll-target="#analysis---dynamic-time-series">Analysis - Dynamic Time Series</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
-  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
     </div>
@@ -273,14 +268,41 @@ window.Quarto = {
 
 
 
+<div class="cell">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(feasts)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tsibble)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"blog-posts"</span>, <span class="st">"2023-12-10-luquillo-drought"</span>, <span class="st">"data"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># tree diameter at breast height</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>dbh_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(data_path, <span class="st">"long.data.DBH.csv"</span>))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># hourly climate data </span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>clim_1999_2014 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(data_path, <span class="st">"NADPTowerHourlyData1999_2014.csv"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>clim_2015_2023 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(data_path, <span class="st">"NADPTowerHourlyData2015_2023v2.csv"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <section id="motivation" class="level2">
 <h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
-<p>Climate change, in conjunction with other environmental stressors, continue to threaten forests around the world. Mass tree deaths, fires, and deforestation can create a negative feedback loop, turning these well-recognized carbon sinks into a source. Forests are also recognized for their role in preventing erosion, filtering air pollution, and providing habitat and recreation for people and wildlife alike.</p>
-<p>Droughts have been proven to adversely affect forest health. Minimal and inconsistent water supply affects phenology and increases the chance of insect outbreaks or wildfires<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. While the severity of these threats is not novel to me, I recognized that most of my knowledge on the topic at hand was based on studies conducted in temperate forests. I was curious to learn more about how forests impacted tropical species, which I presume would be far less adapted to severe weather fluctuations.</p>
+<p>Climate change, in conjunction with other environmental stressors, continue to threaten forests around the world. Mass tree deaths, fires, and deforestation can create a negative feedback loop, turning these well-recognized carbon sinks into a carbon source. Forests are also recognized for their role in preventing erosion, filtering air, and providing habitat and recreation.</p>
+<p>Droughts have been proven to adversely affect forest health. Minimal and inconsistent water supply affects phenology and increases the chance of insect outbreaks or wildfires<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. While the severity of these threats is not novel to me, I recognized that most of my knowledge on the topic was based on studies conducted in temperate forests. I was curious to learn more about how droughts impacted tropical species, which are less adapted to severe weather fluctuations.</p>
 </section>
 <section id="goal" class="level2">
 <h2 class="anchored" data-anchor-id="goal">Goal</h2>
-<p>Conduct various linear regressions to mathematically summarize tropical forest growth under drought conditions, and examine if tree species belonging to families with widespread distributions exhibit lower drought vulnerability.</p>
+<p>To conduct a statistical assessment of tropical tree growth under drought conditions. This was accomplished using a series of linear regressions to model the relationship between tree growth and several climate variables. Using these regressions, I sought to examine if tree species with a widespread familial distribution (left) were better prepared for droughts than species with narrow familial distribution (right).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
@@ -291,18 +313,17 @@ window.Quarto = {
 <figcaption>Distribution data from Global Biodiversity Information Facility (GBIF)</figcaption>
 </figure>
 </div>
-<p>Since species distributions for tree species in this study are not readily available, I will be comparing species from lineages with wide versus narrow distributions.</p>
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <section id="about-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="about-the-data">About the Data</h4>
-<p>Data on tree diameter changes were available through the DataONE interface. This dataset includes measures of tree diameter at breast height (dbh) for several tropical tree species in the Luquillo National Research Forest in Puerto Rico. I chose this data since the Luquillo Forest is part of the Long-Term Ecological Research Network, and meteorological data in this area was well recorded. Additionally, these diameter measurements were taken during a notable drought, lasting from 2013-2016.&nbsp;</p>
-<p>To avoid model overfitting, I only wanted to include climate variables that both represent drought conditions and have a potentially larger impact on tree growth. I used mean average temperature and total rainfall to relate tree growth and drought. I also decided to include photosynthetic photon flux density (ppfd), since it directly relates to plants. PPFD is a measure of the number of photons between the 400 and 700nm wavelengths that are hitting surfaces per unit time. These wavelengths are optimal for plant molecules to absorb<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>Data of tree diameter over time is publicly available from the DataONE repository. This dataset includes measures of tree diameter at breast height (dbh) for several tropical tree species in the Luquillo National Research Forest in Puerto Rico. The Luquillo Forest is part of the Long-Term Ecological Research Network (LTER), so substantial meteorological data for the area was also available. The diameter measurements were taken during a severe drought, lasting from 2013 to 2016.</p>
+<p>Although there were several climate variables available, I reduced the number of variables in the models to minimize the possibility of over fitting. Mean average temperature and total rainfall were included to summarize the effects of drought. Photosynthetic photon flux density (ppfd) was also included. PPFD is a measurement of the number of photons between 400 and 700 nm in wavelength, and how frequently these waves this the leaf’s surface. This wavelength range is optimal for plant molecules to absorb, thus ppfd acts as a measurement of energy available for plants.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 </section>
 <section id="tree-species" class="level4">
 <h4 class="anchored" data-anchor-id="tree-species">Tree Species</h4>
-<p>To improve predictive capabilities, I selected the four most sampled species that fell within one of two categories for familial distribution. Species and family information was pulled from the metadata, but I will summarize it here:</p>
+<p>In an effort to minimize error, modeling was limited to the four most sampled tree species. Species were also selected based on their taxonomic family, and whether that family had a wide or narrow distribution. Species and family information was provided in the metadata, but I will summarize it here:</p>
 <table class="table">
 <colgroup>
 <col style="width: 19%">
@@ -349,47 +370,107 @@ window.Quarto = {
 <section id="data-cleaning" class="level4">
 <h4 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h4>
 <p>Although data collection for tree diameters began in 2011, measurements were not consistently taken until June 2014. In order to create time series models without significant data gaps, I restricted the data from June 2014 to July 2016, when diameter data was collected monthly.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## =====================================</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">##           Clean Tree Data        ----</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">## =====================================</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>dbh <span class="ot">&lt;-</span> dbh_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># correct date object format</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(year, doy, <span class="at">sep =</span> <span class="st">"-"</span>), <span class="st">"%Y-%j"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter to desired species</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"DACEXC"</span>, <span class="st">"MANBID"</span>, <span class="st">"CASARB"</span>, <span class="st">"INGLAU"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate diameter averages per species</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">"doy"</span>, <span class="st">"year"</span>, <span class="st">"flag"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date, species) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_daily_dbh =</span> <span class="fu">mean</span>(dbh, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter to desired time range</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">date</span>(date) <span class="sc">&gt;=</span> <span class="st">"2014-06-01"</span> <span class="sc">&amp;</span> <span class="fu">date</span>(date) <span class="sc">&lt;</span> <span class="st">"2016-08-01"</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># add family and distribution information</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>dbh <span class="ot">&lt;-</span> dbh <span class="sc">%&gt;%</span> </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">family =</span> <span class="fu">case_when</span>(species <span class="sc">==</span> <span class="st">'CASARB'</span> <span class="sc">~</span> <span class="st">'Salicaceae'</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                            species <span class="sc">==</span> <span class="st">'MANBID'</span> <span class="sc">~</span> <span class="st">'Sapotaceae'</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                            species <span class="sc">==</span> <span class="st">'DACEXC'</span> <span class="sc">~</span> <span class="st">'Burseraceae'</span>,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                            species <span class="sc">==</span> <span class="st">'INGLAU'</span> <span class="sc">~</span> <span class="st">'Fabaceae'</span>),</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">distribution =</span> <span class="fu">case_when</span>(family <span class="sc">==</span> <span class="st">'Salicaceae'</span> <span class="sc">~</span> <span class="st">'wide'</span>,</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                                  family <span class="sc">==</span> <span class="st">'Sapotaceae'</span> <span class="sc">~</span> <span class="st">'narrow'</span>,</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>                                  family <span class="sc">==</span> <span class="st">'Burseraceae'</span> <span class="sc">~</span> <span class="st">'narrow'</span>,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                                  family <span class="sc">==</span> <span class="st">'Fabaceae'</span> <span class="sc">~</span> <span class="st">'wide'</span>),</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>         <span class="at">distribution =</span> <span class="fu">as.factor</span>(distribution))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <p>Climate data that was collected daily had far more missing values than data collected hourly, so I used hourly climate data to calculate daily and monthly averages.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ======== Convert Hourly Data to Lower Res =====</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># convert hourly climate to daily averages</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>daily_conditions <span class="ot">&lt;-</span> hourly_conditions <span class="sc">%&gt;%</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">date =</span> <span class="fu">date</span>(datetime)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tot_rain_mm =</span> <span class="fu">sum</span>(rain_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_temp_c =</span> <span class="fu">mean</span>(temp_c, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_ppfd_mmol_m2 =</span> <span class="fu">mean</span>(ppfd_mmol_m2_hour, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">year_mo =</span> <span class="fu">yearmonth</span>(date))</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># create monthly conditions</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>monthly_conditions <span class="ot">&lt;-</span> hourly_conditions <span class="sc">%&gt;%</span> </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year_mo) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tot_rain_mm =</span> <span class="fu">sum</span>(rain_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_temp_c =</span> <span class="fu">mean</span>(temp_c, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_ppfd_mmol_m2 =</span> <span class="fu">mean</span>(ppfd_mmol_m2_hour, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># replace zeros w/NA, no data collected October 2014</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>monthly_conditions[<span class="st">'tot_rain_mm'</span>][monthly_conditions[<span class="st">'tot_rain_mm'</span>] <span class="sc">==</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># replace NAs with the mean of previous and next month</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>monthly_conditions<span class="sc">$</span>tot_rain_mm <span class="ot">&lt;-</span> <span class="fu">na.approx</span>(monthly_conditions<span class="sc">$</span>tot_rain_mm)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># remove raw data variables</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(clim_1999_2014, clim_2015_2023, dbh_raw, hourly_conditions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create fully joined df</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>clim_dbh_full <span class="ot">&lt;-</span> <span class="fu">left_join</span>(dbh, daily_conditions, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">'date'</span>,<span class="st">'year_mo'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## =====================================</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">##           Clean Climate Data     ----</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## =====================================</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># select and rename climate variables (1999-2014)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>clim_1999_2014 <span class="ot">&lt;-</span> clim_1999_2014 <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datetime =</span> <span class="fu">mdy_hm</span>(datetime)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">date</span>(datetime) <span class="sc">&gt;=</span> <span class="st">"2014-06-01"</span> <span class="sc">&amp;</span> <span class="fu">date</span>(datetime) <span class="sc">!=</span> <span class="st">"2015-01-01"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"datetime"</span>, <span class="st">"rain_mm"</span>, <span class="st">"temp_air_degrees_c"</span>, <span class="st">"ppfd_millimoles_m2_hour"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"temp_c"</span> <span class="ot">=</span> <span class="st">"temp_air_degrees_c"</span>, </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>         <span class="st">"ppfd_mmol_m2_hour"</span> <span class="ot">=</span> <span class="st">"ppfd_millimoles_m2_hour"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># select and rename climate variables (2015-2023)</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>clim_2015_2023 <span class="ot">&lt;-</span> clim_2015_2023 <span class="sc">%&gt;%</span> </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datetime =</span> <span class="fu">ymd_hms</span>(datetime)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">date</span>(datetime) <span class="sc">&lt;</span> <span class="st">"2016-08-01"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"datetime"</span>, <span class="st">"rain_mm_tot"</span>, <span class="st">"air_tc_avg"</span>, <span class="st">"par_tot"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"rain_mm"</span> <span class="ot">=</span> <span class="st">"rain_mm_tot"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>         <span class="st">"temp_c"</span> <span class="ot">=</span> <span class="st">"air_tc_avg"</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>         <span class="st">"ppfd_mmol_m2_hour"</span> <span class="ot">=</span> <span class="st">"par_tot"</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># bind to combine study time (June 2014 - July 2016)</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>hourly_conditions <span class="ot">&lt;-</span> <span class="fu">rbind</span>(clim_1999_2014, clim_2015_2023) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year_mo =</span> <span class="fu">yearmonth</span>(datetime))</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="do">## =====================================</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="do">##         Calculate Averages       ----</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="do">## =====================================</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co"># convert hourly to daily averages</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>daily_conditions <span class="ot">&lt;-</span> hourly_conditions <span class="sc">%&gt;%</span> </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">date =</span> <span class="fu">date</span>(datetime)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tot_rain_mm =</span> <span class="fu">sum</span>(rain_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_temp_c =</span> <span class="fu">mean</span>(temp_c, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_ppfd_mmol_m2 =</span> <span class="fu">mean</span>(ppfd_mmol_m2_hour, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">year_mo =</span> <span class="fu">yearmonth</span>(date))</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co"># create monthly conditions</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>monthly_conditions <span class="ot">&lt;-</span> hourly_conditions <span class="sc">%&gt;%</span> </span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year_mo) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tot_rain_mm =</span> <span class="fu">sum</span>(rain_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_temp_c =</span> <span class="fu">mean</span>(temp_c, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg_ppfd_mmol_m2 =</span> <span class="fu">mean</span>(ppfd_mmol_m2_hour, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co"># replace zeros w/NA, no data collected October 2014</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>monthly_conditions[<span class="st">'tot_rain_mm'</span>][monthly_conditions[<span class="st">'tot_rain_mm'</span>] <span class="sc">==</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co"># replace NAs with the mean of previous and next month</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>monthly_conditions<span class="sc">$</span>tot_rain_mm <span class="ot">&lt;-</span> <span class="fu">na.approx</span>(monthly_conditions<span class="sc">$</span>tot_rain_mm)</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co"># remove raw data variables</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(clim_1999_2014, clim_2015_2023, dbh_raw, hourly_conditions)</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="co"># create fully joined df</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>clim_dbh_full <span class="ot">&lt;-</span> <span class="fu">left_join</span>(dbh, daily_conditions, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"date"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="exploration---climate-trends" class="level4">
 <h4 class="anchored" data-anchor-id="exploration---climate-trends">Exploration - Climate Trends</h4>
-<p>The following plots show time series decomposition from June 2014 to July 2016 for average monthly temperature and total monthly rainfall. Although the seasonality component contributes more to the overall shape of the line, the decomposed trends still demonstrate signs of drought (increasing temperature and decreasing rainfall).</p>
+<p>The following plots show time series decomposition from June 2014 to July 2016 for average monthly temperature and total monthly rainfall. The <code>seasonal_year</code> plot suggest that seasonality has a high contribution to changes in rainfall and temperature. By removing seasonal fluctuations, you can view the overall <code>trend</code> exhibited by the climate variables. The increase in temperature and decrease in rainfall display the symptoms of drought.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Rainfall Decomposition</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Temperature Decomposition</a></li></ul>
 <div class="tab-content">
@@ -397,18 +478,18 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># decompose monthly rain variable</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rain_dcmp <span class="ot">&lt;-</span> monthly_conditions <span class="sc">%&gt;%</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> year_mo) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="fu">STL</span>(tot_rain_mm))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plot </span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">components</span>(rain_dcmp) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># decompose monthly rain variable</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>rain_dcmp <span class="ot">&lt;-</span> monthly_conditions <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> year_mo) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="fu">STL</span>(tot_rain_mm))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plot </span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">components</span>(rain_dcmp) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -418,18 +499,18 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># decompose monthly average temperature</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>temp_dcmp <span class="ot">&lt;-</span> monthly_conditions <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> year_mo) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="fu">STL</span>(avg_temp_c))</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plot components</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">components</span>(temp_dcmp) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># decompose monthly average temperature</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>temp_dcmp <span class="ot">&lt;-</span> monthly_conditions <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> year_mo) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="fu">STL</span>(avg_temp_c))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plot components</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">components</span>(temp_dcmp) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -440,25 +521,25 @@ window.Quarto = {
 </section>
 <section id="exploration---diameter-trends" class="level4">
 <h4 class="anchored" data-anchor-id="exploration---diameter-trends">Exploration - Diameter Trends</h4>
-<p>Diameter trends for all species selected appear linear, so testing linear regression fit is within reason.</p>
+<p>Diameter trends for all species selected appear linear overall. Some species experienced faster relative growth, particularly CASARB and MANBID which had smaller diameters overall.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dbh, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span> mean_daily_dbh, <span class="at">col =</span> distribution)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">'#B40052'</span>, <span class="st">'#37947D'</span>))<span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Date"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Diameter at Breast Height (mm)"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Mean Diameter of Species"</span>) <span class="sc">+</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Distribution"</span>)) <span class="sc">+</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dbh, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span> mean_daily_dbh, <span class="at">col =</span> distribution)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">'#3714ab'</span>, <span class="st">'#14A6AB'</span>))<span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Diameter at Breast Height (mm)"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Mean Diameter of Species"</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Distribution"</span>)) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -467,390 +548,1080 @@ window.Quarto = {
 </section>
 <section id="analysis---static-time-series" class="level2">
 <h2 class="anchored" data-anchor-id="analysis---static-time-series">Analysis - Static Time Series</h2>
+<p>In order to summarize the results I was most interested in, I developed the following function:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>View Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create function to run model and clean results</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tidy_results_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(model, data){</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># clean model outputs</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  tidy <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(model)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  summary <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">glance</span>(model)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># combine desired results</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  tidy<span class="sc">$</span>adj_r_squared <span class="ot">&lt;-</span> <span class="fu">c</span>(summary<span class="sc">$</span>adj.r.squared, <span class="cn">NA</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  tidy<span class="sc">$</span>r_sqaured <span class="ot">&lt;-</span> <span class="fu">c</span>(summary<span class="sc">$</span>r.squared, <span class="cn">NA</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># save results to environment</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assign</span>(<span class="fu">paste0</span>(<span class="fu">tolower</span>(<span class="fu">unique</span>(data<span class="sc">$</span>species)), <span class="st">"_model"</span>), tidy, <span class="at">envir =</span> .GlobalEnv)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <section id="simple-linear-regression" class="level3">
 <h3 class="anchored" data-anchor-id="simple-linear-regression">Simple linear regression</h3>
-<p>A simple linear regression time series looking at tree diameter (y) over time (x) for four species. This can be written out mathematically as:<span class="math display">\[ \hat{y} = \beta_0 + \beta_1 x_1  \]</span></p>
-<p>Where <span class="math inline">\(\beta_1\)</span> is the average change in dbh given a one unit change in time (<span class="math inline">\(x_1\)</span>), and <span class="math inline">\(\beta_0\)</span> is the estimated diameter when time (<span class="math inline">\(x_1\)</span>) is zero.</p>
+<p>A simple time series regression looking at tree diameter (y) over time (x) for the four species was conducted first. This can be written out mathematically as:<span class="math display">\[ \hat{y} = \beta_0 + \beta_1 x_1  \]</span></p>
+<p>Where <span class="math inline">\(\beta_1\)</span> is the average change in diameter given a one unit change in time (<span class="math inline">\(x_1\)</span>), and <span class="math inline">\(\beta_0\)</span> is the estimated diameter when time (<span class="math inline">\(x_1\)</span>) is zero.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create subsets for each individual species</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dacexc <span class="ot">&lt;-</span> clim_dbh_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">'DACEXC'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> date)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>manbid <span class="ot">&lt;-</span> clim_dbh_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">'MANBID'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> date)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>inglau <span class="ot">&lt;-</span> clim_dbh_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">'INGLAU'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> date)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>casarb <span class="ot">&lt;-</span> clim_dbh_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">'CASARB'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tsibble</span>(<span class="at">index =</span> date)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># run linear regressions</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>dacexc_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date, <span class="at">data =</span> dacexc)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>manbid_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date, <span class="at">data =</span> manbid)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>inglau_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date, <span class="at">data =</span> inglau)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>casarb_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date, <span class="at">data =</span> casarb)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># view results (wide distribution)</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(inglau_model, casarb_model,</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">'Wide Distribution'</span>,</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">'I. laurina'</span>, <span class="st">'C. arborea'</span>),</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># apply function to all species</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">unique</span>(clim_dbh_full<span class="sc">$</span>species)) {</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> clim_dbh_full <span class="sc">%&gt;%</span> <span class="fu">filter</span>(species <span class="sc">==</span> i)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date, <span class="at">data =</span> data)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy_results_fun</span>(model, data)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># combine species based on distributions</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>wide <span class="ot">&lt;-</span> <span class="fu">rbind</span>(inglau_model, casarb_model) <span class="sc">%&gt;%</span> <span class="fu">gt</span>()</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>narrow <span class="ot">&lt;-</span> <span class="fu">rbind</span>(dacexc_model, manbid_model) <span class="sc">%&gt;%</span> <span class="fu">gt</span>()</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># view for wide distribution</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>wide <span class="sc">%&gt;%</span> </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="st">"Wide Familial Distribution"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"I. laurina"</span>, <span class="at">rows =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"C. arborea"</span>, <span class="at">rows =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">row_group.background.color =</span> <span class="st">"grey90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<caption>Wide Distribution</caption>
-<tbody>
+<div id="zrccepqswu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zrccepqswu table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#zrccepqswu thead, #zrccepqswu tbody, #zrccepqswu tfoot, #zrccepqswu tr, #zrccepqswu td, #zrccepqswu th {
+  border-style: none;
+}
+
+#zrccepqswu p {
+  margin: 0;
+  padding: 0;
+}
+
+#zrccepqswu .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zrccepqswu .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#zrccepqswu .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zrccepqswu .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#zrccepqswu .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zrccepqswu .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zrccepqswu .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zrccepqswu .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zrccepqswu .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zrccepqswu .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zrccepqswu .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zrccepqswu .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zrccepqswu .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#zrccepqswu .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #E5E5E5;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#zrccepqswu .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #E5E5E5;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zrccepqswu .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zrccepqswu .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zrccepqswu .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zrccepqswu .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zrccepqswu .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#zrccepqswu .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#zrccepqswu .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#zrccepqswu .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zrccepqswu .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#zrccepqswu .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#zrccepqswu .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zrccepqswu .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zrccepqswu .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zrccepqswu .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zrccepqswu .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zrccepqswu .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zrccepqswu .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zrccepqswu .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zrccepqswu .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zrccepqswu .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zrccepqswu .gt_left {
+  text-align: left;
+}
+
+#zrccepqswu .gt_center {
+  text-align: center;
+}
+
+#zrccepqswu .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zrccepqswu .gt_font_normal {
+  font-weight: normal;
+}
+
+#zrccepqswu .gt_font_bold {
+  font-weight: bold;
+}
+
+#zrccepqswu .gt_font_italic {
+  font-style: italic;
+}
+
+#zrccepqswu .gt_super {
+  font-size: 65%;
+}
+
+#zrccepqswu .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#zrccepqswu .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#zrccepqswu .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#zrccepqswu .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#zrccepqswu .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#zrccepqswu .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#zrccepqswu .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border">Wide Familial Distribution</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="term" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">term</th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">estimate</th>
+<th id="std.error" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">std.error</th>
+<th id="statistic" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">statistic</th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">p.value</th>
+<th id="adj_r_squared" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">adj_r_squared</th>
+<th id="r_sqaured" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">r_sqaured</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd gt_group_heading_row">
+<td colspan="7" id="C. arborea" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">C. arborea</td>
+</tr>
+<tr class="even gt_row_group_first">
+<td class="gt_row gt_left" headers="C. arborea  term">(Intercept)</td>
+<td class="gt_row gt_right" headers="C. arborea  estimate">-55.41282623</td>
+<td class="gt_row gt_right" headers="C. arborea  std.error">2.007586e+01</td>
+<td class="gt_row gt_right" headers="C. arborea  statistic">-2.7601721</td>
+<td class="gt_row gt_right" headers="C. arborea  p.value">8.456750e-03</td>
+<td class="gt_row gt_right" headers="C. arborea  adj_r_squared">0.70391672</td>
+<td class="gt_row gt_right" headers="C. arborea  r_sqaured">0.71064589</td>
+</tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I. laurina</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">C. arborea</td>
+<td class="gt_row gt_left" headers="C. arborea  term">date</td>
+<td class="gt_row gt_right" headers="C. arborea  estimate">0.01244958</td>
+<td class="gt_row gt_right" headers="C. arborea  std.error">1.211459e-03</td>
+<td class="gt_row gt_right" headers="C. arborea  statistic">10.2765188</td>
+<td class="gt_row gt_right" headers="C. arborea  p.value">3.747518e-13</td>
+<td class="gt_row gt_right" headers="C. arborea  adj_r_squared">NA</td>
+<td class="gt_row gt_right" headers="C. arborea  r_sqaured">NA</td>
+</tr>
+<tr class="even gt_group_heading_row">
+<td colspan="7" id="I. laurina" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">I. laurina</td>
+</tr>
+<tr class="odd gt_row_group_first">
+<td class="gt_row gt_left" headers="I. laurina  term">(Intercept)</td>
+<td class="gt_row gt_right" headers="I. laurina  estimate">-32.27795546</td>
+<td class="gt_row gt_right" headers="I. laurina  std.error">1.112263e+02</td>
+<td class="gt_row gt_right" headers="I. laurina  statistic">-0.2902007</td>
+<td class="gt_row gt_right" headers="I. laurina  p.value">7.730576e-01</td>
+<td class="gt_row gt_right" headers="I. laurina  adj_r_squared">0.05806837</td>
+<td class="gt_row gt_right" headers="I. laurina  r_sqaured">0.07947591</td>
 </tr>
 <tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
-<td style="text-align: center;">p</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-32.2780</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-256.5872&nbsp;–&nbsp;192.0313</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.773</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-55.4128</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-95.8997&nbsp;–&nbsp;-14.9260</td>
-<td style="text-align: center;"><strong>0.008</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">date</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0129</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0006&nbsp;–&nbsp;0.0265</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.061</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0124</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0100&nbsp;–&nbsp;0.0149</td>
-<td style="text-align: center;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">45</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">45</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.079 / 0.058</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.711 / 0.704</td>
+<td class="gt_row gt_left" headers="I. laurina  term">date</td>
+<td class="gt_row gt_right" headers="I. laurina  estimate">0.01293233</td>
+<td class="gt_row gt_right" headers="I. laurina  std.error">6.711850e-03</td>
+<td class="gt_row gt_right" headers="I. laurina  statistic">1.9267901</td>
+<td class="gt_row gt_right" headers="I. laurina  p.value">6.063085e-02</td>
+<td class="gt_row gt_right" headers="I. laurina  adj_r_squared">NA</td>
+<td class="gt_row gt_right" headers="I. laurina  r_sqaured">NA</td>
 </tr>
 </tbody>
 </table>
 
-
+</div>
 </div>
 </div>
 <details class="code-fold">
 <summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view results (narrow distribution)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(dacexc_model, manbid_model,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Narrow Distribution"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">'D. excelsa'</span>, <span class="st">'M. bidentata'</span>),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view results for narrow distribution</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>narrow <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="st">"Wide Familial Distribution"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"D. excelsa"</span>, <span class="at">rows =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(<span class="at">label =</span> <span class="st">"M. bidentata"</span>, <span class="at">rows =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">row_group.background.color =</span> <span class="st">"grey90"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<caption>Narrow Distribution</caption>
-<tbody>
+<div id="hijwofhbnz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hijwofhbnz table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#hijwofhbnz thead, #hijwofhbnz tbody, #hijwofhbnz tfoot, #hijwofhbnz tr, #hijwofhbnz td, #hijwofhbnz th {
+  border-style: none;
+}
+
+#hijwofhbnz p {
+  margin: 0;
+  padding: 0;
+}
+
+#hijwofhbnz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#hijwofhbnz .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#hijwofhbnz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#hijwofhbnz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#hijwofhbnz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hijwofhbnz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hijwofhbnz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hijwofhbnz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#hijwofhbnz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#hijwofhbnz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#hijwofhbnz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#hijwofhbnz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#hijwofhbnz .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#hijwofhbnz .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #E5E5E5;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#hijwofhbnz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #E5E5E5;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#hijwofhbnz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#hijwofhbnz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#hijwofhbnz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#hijwofhbnz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hijwofhbnz .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#hijwofhbnz .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#hijwofhbnz .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#hijwofhbnz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hijwofhbnz .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#hijwofhbnz .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#hijwofhbnz .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hijwofhbnz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hijwofhbnz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#hijwofhbnz .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hijwofhbnz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#hijwofhbnz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hijwofhbnz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hijwofhbnz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hijwofhbnz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hijwofhbnz .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hijwofhbnz .gt_left {
+  text-align: left;
+}
+
+#hijwofhbnz .gt_center {
+  text-align: center;
+}
+
+#hijwofhbnz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#hijwofhbnz .gt_font_normal {
+  font-weight: normal;
+}
+
+#hijwofhbnz .gt_font_bold {
+  font-weight: bold;
+}
+
+#hijwofhbnz .gt_font_italic {
+  font-style: italic;
+}
+
+#hijwofhbnz .gt_super {
+  font-size: 65%;
+}
+
+#hijwofhbnz .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#hijwofhbnz .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#hijwofhbnz .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#hijwofhbnz .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#hijwofhbnz .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#hijwofhbnz .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#hijwofhbnz .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="7" class="gt_heading gt_title gt_font_normal gt_bottom_border">Wide Familial Distribution</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="term" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">term</th>
+<th id="estimate" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">estimate</th>
+<th id="std.error" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">std.error</th>
+<th id="statistic" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">statistic</th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">p.value</th>
+<th id="adj_r_squared" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">adj_r_squared</th>
+<th id="r_sqaured" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">r_sqaured</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd gt_group_heading_row">
+<td colspan="7" id="M. bidentata" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">M. bidentata</td>
+</tr>
+<tr class="even gt_row_group_first">
+<td class="gt_row gt_left" headers="M. bidentata  term">(Intercept)</td>
+<td class="gt_row gt_right" headers="M. bidentata  estimate">1.375030e+02</td>
+<td class="gt_row gt_right" headers="M. bidentata  std.error">8.129896e+00</td>
+<td class="gt_row gt_right" headers="M. bidentata  statistic">16.913252</td>
+<td class="gt_row gt_right" headers="M. bidentata  p.value">1.287841e-20</td>
+<td class="gt_row gt_right" headers="M. bidentata  adj_r_squared">0.12825930</td>
+<td class="gt_row gt_right" headers="M. bidentata  r_sqaured">0.1480716</td>
+</tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">D. excelsa</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">M. bidentata</td>
+<td class="gt_row gt_left" headers="M. bidentata  term">date</td>
+<td class="gt_row gt_right" headers="M. bidentata  estimate">1.341184e-03</td>
+<td class="gt_row gt_right" headers="M. bidentata  std.error">4.905911e-04</td>
+<td class="gt_row gt_right" headers="M. bidentata  statistic">2.733811</td>
+<td class="gt_row gt_right" headers="M. bidentata  p.value">9.053291e-03</td>
+<td class="gt_row gt_right" headers="M. bidentata  adj_r_squared">NA</td>
+<td class="gt_row gt_right" headers="M. bidentata  r_sqaured">NA</td>
+</tr>
+<tr class="even gt_group_heading_row">
+<td colspan="7" id="D. excelsa" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup">D. excelsa</td>
+</tr>
+<tr class="odd gt_row_group_first">
+<td class="gt_row gt_left" headers="D. excelsa  term">(Intercept)</td>
+<td class="gt_row gt_right" headers="D. excelsa  estimate">2.224853e+02</td>
+<td class="gt_row gt_right" headers="D. excelsa  std.error">2.421531e+01</td>
+<td class="gt_row gt_right" headers="D. excelsa  statistic">9.187794</td>
+<td class="gt_row gt_right" headers="D. excelsa  p.value">1.058230e-11</td>
+<td class="gt_row gt_right" headers="D. excelsa  adj_r_squared">0.09937944</td>
+<td class="gt_row gt_right" headers="D. excelsa  r_sqaured">0.1198481</td>
 </tr>
 <tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
-<td style="text-align: center;">p</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">222.4853</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">173.6505&nbsp;–&nbsp;271.3201</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">137.5030</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">121.1075&nbsp;–&nbsp;153.8985</td>
-<td style="text-align: center;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">date</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0035</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0006&nbsp;–&nbsp;0.0065</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>0.020</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0013</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0004&nbsp;–&nbsp;0.0023</td>
-<td style="text-align: center;"><strong>0.009</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">45</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">45</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.120 / 0.099</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.148 / 0.128</td>
+<td class="gt_row gt_left" headers="D. excelsa  term">date</td>
+<td class="gt_row gt_right" headers="D. excelsa  estimate">3.535865e-03</td>
+<td class="gt_row gt_right" headers="D. excelsa  std.error">1.461251e-03</td>
+<td class="gt_row gt_right" headers="D. excelsa  statistic">2.419753</td>
+<td class="gt_row gt_right" headers="D. excelsa  p.value">1.983184e-02</td>
+<td class="gt_row gt_right" headers="D. excelsa  adj_r_squared">NA</td>
+<td class="gt_row gt_right" headers="D. excelsa  r_sqaured">NA</td>
 </tr>
 </tbody>
 </table>
 
+</div>
+</div>
+</div>
+</div>
 
-</div>
-</div>
-</div>
+
 </section>
-<section id="multiple-linear-regression" class="level3">
-<h3 class="anchored" data-anchor-id="multiple-linear-regression">Multiple Linear Regression</h3>
-<p>This regression compares diameter over time, adding all climate variables as predictors to see if the models predictive capability improves. This can be written out mathematically as:<span class="math display">\[ \hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4\]</span></p>
-<p>Where <span class="math inline">\(x_2\)</span> through <span class="math inline">\(x_4\)</span> are the added climate variables.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run models w/climate variables</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dacexc_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date <span class="sc">+</span> tot_rain_mm <span class="sc">+</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                      avg_temp_c <span class="sc">+</span> avg_ppfd_mmol_m2, <span class="at">data =</span> dacexc)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>manbid_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date <span class="sc">+</span> tot_rain_mm <span class="sc">+</span> </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                      avg_temp_c <span class="sc">+</span> avg_ppfd_mmol_m2, <span class="at">data =</span> manbid)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>inglau_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date <span class="sc">+</span> tot_rain_mm <span class="sc">+</span> </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                      avg_temp_c <span class="sc">+</span> avg_ppfd_mmol_m2, <span class="at">data =</span> inglau)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>casarb_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mean_daily_dbh <span class="sc">~</span> date <span class="sc">+</span> tot_rain_mm <span class="sc">+</span> </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                      avg_temp_c <span class="sc">+</span> avg_ppfd_mmol_m2, <span class="at">data =</span> casarb)</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># view results (wide distribution)</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(inglau_model2, casarb_model2,</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">'Wide Distribution'</span>,</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">'I. laurina'</span>, <span class="st">'C. arborea'</span>),</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<caption>Wide Distribution</caption>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I. laurina</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">C. arborea</td>
-</tr>
-<tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
-<td style="text-align: center;">p</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">54.2732</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-240.2006&nbsp;–&nbsp;348.7471</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.711</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-67.5163</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-118.5789&nbsp;–&nbsp;-16.4537</td>
-<td style="text-align: center;"><strong>0.011</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">date</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0076</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0094&nbsp;–&nbsp;0.0246</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.369</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0125</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0096&nbsp;–&nbsp;0.0154</td>
-<td style="text-align: center;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">tot rain mm</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0225</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0800&nbsp;–&nbsp;0.1251</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.659</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0014</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0192&nbsp;–&nbsp;0.0164</td>
-<td style="text-align: center;">0.875</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">avg temp c</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.2175</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.8959&nbsp;–&nbsp;2.4609</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.870</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.4836</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0191&nbsp;–&nbsp;0.9480</td>
-<td style="text-align: center;"><strong>0.042</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">avg ppfd mmol m2</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0069</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0023&nbsp;–&nbsp;0.0161</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.139</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0002</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0018&nbsp;–&nbsp;0.0014</td>
-<td style="text-align: center;">0.826</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">41</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">41</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.133 / 0.037</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.731 / 0.701</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-<details class="code-fold">
-<summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view results (narrow distribution)</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(dacexc_model2, manbid_model2,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Narrow Distribution"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">dv.labels =</span> <span class="fu">c</span>(<span class="st">'D. excelsa'</span>, <span class="st">'M. bidentata'</span>),</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">digits =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<caption>Narrow Distribution</caption>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">D. excelsa</td>
-<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">M. bidentata</td>
-</tr>
-<tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">CI</td>
-<td style="text-align: center;">p</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">218.2800</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">153.7029&nbsp;–&nbsp;282.8570</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">155.1021</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">136.6992&nbsp;–&nbsp;173.5051</td>
-<td style="text-align: center;"><strong>&lt;0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">date</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0038</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0001&nbsp;–&nbsp;0.0075</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>0.045</strong></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0004</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0007&nbsp;–&nbsp;0.0014</td>
-<td style="text-align: center;">0.486</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">tot rain mm</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0114</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0339&nbsp;–&nbsp;0.0111</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.310</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0020</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0045&nbsp;–&nbsp;0.0084</td>
-<td style="text-align: center;">0.539</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">avg temp c</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0432</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.5442&nbsp;–&nbsp;0.6305</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.882</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.1042</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.2716&nbsp;–&nbsp;0.0632</td>
-<td style="text-align: center;">0.215</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">avg ppfd mmol m2</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0011</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.0031&nbsp;–&nbsp;0.0009</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.289</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0011</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.0005&nbsp;–&nbsp;0.0016</td>
-<td style="text-align: center;"><strong>0.001</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">41</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">41</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.140 / 0.045</td>
-<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.374 / 0.304</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="analysis---dynamic-time-series" class="level2">
-<h2 class="anchored" data-anchor-id="analysis---dynamic-time-series">Analysis - Dynamic Time Series</h2>
-<p>Climate impacts on tree growth are likely not immediate, in order to produce a more accurate model it would be best to add a lag to tree growth. Ideally, this regression would test if current diameter at breast height is dependent on past diameter <em>and</em> past climate variables.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># conduct dynamic regression for a single species</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dacexc_model3 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(mean_daily_dbh <span class="sc">~</span> tot_rain_mm <span class="sc">+</span> <span class="fu">lag</span>(tot_rain_mm, <span class="dv">1</span>) <span class="sc">+</span> avg_temp_c <span class="sc">+</span> <span class="fu">lag</span>(avg_temp_c, <span class="dv">1</span>) <span class="sc">+</span> avg_ppfd_mmol_m2 <span class="sc">+</span> <span class="fu">lag</span>(avg_ppfd_mmol_m2, <span class="dv">1</span>), <span class="at">data =</span> dacexc)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>manbid_model3 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(mean_daily_dbh <span class="sc">~</span> <span class="fu">lag</span>(tot_rain_mm, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">lag</span>(avg_temp_c, <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">lag</span>(avg_ppfd_mmol_m2, <span class="dv">1</span>), <span class="at">data =</span> manbid)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>inglau_model3 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(mean_daily_dbh <span class="sc">~</span> <span class="fu">lag</span>(tot_rain_mm, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">lag</span>(avg_temp_c, <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">lag</span>(avg_ppfd_mmol_m2, <span class="dv">1</span>), <span class="at">data =</span> inglau)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>casarb_model3 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(mean_daily_dbh <span class="sc">~</span> <span class="fu">lag</span>(tot_rain_mm, <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">lag</span>(avg_temp_c, <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">lag</span>(avg_ppfd_mmol_m2, <span class="dv">1</span>), <span class="at">data =</span> casarb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>I did not run these models, as I realized they were producing very high adjusted r-squared values, between 0.96-1. Oftentimes inflated adjusted r-sqaured values are caused by autocorrelation, which violates one of the assumptions that must be met to run a dynamic linear model. The autocorrelation between previous and current diameter breast height was very high, and can be seen by creating an ACF plot:</p>
-<div class="cell">
-<details class="code-fold">
-<summary>View Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(casarb<span class="sc">$</span>mean_daily_dbh, <span class="at">lag.max =</span> <span class="dv">12</span>, <span class="at">na.action =</span> na.pass,  <span class="at">main =</span> <span class="st">'Autocorrelation for CASARB Diameter'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="results" class="level2">
-<h2 class="anchored" data-anchor-id="results">Results</h2>
-<p>After running several regressions, I found that increasing complexity rarely improved the model. In fact, the simple static time series for <em>C. arborea</em> (CASARB) was one of the most accurate, with a model that explained 70% of variation in diameter growth (y). CASARB has the largest increase in mean diameter height between the first and last measurement, and I believe this is what produced such a well-fitting model. Given more time, I predict that time alone would be a much better indicator of diameter growth than what is demonstrated here. All species except <em>M. bidentata</em> (MANBID) experienced decreases in adjusted r-squared values when climate variables were added. This suggests climate variables were likely excessive and caused overfitting, but the one exception is interesting. By adding climate variables, the new MANBID model explained 30% of variation in diameter, as opposed to 12% in the initial model. While this percentage is still rather low, it suggests potential discrepancies between which tree species are more rapidly impacted by climate.</p>
-</section>
-<section id="limitations" class="level2">
-<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
-<p>Given more time, I would have analyzed the change in diameter at breast height between measurements instead of dbh itself. This could potentially reduce autocorrelation, so a dynamic time series could be run instead. Alternatively, an auto regressive moving average (or ARIMA) model would allow me to compare these changes regardless of the high autocorrelation. As mentioned, I suspect that data collected over a longer period of time would demonstrate a stronger linear relationship between tree diameter and time. To expand this analysis, growth rates during periods of drought could be compared to rates during favorable climate conditions.</p>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Much more work needs to be done to properly assess the impact that climate change has on tropical rain forests, and how these impacts may different from temperature forests. Data on trees physiological responses can be much harder to collect, leaving gaps in historic records. Similarly, distribution data can be hard to difficult consolidate. Still, improvements in technology, climate science, and environmental empathy continue to lead us in the right direction.</p>
-
-
 </section>
 
 
