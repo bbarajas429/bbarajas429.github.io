@@ -27,7 +27,7 @@ In December 2023 it was announced that the Mint personal finance tool, hosted by
 Before I could start writing code for the dashboard, I needed to decide how to structure my data. Mint's tool grouped spending based on categories they provided. Since I had been using Mint for several years, I was familiar with my top spending categories and decided to keep most of the naming conventions. Using an Excel spreadsheet, I created a data table for my transaction history with the following structure:
 
 | purchase_date | store | total_cost | category | subcategory | split | note                     |
-|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+|---------------|-------|------------|----------|-------------|-------|--------------------------|
 | 2/18/24       | shop1 | 12.34      | Home     | Supplies    | 0     | NA                       |
 | 2/28/24       | shop2 | 41.23      | Auto     | Gas         | 0     | NA                       |
 | 3/01/24       | shop1 | 10.00      | Gift     | Donation    | 1     | Donated at grocery store |
