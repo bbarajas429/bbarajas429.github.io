@@ -1,55 +1,52 @@
 ---
-title: 'Drought Tolerance in Tropical Tree Species'
-description: 'Comparison of linear models, summarizing tropical tree growth under drought conditions'
-author: 
-  - name: 'Briana Barajas'
+title: "Drought Tolerance in Tropical Tree Species"
+description: "Comparison of linear models, summarizing tropical tree growth during a severe drought"
+author:
+  - name: "Briana Barajas"
     url: https://briana-barajas.github.io/
     affiliation: MEDS
     affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science
-date: 'Dec 10, 2023'
+date: 12-10-2023
 categories: [MEDS, R, Statistics]
 citation:
   url: https://github.com/briana-barajas/luquillo-tree-growth
 image: luq-1.jpg
-draft: false
-footnotes-hover: true
+draft: FALSE
+footnotes-hover: TRUE
 output: html_document
 format: 
   html:
     code-fold: true
-    code-summary: "View Code"
+    code-summary: "View Code" 
 ---
 
-```{r, include=FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-```{r,results='hide', echo=FALSE}
-## ========== Load Libraries ==========
-# data processing
+```{r, include=FALSE}
 library(tidyverse)
 library(here)
 library(janitor)
 library(lubridate)
 
-# plotting/aesthetics
-library(sjPlot)
+library(gt)
+library(broom)
 
-# time series packages
 library(feasts)
 library(tsibble)
-library(dynlm)
 library(zoo)
-```
 
-```{r, include=FALSE, results='hide', echo=FALSE}
-## ========== Read in Data ==========
-# tree data on diameter breast height
-dbh_raw <- read_csv(here('blog-posts/2023-12-10-luquillo-drought/data/long.data.DBH.csv'))
+data_path <- here("blog-posts", "2023-12-10-luquillo-drought", "data")
 
-# hourly climate data
-clim_1999_2014 <- read_csv(here("blog-posts/2023-12-10-luquillo-drought/data/NADPTowerHourlyData1999_2014.csv")) %>% clean_names()
-clim_2015_2023 <- read_csv(here('blog-posts/2023-12-10-luquillo-drought/data/NADPTowerHourlyData2015_2023v2.csv')) %>% clean_names()
+# tree diameter at breast height
+dbh_raw <- read_csv(here(data_path, "long.data.DBH.csv"))
+
+# hourly climate data 
+clim_1999_2014 <- read_csv(here(data_path, "NADPTowerHourlyData1999_2014.csv")) %>% 
+  clean_names()
+clim_2015_2023 <- read_csv(here(data_path, "NADPTowerHourlyData2015_2023v2.csv")) %>% 
+  clean_names()
 ```
 
 ## Motivation
@@ -91,24 +88,29 @@ In an effort to minimize error, modeling was limited to the four most sampled tr
 
 Although data collection for tree diameters began in 2011, measurements were not consistently taken until June 2014. In order to create time series models without significant data gaps, I restricted the data from June 2014 to July 2016, when diameter data was collected monthly.
 
-```{r, include=FALSE}
-## ========== Tidy Tree Data =======
-# list most sampled species
-species_list <- c('DACEXC', 'MANBID', 'CASARB', 'INGLAU')
+```{r}
+## =====================================
+##           Clean Tree Data        ----
+## =====================================
 
-# data tidy, filter to select species and year
 dbh <- dbh_raw %>% 
-  mutate(date = as.Date(paste(year, doy, sep="-"),"%Y-%j")) %>% 
-  rename(dbh_mm = dbh) %>% 
-  filter(species %in% species_list) %>% 
-  select(-c('doy', 'year','flag')) %>% 
+  
+  # correct date object format
+  mutate(date = as.Date(paste(year, doy, sep = "-"), "%Y-%j")) %>% 
+  
+  # filter to desired species
+  filter(species %in% c("DACEXC", "MANBID", "CASARB", "INGLAU")) %>% 
+  
+  # calculate diameter averages per species
+  select(-c("doy", "year", "flag")) %>% 
   group_by(date, species) %>% 
-  summarise(mean_daily_dbh = mean(dbh_mm, na.rm = TRUE)) %>% ungroup() %>% 
-  filter(date(date) >= "2014-06-01" &
-           date(date) < "2016-08-01") %>% 
-  mutate(year_mo = yearmonth(date))
-
-# add family and distribution data
+  summarise(mean_daily_dbh = mean(dbh, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  
+  # filter to desired time range
+  filter(date(date) >= "2014-06-01" & date(date) < "2016-08-01")
+  
+# add family and distribution information
 dbh <- dbh %>% 
   mutate(family = case_when(species == 'CASARB' ~ 'Salicaceae',
                             species == 'MANBID' ~ 'Sapotaceae',
@@ -119,39 +121,41 @@ dbh <- dbh %>%
                                   family == 'Burseraceae' ~ 'narrow',
                                   family == 'Fabaceae' ~ 'wide'),
          distribution = as.factor(distribution))
+
 ```
 
 Climate data that was collected daily had far more missing values than data collected hourly, so I used hourly climate data to calculate daily and monthly averages.
 
-```{r, include=FALSE}
-## ========== Tidy Climate Data =====
-# clean and filter data from 1999-2014
+```{r}
+## =====================================
+##           Clean Climate Data     ----
+## =====================================
+
+# select and rename climate variables (1999-2014)
 clim_1999_2014 <- clim_1999_2014 %>% 
   mutate(datetime = mdy_hm(datetime)) %>% 
-  filter(date(datetime) >= "2014-06-01" &
-           date(datetime) != "2015-01-01") %>% 
-  select(c('datetime', 'rain_mm', 'temp_air_degrees_c', 'ppfd_millimoles_m2_hour')) %>% 
-  rename('temp_c' = 'temp_air_degrees_c', 
-         'ppfd_mmol_m2_hour' = 'ppfd_millimoles_m2_hour')
+  filter(date(datetime) >= "2014-06-01" & date(datetime) != "2015-01-01") %>% 
+  select(c("datetime", "rain_mm", "temp_air_degrees_c", "ppfd_millimoles_m2_hour")) %>% 
+  rename("temp_c" = "temp_air_degrees_c", 
+         "ppfd_mmol_m2_hour" = "ppfd_millimoles_m2_hour")
 
-# clean and filter data from 2015-2023
+# select and rename climate variables (2015-2023)
 clim_2015_2023 <- clim_2015_2023 %>% 
   mutate(datetime = ymd_hms(datetime)) %>% 
   filter(date(datetime) < "2016-08-01") %>% 
-  select(c('datetime', 'rain_mm_tot', 'air_tc_avg', 'par_tot')) %>% 
-  rename('rain_mm' = 'rain_mm_tot',
-         'temp_c' = 'air_tc_avg',
-         'ppfd_mmol_m2_hour' = 'par_tot')
+  select(c("datetime", "rain_mm_tot", "air_tc_avg", "par_tot")) %>% 
+  rename("rain_mm" = "rain_mm_tot",
+         "temp_c" = "air_tc_avg",
+         "ppfd_mmol_m2_hour" = "par_tot")
 
 # bind to combine study time (June 2014 - July 2016)
 hourly_conditions <- rbind(clim_1999_2014, clim_2015_2023) %>% 
   mutate(year_mo = yearmonth(datetime))
 
-```
-
-```{r}
-## ======== Convert Hourly Data to Lower Res =====
-# convert hourly climate to daily averages
+## =====================================
+##         Calculate Averages       ----
+## =====================================
+# convert hourly to daily averages
 daily_conditions <- hourly_conditions %>% 
   group_by(date = date(datetime)) %>% 
   summarise(tot_rain_mm = sum(rain_mm, na.rm = TRUE),
@@ -174,11 +178,10 @@ monthly_conditions$tot_rain_mm <- na.approx(monthly_conditions$tot_rain_mm)
 
 # remove raw data variables
 rm(clim_1999_2014, clim_2015_2023, dbh_raw, hourly_conditions)
-```
 
-```{r}
 # create fully joined df
-clim_dbh_full <- left_join(dbh, daily_conditions, by = c('date','year_mo'))
+clim_dbh_full <- left_join(dbh, daily_conditions, by = c("date"))
+
 ```
 
 #### Exploration - Climate Trends
@@ -213,22 +216,43 @@ components(temp_dcmp) %>% autoplot()
 
 #### Exploration - Diameter Trends
 
-Diameter trends for all species selected appear linear:
+Diameter trends for all species selected appear linear overall. Some species experienced faster relative growth, particularly CASARB and MANBID which had smaller diameters overall.
 
 ```{r}
 ggplot(data = dbh, aes(x=date, y= mean_daily_dbh, col = distribution)) +
   geom_point() +
-  scale_color_manual(values = c('#B40052', '#37947D'))+
-  labs(x = "Date",
-       y = "Diameter at Breast Height (mm)",
+  scale_color_manual(values = c('#3714ab', '#14A6AB'))+
+  labs(y = "Diameter at Breast Height (mm)",
        title = "Mean Diameter of Species") +
   guides(color = guide_legend(title = "Distribution")) +
-  theme_classic() +
+  theme_bw() +
   theme(plot.title = element_text(hjust = 0.5)) +
-  facet_wrap(~species)
+  facet_wrap(~species, scales = "free_y") +
+  theme(axis.title.x = element_blank())
 ```
 
 ## Analysis - Static Time Series
+
+In order to summarize the results I was most interested in, I developed the following function:
+
+```{r, eval=FALSE}
+# create function to run model and clean results
+tidy_results_fun <- function(model, data){
+  
+  # clean model outputs
+  tidy <- broom::tidy(model)
+  summary <- broom::glance(model)
+  
+  # combine desired results (keeping R/R^2 only once)
+  tidy$adj_r_squared <- ifelse(1:nrow(tidy) == 1, summary$adj.r.squared, NA)
+  tidy$r_squared <- ifelse(1:nrow(tidy) == 1, summary$r.squared, NA)
+  
+  # save results to environment
+  assign(paste0(tolower(unique(data$species)), "_model"), tidy, envir = .GlobalEnv)
+  
+}
+
+```
 
 ### Simple linear regression
 
@@ -236,34 +260,36 @@ A simple time series regression looking at tree diameter (y) over time (x) for t
 
 Where $\beta_1$ is the average change in diameter given a one unit change in time ($x_1$), and $\beta_0$ is the estimated diameter when time ($x_1$) is zero.
 
+```{r, include=FALSE}
+# source function
+source(here("blog-posts", "2023-12-10-luquillo-drought", "tidy_results_function.R"))
+```
+
 ```{r}
-# create subsets for each individual species
-dacexc <- clim_dbh_full %>% filter(species == 'DACEXC') %>% 
-  as_tsibble(index = date)
-manbid <- clim_dbh_full %>% filter(species == 'MANBID') %>% 
-  as_tsibble(index = date)
-inglau <- clim_dbh_full %>% filter(species == 'INGLAU') %>% 
-  as_tsibble(index = date)
-casarb <- clim_dbh_full %>% filter(species == 'CASARB') %>% 
-  as_tsibble(index = date)
+# apply function to all species
+for (i in unique(clim_dbh_full$species)) {
+  data <- clim_dbh_full %>% filter(species == i)
+  model <- lm(mean_daily_dbh ~ date, data = data)
+  tidy_results_fun(model, data)
+}
 
-# run linear regressions
-dacexc_model <- lm(mean_daily_dbh ~ date, data = dacexc)
-manbid_model <- lm(mean_daily_dbh ~ date, data = manbid)
-inglau_model <- lm(mean_daily_dbh ~ date, data = inglau)
-casarb_model <- lm(mean_daily_dbh ~ date, data = casarb)
+# combine species based on distributions
+wide <- rbind(inglau_model, casarb_model) %>% gt()
+narrow <- rbind(dacexc_model, manbid_model) %>% gt()
 
-# view results (wide distribution)
-tab_model(inglau_model, casarb_model,
-          title = 'Wide Distribution',
-          dv.labels = c('I. laurina', 'C. arborea'),
-          digits = 4)
+# view for wide distribution
+wide %>% 
+  tab_header("Wide Distribution") %>% 
+  tab_row_group(label = "I. laurina", rows = 1:2) %>% 
+  tab_row_group(label = "C. arborea", rows = 3:4) %>% 
+  tab_options(row_group.background.color = "grey90")
 
-# view results (narrow distribution)
-tab_model(dacexc_model, manbid_model,
-          title = "Narrow Distribution",
-          dv.labels = c('D. excelsa', 'M. bidentata'),
-          digits = 4)
+# view results for narrow distribution
+narrow %>% 
+  tab_header("Narrow Distribution") %>% 
+  tab_row_group(label = "D. excelsa", rows = 1:2) %>% 
+  tab_row_group(label = "M. bidentata", rows = 3:4) %>% 
+  tab_options(row_group.background.color = "grey90")
 ```
 
 ### Multiple Linear Regression
@@ -273,48 +299,64 @@ This regression compares diameter over time, adding all climate variables as pre
 Where $x_2$ through $x_4$ are the added climate variables.
 
 ```{r}
-# run models w/climate variables
-dacexc_model2 <- lm(mean_daily_dbh ~ date + tot_rain_mm + 
-                      avg_temp_c + avg_ppfd_mmol_m2, data = dacexc)
-manbid_model2 <- lm(mean_daily_dbh ~ date + tot_rain_mm + 
-                      avg_temp_c + avg_ppfd_mmol_m2, data = manbid)
+# apply function to all species (now using multiple regression)
+for (i in unique(clim_dbh_full$species)) {
+  data <- clim_dbh_full %>% filter(species == i)
+  model <- lm(mean_daily_dbh ~ date + tot_rain_mm + avg_temp_c + avg_ppfd_mmol_m2, data = data)
+  tidy_results_fun(model, data)
+}
 
-inglau_model2 <- lm(mean_daily_dbh ~ date + tot_rain_mm + 
-                      avg_temp_c + avg_ppfd_mmol_m2, data = inglau)
-casarb_model2 <- lm(mean_daily_dbh ~ date + tot_rain_mm + 
-                      avg_temp_c + avg_ppfd_mmol_m2, data = casarb)
+# combine species based on distributions
+wide <- rbind(inglau_model, casarb_model) %>% gt()
+narrow <- rbind(dacexc_model, manbid_model) %>% gt()
 
-# view results (wide distribution)
-tab_model(inglau_model2, casarb_model2,
-          title = 'Wide Distribution',
-          dv.labels = c('I. laurina', 'C. arborea'),
-          digits = 4)
+# view for wide distribution
+wide %>% 
+  tab_header("Wide Distribution") %>% 
+  tab_row_group(label = "I. laurina", rows = 1:2) %>% 
+  tab_row_group(label = "C. arborea", rows = 3:4) %>% 
+  tab_options(row_group.background.color = "grey90")
 
-# view results (narrow distribution)
-tab_model(dacexc_model2, manbid_model2,
-          title = "Narrow Distribution",
-          dv.labels = c('D. excelsa', 'M. bidentata'),
-          digits = 4)
+# view results for narrow distribution
+narrow %>% 
+  tab_header("Narrow Distribution") %>% 
+  tab_row_group(label = "D. excelsa", rows = 1:5) %>% 
+  tab_row_group(label = "M. bidentata", rows = 6:10) %>% 
+  tab_options(row_group.background.color = "grey90")
+
 ```
 
 ## Analysis - Dynamic Time Series
 
-Climate impacts on tree growth are likely not immediate, in order to produce a more accurate model it would be best to add a lag to tree growth. Ideally, this regression would test if current diameter at breast height is dependent on past diameter *and* past climate variables.
+Climate impacts on tree growth are likely not immediate, in order to produce a more accurate model it would be best to add a lag to tree growth. Ideally, this regression would test if current diameter at breast height is dependent on past diameter \*and\* past climate variables.
 
 ```{r, eval=FALSE}
 # conduct dynamic regression for a single species
-dacexc_model3 <- dynlm(mean_daily_dbh ~ tot_rain_mm + lag(tot_rain_mm, 1) + avg_temp_c + lag(avg_temp_c, 1) + avg_ppfd_mmol_m2 + lag(avg_ppfd_mmol_m2, 1), data = dacexc)
-manbid_model3 <- dynlm(mean_daily_dbh ~ lag(tot_rain_mm, 1) + lag(avg_temp_c, 1) +
-                         lag(avg_ppfd_mmol_m2, 1), data = manbid)
-inglau_model3 <- dynlm(mean_daily_dbh ~ lag(tot_rain_mm, 1) + lag(avg_temp_c, 1) +
-                         lag(avg_ppfd_mmol_m2, 1), data = inglau)
-casarb_model3 <- dynlm(mean_daily_dbh ~ lag(tot_rain_mm, 1) + lag(avg_temp_c, 1) +
-                         lag(avg_ppfd_mmol_m2, 1), data = casarb)
+
+# apply function to all species (dynamic time series)
+for (i in unique(clim_dbh_full$species)) {
+  
+  data <- clim_dbh_full %>% filter(species == i)
+  
+  model <- dynlm(mean_daily_dbh ~ tot_rain_mm + 
+                   lag(tot_rain_mm, 1) + 
+                   avg_temp_c + 
+                   lag(avg_temp_c, 1) + 
+                   avg_ppfd_mmol_m2 + 
+                   lag(avg_ppfd_mmol_m2, 1), 
+                 data = data)
+  
+  tidy_results_fun(model, data)
+}
 ```
 
 Upon running these models, I recognized they were producing abnormally high values of r-squared (between 0.96 and 1). Inflated values of the adjusted r-squared can be caused by autocorrelation, which violates one of the assumptions that must be met to run a dynamic linear model. The autocorrelation between previous and current diameter breast height was very high, and can be seen by creating an ACF plot:
 
 ```{r}
+# isolate single species for example
+casarb <- clim_dbh_full %>% filter(species == "CASARB")
+
+# plot autocorrelation
 acf(casarb$mean_daily_dbh, lag.max = 12, na.action = na.pass,  main = 'Autocorrelation for CASARB Diameter')
 ```
 
@@ -324,7 +366,7 @@ After running several regressions, I found that the addition of climate variable
 
 ## Limitations
 
-Given more time, I would have analyzed the change in diameter at breast height between measurements instead of the diameter itself. This could reduce the impact of autocorrelation, so a dynamic time series could be run instead. Alternatively, an auto regressive moving average (or ARIMA) model would allow me to compare diameters regardless of the high autocorrelation. As mentioned, I suspect that data collected over a longer period would demonstrate a stronger linear relationship between tree diameter and time. To expand this analysis, growth rates during periods of drought could be compared to rates during favorable climate conditions.
+Given more time, I would have analyzed the change in diameter at breast height between measurements instead of the diameter itself. This could reduce the impact of autocorrelation, so a dynamic time series could be run instead. Alternatively, an autoregressive moving average (or ARIMA) model would allow me to compare diameters regardless of the high autocorrelation. As mentioned, I suspect that data collected over a longer period would demonstrate a stronger linear relationship between tree diameter and time. To expand this analysis, growth rates during periods of drought could be compared to rates during favorable climate conditions.
 
 ## Conclusion
 
