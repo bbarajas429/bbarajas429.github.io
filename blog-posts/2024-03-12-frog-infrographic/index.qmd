@@ -9,7 +9,7 @@ author:
 date: 03-12-2024
 categories: [MEDS, R, Visualization]
 citation:
-  url: https://github.com/briana-barajas/barajas-eds240-hw4
+  url: https://github.com/briana-barajas/oregon-frog-infographic
 image: rana-pretiosa.jpeg
 draft: false
 footnotes-hover: true
