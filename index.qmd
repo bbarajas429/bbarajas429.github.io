@@ -1,6 +1,6 @@
 ---
 title: "Briana Barajas"
-subtitle: "Landscape Ecology | Data Science"
+subtitle: "Data Science | Environmental Stewardship"
 image: /images/outdoor-headshot.jpeg
 toc: false
 about:
@@ -28,6 +28,6 @@ about:
 
 <p class="center-text-about">
 
-Welcome to my page! I am a budding environmental data scientist ready to tackle questions about conservation and the ever-changing landscape. Outside of coding, I spending my time [bird watching](https://briana-barajas.github.io/about.html#bird-watching), swimming, and reading.
+Welcome to my page! I am a budding environmental data scientist ready to tackle questions about conservation and the ever-changing landscape. Outside of coding, I spending my time [bird watching](https://briana-barajas.github.io/about.html#bird-watching), sewing, and gardening.
 
 </p>
