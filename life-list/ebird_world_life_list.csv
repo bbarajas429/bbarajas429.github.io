@@ -1,69 +1,79 @@
 Row #,Taxon Order,Category,Common Name,Scientific Name,Count,Location,S/P,Date,LocID,SubID,Exotic,Countable
-1,7373,species,Black-crowned Night Heron,Nycticorax nycticorax,,sb-zoo-natives,US-CA,29 Dec 2023,L28503482,S157442870,,1
-2,6543,species,Glaucous-winged Gull,Larus glaucescens,,Alice Keck,US-CA,29 Dec 2023,L28196068,S157427626,,1
-3,6539,species,California Gull,Larus californicus,,Alice Keck,US-CA,29 Dec 2023,L28196068,S157427057,,1
-4,324,species,Canada Goose,Branta canadensis,,CCBER,US-CA,29 Dec 2023,L17968094,S157452228,,1
-5,33499,species,Common Yellowthroat,Geothlypis trichas,,Lake Los Carneros (water),US-CA,28 Dec 2023,L17395133,S157363122,,1
-6,712,species,Hooded Merganser,Lophodytes cucullatus,,Alice Keck,US-CA,06 Dec 2023,L28196068,S155862639,,1
-7,474,species,Northern Shoveler,Spatula clypeata,,Lake Los Carneros,US-CA,02 Dec 2023,L17394772,S155613421,,1
-8,32094,species,Lawrence's Goldfinch,Spinus lawrencei,,Eagle Energy,US-CA,05 Apr 2023,L23404332,S132773790,,1
-9,8109,species,Sharp-shinned Hawk,Accipiter striatus,,Tiffany Park,US-CA,21 Jan 2023,L22287785,S126626152,,1
-10,32571,species,Fox Sparrow,Passerella iliaca,,Lover's Loop Trail,US-CA,18 Nov 2022,L21568049,S122617463,,1
-11,33622,species,Yellow-rumped Warbler,Setophaga coronata,,Willoeglen Park,US-CA,16 Nov 2022,L21553280,S122527389,,1
-12,16699,species,Say's Phoebe,Sayornis saya,,NBVC Soccer Field,US-CA,23 Oct 2022,L21334257,S121214280,,1
-13,6485,species,Western Gull,Larus occidentalis,,Mugu Beach,US-CA,27 Sep 2022,L18227458,S119544628,,1
-14,21705,species,Chestnut-backed Chickadee,Poecile rufescens,,Bragg Botanical Garden,US-CA,21 Aug 2022,L20631623,S117339386,,1
-15,11527,species,Pileated Woodpecker,Dryocopus pileatus,,Indian Village,US-CA,19 Aug 2022,L20605920,S117212967,,1
-16,21093,species,Clark's Nutcracker,Nucifraga columbiana,,Castle Rock,US-NV,15 Aug 2022,L20562295,S116982657,,1
-17,11202,species,Hairy Woodpecker,Dryobates villosus,,Bridalveil Straight,US-CA,12 Aug 2022,L20523384,S116801651,,1
-18,1986,species,Band-tailed Pigeon,Patagioenas fasciata,,Traffic Management Office,US-CA,29 Jul 2022,L19759567,S115965620,,1
-19,34011,species,Black-headed Grosbeak,Pheucticus melanocephalus,,Sup House,US-CA,22 Jul 2022,L20245774,S115544012,,1
-20,966,species,Mountain Quail,Oreortyx pictus,,Traffic Management Office,US-CA,22 Jul 2022,L19759567,S115548087,,1
-21,33307,species,Brown-headed Cowbird,Molothrus ater,,YOS 22 Apt,US-CA,23 Jun 2022,L19795445,S113630615,,1
-22,20879,species,Steller's Jay,Cyanocitta stelleri,,Traffic Management Office,US-CA,21 Jun 2022,L19759567,S113465054,,1
-23,11226,species,White-headed Woodpecker,Dryobates albolarvatus,,Traffic Management Office,US-CA,21 Jun 2022,L19759567,S113471228,,1
-24,27356,species,European Starling,Sturnus vulgaris,,MN House,US-CA,15 May 2022,L19086689,S110291918,N,1
-25,11185,species,Nuttall's Woodpecker,Dryobates nuttallii,,Vet Resource Center,US-CA,03 May 2022,L17317712,S108828941,,1
-26,33325,species,Brewer's Blackbird,Euphagus cyanocephalus,,Music Library,US-CA,29 Apr 2022,L18753867,S108416991,,1
-27,27594,species,California Thrasher,Toxostoma redivivum,,Lake Los Carneros 2,US-CA,28 Apr 2022,L17619284,S108286577,,1
-28,26669,species,Blue-gray Gnatcatcher,Polioptila caerulea,,Lake Los Carneros 2,US-CA,28 Apr 2022,L17619284,S108286056,,1
-29,23772,species,Barn Swallow,Hirundo rustica,,CCBER,US-CA,26 Apr 2022,L17968094,S108124636,,1
-30,7253,species,Double-crested Cormorant,Nannopterum auritum,,Dev Slough,US-CA,24 Apr 2022,L18672662,S107941206,,1
-31,31018,species,House Sparrow,Passer domesticus,,Oxn,US-CA,23 Apr 2022,L17586743,S107798071,N,1
-32,28096,species,American Robin,Turdus migratorius,,Grove,US-CA,18 Apr 2022,L17475330,S107396806,,1
-33,32087,species,Lesser Goldfinch,Spinus psaltria,,Psych Building,US-CA,30 Mar 2022,L18308902,S105912807,,1
-34,6111,species,Willet,Tringa semipalmata,,Mugu Beach,US-CA,23 Mar 2022,L18227458,S105453913,,1
-35,21761,species,Oak Titmouse,Baeolophus inornatus,,CCBER,US-CA,07 Mar 2022,L17968094,S104373582,,1
-36,27652,species,Northern Mockingbird,Mimus polyglottos,,Apt,US-CA,01 Mar 2022,L17482679,S103968174,,1
-37,4787,species,Anna's Hummingbird,Calypte anna,,CCBER,US-CA,01 Mar 2022,L17968094,S103974475,,1
-38,11665,species,Northern Flicker,Colaptes auratus,,SB Pistachio,US-CA,13 Feb 2022,L17735292,S102574387,,1
-39,20684,species,Loggerhead Shrike,Lanius ludovicianus,,CRZ Plains 2,US-CA,12 Feb 2022,L17724363,S102515689,,1
-40,27680,species,Mountain Bluebird,Sialia currucoides,,CRZ Plains,US-CA,12 Feb 2022,L17723003,S102509495,,1
-41,21235,species,Common Raven,Corvus corax,,CRZ Plains 2,US-CA,12 Feb 2022,L17724363,S102516015,,1
-42,33041,species,Western Meadowlark,Sturnella neglecta,,Soda Lake,US-CA,12 Feb 2022,L17726816,S102529062,,1
-43,7624,species,Turkey Vulture,Cathartes aura,,Campus Beach,US-CA,10 Feb 2022,L17699807,S102381810,,1
-44,32748,species,Song Sparrow,Melospiza melodia,,Grove,US-CA,07 Feb 2022,L17475330,S102214284,,1
-45,8312,species,Red-tailed Hawk,Buteo jamaicensis,,Grove,US-CA,07 Feb 2022,L17475330,S102214966,,1
-46,32821,species,California Towhee,Melozone crissalis,,Grove,US-CA,03 Feb 2022,L17475330,S101972582,,1
-47,2051,species,Eurasian Collared-Dove,Streptopelia decaocto,,Grove,US-CA,03 Feb 2022,L17475330,S101978624,N,1
-48,7491,species,Great Egret,Ardea alba,,Lagoon,US-CA,03 Feb 2022,L17632729,S101951333,,1
-49,7416,species,Snowy Egret,Egretta thula,,Lagoon,US-CA,03 Feb 2022,L17632729,S101951351,,1
-50,7289,species,Brown Pelican,Pelecanus occidentalis,,Lagoon,US-CA,03 Feb 2022,L17632729,S101952061,,1
-51,5741,species,Black-necked Stilt,Himantopus mexicanus,,Lagoon,US-CA,03 Feb 2022,L17632729,S101951600,,1
-52,2427,species,Mourning Dove,Zenaida macroura,,Lake Los Carneros 2,US-CA,01 Feb 2022,L17619284,S101859219,,1
-53,16688,species,Black Phoebe,Sayornis nigricans,,Grove,US-CA,01 Feb 2022,L17475330,S101869427,,1
-54,33251,species,Red-winged Blackbird,Agelaius phoeniceus,,Lake Los Carneros,US-CA,01 Feb 2022,L17394772,S101857126,,1
-55,32860,species,Spotted Towhee,Pipilo maculatus,,Lake Los Carneros 2,US-CA,01 Feb 2022,L17619284,S101858884,,1
-56,31790,species,House Finch,Haemorhous mexicanus,,Lake Los Carneros 2,US-CA,01 Feb 2022,L17619284,S101859167,,1
-57,8284,species,Red-shouldered Hawk,Buteo lineatus,,Lake Los Carneros 2,US-CA,01 Feb 2022,L17619284,S101859732,,1
-58,21168,species,American Crow,Corvus brachyrhynchos,,Oxn,US-CA,29 Jan 2022,L17586743,S101670585,,1
-59,32658,species,White-crowned Sparrow,Zonotrichia leucophrys,,Grove,US-CA,20 Jan 2022,L17475330,S101089779,,1
-60,17146,species,Cassin's Kingbird,Tyrannus vociferans,,Apt,US-CA,19 Jan 2022,L17482679,S101035399,,1
-61,20908,species,California Scrub-Jay,Aphelocoma californica,,Grove,US-CA,18 Jan 2022,L17475330,S100989694,,1
-62,27672,species,Western Bluebird,Sialia mexicana,,Mugu Park 2,US-CA,12 Jan 2022,L17408025,S100604365,,1
-63,10927,species,Acorn Woodpecker,Melanerpes formicivorus,,Lake Los Carneros,US-CA,10 Jan 2022,L17394772,S100523026,,1
-64,5474,species,American Coot,Fulica americana,,Lake Los Carneros (water),US-CA,10 Jan 2022,L17395133,S100525311,,1
-65,736,species,Ruddy Duck,Oxyura jamaicensis,,Lake Los Carneros (water),US-CA,10 Jan 2022,L17395133,S100525488,,1
-66,515,species,Mallard,Anas platyrhynchos,,Lake Los Carneros (water),US-CA,10 Jan 2022,L17395133,S100525358,,1
-67,32595,species,Dark-eyed Junco,Junco hyemalis,,Vet Resource Center,US-CA,03 Jan 2022,L17317712,S100061664,,1
-68,423,species,Muscovy Duck,Cairina moschata,,Tsumas Creek,US-CA,22 Jun 2016,L28198039,S155874840,X,0
+1,11175,species,Downy Woodpecker,Dryobates pubescens,2,Ventura Settling Ponds,US-CA,07 Sep 2024,L351584,S194686400,,1
+2,7640,species,Osprey,Pandion haliaetus,1,Ventura Settling Ponds,US-CA,07 Sep 2024,L351584,S194686400,,1
+3,7514,species,Great Blue Heron,Ardea herodias,1,Ventura Settling Ponds,US-CA,07 Sep 2024,L351584,S194686400,,1
+4,7364,species,Yellow-crowned Night Heron,Nyctanassa violacea,1,Ventura Settling Ponds,US-CA,07 Sep 2024,L351584,S194686400,,1
+5,5428,species,Sora,Porzana carolina,1,Ventura Settling Ponds,US-CA,07 Sep 2024,L351584,S194686400,,1
+6,1831,species,Pied-billed Grebe,Podilymbus podiceps,2,Ventura Settling Ponds,US-CA,07 Sep 2024,L351584,S194686400,,1
+7,478,species,Gadwall,Mareca strepera,1,Ventura Settling Ponds,US-CA,07 Sep 2024,L351584,S194686400,,1
+8,23649,species,Tree Swallow,Tachycineta bicolor,,Lake Los Carneros (water),US-CA,06 Apr 2024,L17395133,S167381635,,1
+9,6364,species,Pigeon Guillemot,Cepphus columba,,Monterrey-aquaroum,US-CA,24 Mar 2024,L30062629,S165863055,,1
+10,1045,species,California Quail,Callipepla californica,,Campus Beach,US-CA,21 Mar 2024,L17699807,S165478363,,1
+11,7373,species,Black-crowned Night Heron,Nycticorax nycticorax,,sb-zoo-natives,US-CA,29 Dec 2023,L28503482,S157442870,,1
+12,6543,species,Glaucous-winged Gull,Larus glaucescens,,Alice Keck,US-CA,29 Dec 2023,L28196068,S157427626,,1
+13,6539,species,California Gull,Larus californicus,,Alice Keck,US-CA,29 Dec 2023,L28196068,S157427057,,1
+14,324,species,Canada Goose,Branta canadensis,,CCBER,US-CA,29 Dec 2023,L17968094,S157452228,,1
+15,33499,species,Common Yellowthroat,Geothlypis trichas,,Lake Los Carneros (water),US-CA,28 Dec 2023,L17395133,S157363122,,1
+16,712,species,Hooded Merganser,Lophodytes cucullatus,,Alice Keck,US-CA,06 Dec 2023,L28196068,S155862639,,1
+17,474,species,Northern Shoveler,Spatula clypeata,,Lake Los Carneros,US-CA,02 Dec 2023,L17394772,S155613421,,1
+18,32094,species,Lawrence's Goldfinch,Spinus lawrencei,,Eagle Energy,US-CA,05 Apr 2023,L23404332,S132773790,,1
+19,8109,species,Sharp-shinned Hawk,Accipiter striatus,,Tiffany Park,US-CA,21 Jan 2023,L22287785,S126626152,,1
+20,32571,species,Fox Sparrow,Passerella iliaca,,Lover's Loop Trail,US-CA,18 Nov 2022,L21568049,S122617463,,1
+21,33622,species,Yellow-rumped Warbler,Setophaga coronata,,Willoeglen Park,US-CA,16 Nov 2022,L21553280,S122527389,,1
+22,16699,species,Say's Phoebe,Sayornis saya,,NBVC Soccer Field,US-CA,23 Oct 2022,L21334257,S121214280,,1
+23,6485,species,Western Gull,Larus occidentalis,,Mugu Beach,US-CA,27 Sep 2022,L18227458,S119544628,,1
+24,21705,species,Chestnut-backed Chickadee,Poecile rufescens,,Bragg Botanical Garden,US-CA,21 Aug 2022,L20631623,S117339386,,1
+25,11527,species,Pileated Woodpecker,Dryocopus pileatus,,Indian Village,US-CA,19 Aug 2022,L20605920,S117212967,,1
+26,21093,species,Clark's Nutcracker,Nucifraga columbiana,,Castle Rock,US-NV,15 Aug 2022,L20562295,S116982657,,1
+27,11202,species,Hairy Woodpecker,Dryobates villosus,,Bridalveil Straight,US-CA,12 Aug 2022,L20523384,S116801651,,1
+28,1986,species,Band-tailed Pigeon,Patagioenas fasciata,,Traffic Management Office,US-CA,29 Jul 2022,L19759567,S115965620,,1
+29,34011,species,Black-headed Grosbeak,Pheucticus melanocephalus,,Sup House,US-CA,22 Jul 2022,L20245774,S115544012,,1
+30,966,species,Mountain Quail,Oreortyx pictus,,Traffic Management Office,US-CA,22 Jul 2022,L19759567,S115548087,,1
+31,33307,species,Brown-headed Cowbird,Molothrus ater,,YOS 22 Apt,US-CA,23 Jun 2022,L19795445,S113630615,,1
+32,20879,species,Steller's Jay,Cyanocitta stelleri,,Traffic Management Office,US-CA,21 Jun 2022,L19759567,S113465054,,1
+33,11226,species,White-headed Woodpecker,Dryobates albolarvatus,,Traffic Management Office,US-CA,21 Jun 2022,L19759567,S113471228,,1
+34,27356,species,European Starling,Sturnus vulgaris,,MN House,US-CA,15 May 2022,L19086689,S110291918,N,1
+35,11185,species,Nuttall's Woodpecker,Dryobates nuttallii,,Vet Resource Center,US-CA,03 May 2022,L17317712,S108828941,,1
+36,33325,species,Brewer's Blackbird,Euphagus cyanocephalus,,Music Library,US-CA,29 Apr 2022,L18753867,S108416991,,1
+37,27594,species,California Thrasher,Toxostoma redivivum,,Lake Los Carneros 2,US-CA,28 Apr 2022,L17619284,S108286577,,1
+38,26669,species,Blue-gray Gnatcatcher,Polioptila caerulea,,Lake Los Carneros 2,US-CA,28 Apr 2022,L17619284,S108286056,,1
+39,23772,species,Barn Swallow,Hirundo rustica,,CCBER,US-CA,26 Apr 2022,L17968094,S108124636,,1
+40,7253,species,Double-crested Cormorant,Nannopterum auritum,,Dev Slough,US-CA,24 Apr 2022,L18672662,S107941206,,1
+41,31018,species,House Sparrow,Passer domesticus,,Oxn,US-CA,23 Apr 2022,L17586743,S107798071,N,1
+42,28096,species,American Robin,Turdus migratorius,,Grove,US-CA,18 Apr 2022,L17475330,S107396806,,1
+43,32087,species,Lesser Goldfinch,Spinus psaltria,,Psych Building,US-CA,30 Mar 2022,L18308902,S105912807,,1
+44,6111,species,Willet,Tringa semipalmata,,Mugu Beach,US-CA,23 Mar 2022,L18227458,S105453913,,1
+45,21761,species,Oak Titmouse,Baeolophus inornatus,,CCBER,US-CA,07 Mar 2022,L17968094,S104373582,,1
+46,27652,species,Northern Mockingbird,Mimus polyglottos,,Apt,US-CA,01 Mar 2022,L17482679,S103968174,,1
+47,4787,species,Anna's Hummingbird,Calypte anna,,CCBER,US-CA,01 Mar 2022,L17968094,S103974475,,1
+48,11665,species,Northern Flicker,Colaptes auratus,,SB Pistachio,US-CA,13 Feb 2022,L17735292,S102574387,,1
+49,20684,species,Loggerhead Shrike,Lanius ludovicianus,,CRZ Plains 2,US-CA,12 Feb 2022,L17724363,S102515689,,1
+50,27680,species,Mountain Bluebird,Sialia currucoides,,CRZ Plains,US-CA,12 Feb 2022,L17723003,S102509495,,1
+51,21235,species,Common Raven,Corvus corax,,CRZ Plains 2,US-CA,12 Feb 2022,L17724363,S102516015,,1
+52,33041,species,Western Meadowlark,Sturnella neglecta,,Soda Lake,US-CA,12 Feb 2022,L17726816,S102529062,,1
+53,7624,species,Turkey Vulture,Cathartes aura,,Campus Beach,US-CA,10 Feb 2022,L17699807,S102381810,,1
+54,32748,species,Song Sparrow,Melospiza melodia,,Grove,US-CA,07 Feb 2022,L17475330,S102214284,,1
+55,8312,species,Red-tailed Hawk,Buteo jamaicensis,,Grove,US-CA,07 Feb 2022,L17475330,S102214966,,1
+56,32821,species,California Towhee,Melozone crissalis,,Grove,US-CA,03 Feb 2022,L17475330,S101972582,,1
+57,2051,species,Eurasian Collared-Dove,Streptopelia decaocto,,Grove,US-CA,03 Feb 2022,L17475330,S101978624,N,1
+58,7491,species,Great Egret,Ardea alba,,Lagoon,US-CA,03 Feb 2022,L17632729,S101951333,,1
+59,7416,species,Snowy Egret,Egretta thula,,Lagoon,US-CA,03 Feb 2022,L17632729,S101951351,,1
+60,7289,species,Brown Pelican,Pelecanus occidentalis,,Lagoon,US-CA,03 Feb 2022,L17632729,S101952061,,1
+61,5741,species,Black-necked Stilt,Himantopus mexicanus,,Lagoon,US-CA,03 Feb 2022,L17632729,S101951600,,1
+62,2427,species,Mourning Dove,Zenaida macroura,,Lake Los Carneros 2,US-CA,01 Feb 2022,L17619284,S101859219,,1
+63,16688,species,Black Phoebe,Sayornis nigricans,,Grove,US-CA,01 Feb 2022,L17475330,S101869427,,1
+64,33251,species,Red-winged Blackbird,Agelaius phoeniceus,,Lake Los Carneros,US-CA,01 Feb 2022,L17394772,S101857126,,1
+65,32860,species,Spotted Towhee,Pipilo maculatus,,Lake Los Carneros 2,US-CA,01 Feb 2022,L17619284,S101858884,,1
+66,31790,species,House Finch,Haemorhous mexicanus,,Lake Los Carneros 2,US-CA,01 Feb 2022,L17619284,S101859167,,1
+67,8284,species,Red-shouldered Hawk,Buteo lineatus,,Lake Los Carneros 2,US-CA,01 Feb 2022,L17619284,S101859732,,1
+68,21168,species,American Crow,Corvus brachyrhynchos,,Oxn,US-CA,29 Jan 2022,L17586743,S101670585,,1
+69,32658,species,White-crowned Sparrow,Zonotrichia leucophrys,,Grove,US-CA,20 Jan 2022,L17475330,S101089779,,1
+70,17146,species,Cassin's Kingbird,Tyrannus vociferans,,Apt,US-CA,19 Jan 2022,L17482679,S101035399,,1
+71,20908,species,California Scrub-Jay,Aphelocoma californica,,Grove,US-CA,18 Jan 2022,L17475330,S100989694,,1
+72,27672,species,Western Bluebird,Sialia mexicana,,Mugu Park 2,US-CA,12 Jan 2022,L17408025,S100604365,,1
+73,10927,species,Acorn Woodpecker,Melanerpes formicivorus,,Lake Los Carneros,US-CA,10 Jan 2022,L17394772,S100523026,,1
+74,5474,species,American Coot,Fulica americana,,Lake Los Carneros (water),US-CA,10 Jan 2022,L17395133,S100525311,,1
+75,736,species,Ruddy Duck,Oxyura jamaicensis,,Lake Los Carneros (water),US-CA,10 Jan 2022,L17395133,S100525488,,1
+76,515,species,Mallard,Anas platyrhynchos,,Lake Los Carneros (water),US-CA,10 Jan 2022,L17395133,S100525358,,1
+77,32595,species,Dark-eyed Junco,Junco hyemalis,,Vet Resource Center,US-CA,03 Jan 2022,L17317712,S100061664,,1
+78,423,species,Muscovy Duck,Cairina moschata,,Tsumas Creek,US-CA,22 Jun 2016,L28198039,S155874840,X,0

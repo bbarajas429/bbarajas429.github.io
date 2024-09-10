@@ -179,7 +179,7 @@
     "href": "index.html",
     "title": "Briana Barajas",
     "section": "",
-    "text": "Welcome 🐛\n\nWelcome to my page! I am a budding environmental data scientist ready to tackle questions about conservation and the ever-changing landscape. Outside of coding, I spending my time bird watching, sewing, and gardening."
+    "text": "Welcome 🐛\n\nWelcome to my page! I am a budding environmental data scientist excited to tackle environmental and ecological questions through open science and data-driven solutions. When I’m not coding, I spending my time bird watching, sewing, and gardening."
   },
   {
     "objectID": "blog-posts/2024-03-12-frog-infrographic/index.html",
@@ -298,14 +298,14 @@
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "I graduated from the University of California, Santa Barbara in 2022 with a B.S. in Zoology. During that time, I assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. After graduating, I held various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture.\n\nI went on to pursue a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, I hope to use spatial data to assess landscape changes, and the impact of ecosystem stressors including climate change, disease, and invasive species."
+    "text": "I graduated from the University of California, Santa Barbara in 2022 with a B.S. in Zoology. During that time, I contributed to a meta-analysis, extracting data on ungulate diets to better understand how specific functional traits of ungulates influence plant biodiversity. After graduating, I held various positions within the public sector, working for the National Parks Service and the California Department of Food and Agriculture.\nI went on to receive my Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. I am currently completing a manuscript that evaluates the effectiveness of machine learning methods for predicting species distributions, using long-term data on the Black-Bellied Slender Salamander (Batrachoseps nigriventris)."
   },
   {
     "objectID": "about.html#professional-background",
     "href": "about.html#professional-background",
     "title": "About Me",
     "section": "",
-    "text": "I graduated from the University of California, Santa Barbara in 2022 with a B.S. in Zoology. During that time, I assisted in a meta-analysis, extracting global data on ungulate diets to better understand how plant biodiversity is affected by select functional traits of large herbivores. After graduating, I held various positions within the public sector, working for the National Parks Service and later, the California Department of Food and Agriculture.\n\nI went on to pursue a Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. Moving forward, I hope to use spatial data to assess landscape changes, and the impact of ecosystem stressors including climate change, disease, and invasive species."
+    "text": "I graduated from the University of California, Santa Barbara in 2022 with a B.S. in Zoology. During that time, I contributed to a meta-analysis, extracting data on ungulate diets to better understand how specific functional traits of ungulates influence plant biodiversity. After graduating, I held various positions within the public sector, working for the National Parks Service and the California Department of Food and Agriculture.\nI went on to receive my Master of Environmental Data Science at the UC Santa Barbara, Bren School of Environmental Science & Management. I am currently completing a manuscript that evaluates the effectiveness of machine learning methods for predicting species distributions, using long-term data on the Black-Bellied Slender Salamander (Batrachoseps nigriventris)."
   },
   {
     "objectID": "about.html#education",
@@ -319,6 +319,6 @@
     "href": "about.html#bird-watching",
     "title": "About Me",
     "section": "Bird Watching",
-    "text": "Bird Watching\nOne of my favorite undergraduate classes was my vertebrate lab. I had the opportunity to visit sites across Santa Barbara to go bird watching, and learn about wildlife surveying techniques. I have continued to bird watch ever since, and keep track of my sightings using the Merlin and eBird apps, which are maintained by the Cornell Lab of Ornithology.\nI thought it would be fun to visualize my personal bird sightings using a leaflet map:\n\n\nView Code\n# add CRS to lat/long points\nbirds &lt;- birds %&gt;%   st_as_sf(coords = c('longitude', 'latitude'), crs = 'EPSG:4236')\n\n# create map\nbirds %&gt;% \n  leaflet() %&gt;% \n  addProviderTiles(providers$Jawg.Streets,\n                   options = providerTileOptions(accessToken = token)) %&gt;% \n  addMarkers(label = birds$common_name,\n             popup = paste0(birds$common_name, ' (',\n                            birds$scientific_name, ')'),\n             clusterOptions = markerClusterOptions(),\n             icon = makeIcon(iconUrl = iconpath,\n                             iconWidth = 32, iconHeight = 32))"
+    "text": "Bird Watching\nOne of my favorite undergraduate classes was my vertebrate lab. I had the opportunity to visit sites across Santa Barbara to go bird watching, and learn about wildlife surveying techniques. I have continued to bird watch ever since, and keep track of my sightings using the Merlin and eBird apps, which are maintained by the Cornell Lab of Ornithology.\nI thought it would be fun to visualize my personal bird sightings using a leaflet map:\n\n\nView Code\n# add CRS to lat/long points\nbirds &lt;- birds %&gt;%   \n  st_as_sf(coords = c('longitude', 'latitude'), crs = 'EPSG:4236')\n\n# create map\nbirds %&gt;% \n  leaflet() %&gt;% \n  addProviderTiles(providers$Jawg.Streets,\n                   options = providerTileOptions(accessToken = token)) %&gt;% \n  addMarkers(label = birds$common_name,\n             popup = paste0(birds$common_name, ' (',\n                            birds$scientific_name, ')'),\n             clusterOptions = markerClusterOptions(),\n             icon = makeIcon(iconUrl = iconpath,\n                             iconWidth = 32, iconHeight = 32))"
   }
 ]
